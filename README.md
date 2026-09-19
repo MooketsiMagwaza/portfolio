@@ -36,4 +36,7 @@ overstate production readiness.
 ## License
 
 Code is available under the [MIT License](LICENSE). Project screenshots remain
-subject to the licenses of their source repositories.
+subject to the licenses of their source repositories. The retro TV model is a
+separately licensed CC BY-NC 4.0 asset; see
+[`public/models/README.md`](public/models/README.md) for attribution and reuse
+limits.
