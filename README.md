@@ -23,6 +23,10 @@ npm run build
 The production site is generated in `dist/` and can be deployed to any static
 host. No database, analytics SDK, cookie banner, or server runtime is required.
 
+Pushes to `main` deploy the production build to
+`https://mooketsimagwaza.github.io/portfolio/` through the official Astro and
+GitHub Pages actions.
+
 ## Content model
 
 Project data lives in `src/data/projects.ts`. Each entry separates what is
