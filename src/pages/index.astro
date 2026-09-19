@@ -3,7 +3,6 @@ import Layout from '@/layouts/Layout.astro';
 import { projects, supportingProjects } from '@/data/projects';
 
 const [tsela, stocklink, obsidian] = projects;
-const imagePath = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
 ---
 
 <Layout>
@@ -23,21 +22,43 @@ const imagePath = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
     <section class="hero" id="top">
       <div class="hero-content">
         <p class="availability"><span></span> Full-stack engineer · Gaborone, Botswana</p>
-        <h1>Useful products.<br /><span>Built all the way through.</span></h1>
+        <h1>I make complicated software <span>feel simple.</span></h1>
         <p class="hero-copy">
-          I’m Mooketsi Magwaza. I design and build product interfaces, backend
-          services, data systems, and the reliability work that connects them.
+          I’m Mooketsi. I turn messy, real-world problems into tools people can
+          actually use—from the screen they tap to the systems working behind it.
         </p>
         <div class="actions">
           <a class="button primary" href="#work">Explore my work</a>
           <a class="button link-button" href="mailto:mooketsimagwazajr@gmail.com">Get in touch <span>›</span></a>
         </div>
       </div>
-      <div class="tv-scene" id="tv-scene" aria-hidden="true">
-        <div class="ambient ambient-blue"></div>
-        <div class="ambient ambient-warm"></div>
-        <canvas id="tv-canvas"></canvas>
-        <p class="model-status">A collection of work, on screen.</p>
+      <div class="glass-stage" aria-label="Selected project previews">
+        <span class="stage-glow stage-glow-blue" aria-hidden="true"></span>
+        <span class="stage-glow stage-glow-pink" aria-hidden="true"></span>
+        <a class="glass-card glass-card-main" href={tsela.repository} aria-label="View Tsela on GitHub">
+          <span class="glass-shine" aria-hidden="true"></span>
+          <div class="glass-card-head"><span>01</span><strong>Tsela</strong><small>Transit, made clearer</small></div>
+          <div class="glass-card-body">
+            <p>Routes, stops, and local knowledge in one calm platform.</p>
+            <div class="glass-tags">{tsela.stack.slice(0, 3).map((item) => <span>{item}</span>)}</div>
+          </div>
+        </a>
+        <a class="glass-card glass-card-left" href={stocklink.repository} aria-label="View StockLink on GitHub">
+          <span class="glass-shine" aria-hidden="true"></span>
+          <div class="glass-card-head"><span>02</span><strong>StockLink</strong><small>Warehouse operations</small></div>
+          <div class="glass-card-body">
+            <p>Shared visibility across warehouse teams.</p>
+            <div class="glass-tags">{stocklink.stack.slice(0, 2).map((item) => <span>{item}</span>)}</div>
+          </div>
+        </a>
+        <a class="glass-card glass-card-right" href={obsidian.repository} aria-label="View Obsidian Sync for iOS on GitHub">
+          <span class="glass-shine" aria-hidden="true"></span>
+          <div class="glass-card-head"><span>03</span><strong>Obsidian Sync</strong><small>Native, private sync</small></div>
+          <div class="glass-card-body">
+            <p>Private notes moving between your own devices.</p>
+            <div class="glass-tags">{obsidian.stack.slice(0, 2).map((item) => <span>{item}</span>)}</div>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -48,22 +69,18 @@ const imagePath = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
     <section class="work" id="work" aria-labelledby="work-title">
       <header class="section-intro">
         <p class="section-label">Selected work</p>
-        <h2 id="work-title">Three products.<br /><span>Three different problems.</span></h2>
+        <h2 id="work-title">Things I’ve been building.<br /><span>Made for real people.</span></h2>
       </header>
 
       <article class="showcase showcase-blue">
         <div class="showcase-copy">
           <p class="project-label">01 · Public transport platform</p>
           <h3>{tsela.name}</h3>
-          <p>{tsela.summary}</p>
+          <p>Getting around Gaborone shouldn’t require insider knowledge. Tsela brings routes, stops, directions, and community knowledge into one calm place.</p>
           <div class="actions centered">
             <a class="button primary" href={tsela.repository}>View the repository</a>
             <a class="button link-button" href="#tsela-proof">What’s verified <span>›</span></a>
           </div>
-        </div>
-        <div class="product-stage browser-stage">
-          <div class="browser-chrome" aria-hidden="true"><i></i><i></i><i></i><span>Tsela</span></div>
-          <img src={imagePath(tsela.image)} alt={tsela.imageAlt} loading="eager" decoding="async" />
         </div>
         <div class="proof" id="tsela-proof">
           <div><span>Built with</span><p>{tsela.stack.join(' · ')}</p></div>
@@ -77,11 +94,12 @@ const imagePath = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
           <div class="showcase-copy">
             <p class="project-label">02 · Warehouse operations</p>
             <h3>{stocklink.name}</h3>
-            <p>{stocklink.summary}</p>
+            <p>Stock moves through a warehouse faster when every team can see the same clear picture. StockLink explores that shared operational view.</p>
             <a class="button link-button" href={stocklink.repository}>View project <span>›</span></a>
           </div>
-          <div class="compact-stage">
-            <img src={imagePath(stocklink.image)} alt={stocklink.imageAlt} loading="lazy" decoding="async" />
+          <div class="project-facts" aria-label="StockLink project details">
+            <div><span>Built with</span><p>{stocklink.stack.join(' · ')}</p></div>
+            <div><span>Current focus</span><p>{stocklink.next}</p></div>
           </div>
         </article>
 
@@ -89,11 +107,12 @@ const imagePath = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
           <div class="showcase-copy">
             <p class="project-label">03 · Native synchronization</p>
             <h3>{obsidian.name}</h3>
-            <p>{obsidian.summary}</p>
+            <p>I wanted notes to move between my devices without handing them to another cloud. This is the native iPad experiment that came from that.</p>
             <a class="button link-button light-link" href={obsidian.repository}>View project <span>›</span></a>
           </div>
-          <div class="phone-stage">
-            <img src={imagePath(obsidian.image)} alt={obsidian.imageAlt} loading="lazy" decoding="async" />
+          <div class="project-facts project-facts-dark" aria-label="Obsidian Sync project details">
+            <div><span>Built with</span><p>{obsidian.stack.join(' · ')}</p></div>
+            <div><span>Verified</span><p>{obsidian.evidence}</p></div>
           </div>
         </article>
       </div>
@@ -102,12 +121,12 @@ const imagePath = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
     <section class="approach" id="about" aria-labelledby="approach-title">
       <div class="approach-heading">
         <p class="section-label">How I work</p>
-        <h2 id="approach-title">One product.<br /><span>The whole system.</span></h2>
+        <h2 id="approach-title">Good software starts<br /><span>with paying attention.</span></h2>
       </div>
       <div class="principles">
-        <article><p class="principle-number">01</p><h3>Start with the person.</h3><p>Understand the real workflow, constraints, and decisions before choosing a stack.</p></article>
-        <article><p class="principle-number">02</p><h3>Design the boundaries.</h3><p>Give data, services, permissions, and failures clear owners so the system can evolve safely.</p></article>
-        <article><p class="principle-number">03</p><h3>Leave evidence.</h3><p>Tests, traces, screenshots, and runbooks turn a claim into something another engineer can verify.</p></article>
+        <article><p class="principle-number">01</p><h3>Listen before building.</h3><p>The best technical decision starts with understanding what someone is actually trying to get done.</p></article>
+        <article><p class="principle-number">02</p><h3>Make the edges obvious.</h3><p>Clear ownership for data, services, permissions, and failures keeps a growing system understandable.</p></article>
+        <article><p class="principle-number">03</p><h3>Show the receipts.</h3><p>Tests, traces, screenshots, and runbooks make the work easier to trust—and easier for the next person to continue.</p></article>
       </div>
     </section>
 
@@ -129,8 +148,8 @@ const imagePath = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
 
     <section class="contact" id="contact">
       <p class="section-label">Let’s build something useful</p>
-      <h2>Have a difficult problem<br />worth solving?</h2>
-      <p>I’m interested in backend, full-stack, and platform work where product judgment matters.</p>
+      <h2>Got something useful<br />in mind?</h2>
+      <p>I’m always happy to talk about a thoughtful product, a stubborn systems problem, or work that genuinely helps people.</p>
       <a class="button primary" href="mailto:mooketsimagwazajr@gmail.com">Start a conversation</a>
     </section>
   </main>
@@ -138,134 +157,5 @@ const imagePath = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
   <footer>
     <p>© {new Date().getFullYear()} Mooketsi Vincent Magwaza</p>
     <div><span>Gaborone, Botswana</span><a href="https://github.com/MooketsiMagwaza">GitHub</a><a href="mailto:mooketsimagwazajr@gmail.com">Email</a></div>
-    <p class="asset-credit">“Retro TVs” by Minh Nguyen, used under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>.</p>
   </footer>
 </Layout>
-
-<script>
-  import type { Group, Mesh } from 'three';
-
-  const startScene = async () => {
-    const THREE = await import('three');
-    const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js');
-    const mount = document.querySelector<HTMLElement>('#tv-scene');
-    const canvas = document.querySelector<HTMLCanvasElement>('#tv-canvas');
-
-    if (!mount || !canvas) return;
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.7));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.2;
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(28, 1, 0.01, 100);
-    camera.position.set(0, 0.12, 3.5);
-
-    scene.add(new THREE.HemisphereLight(0xdce9ff, 0x171413, 2.8));
-    const key = new THREE.DirectionalLight(0xfff4e5, 4.2);
-    key.position.set(-2.5, 4, 4);
-    scene.add(key);
-    const blueLight = new THREE.PointLight(0x5c8cff, 15, 5);
-    blueLight.position.set(-1.8, 0.4, 1.8);
-    scene.add(blueLight);
-    const warmLight = new THREE.PointLight(0xff8d5c, 11, 4);
-    warmLight.position.set(1.8, -0.2, 1.2);
-    scene.add(warmLight);
-
-    const asset = (path: string) => `${import.meta.env.BASE_URL}/${path}`;
-    const screenSources = [
-      asset('images/tsela.jpg'),
-      asset('images/stocklink.png'),
-      asset('images/obsidian-sync.jpg'),
-    ];
-    const textureLoader = new THREE.TextureLoader();
-    const screenTextures = screenSources.map((source) => {
-      const texture = textureLoader.load(source);
-      texture.colorSpace = THREE.SRGBColorSpace;
-      texture.flipY = false;
-      texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
-      return texture;
-    });
-
-    let model: Group | undefined;
-    let visible = true;
-    let targetX = 0;
-    let targetY = -0.08;
-    let baseY = 0;
-
-    new GLTFLoader().load(asset('models/retro-tvs.glb'), (gltf) => {
-      model = gltf.scene;
-      const screens: Mesh[] = [];
-      model.traverse((child) => {
-        if (!(child instanceof THREE.Mesh)) return;
-        if (child.name.toLowerCase().includes('glass')) screens.push(child);
-      });
-
-      screens.forEach((screen, index) => {
-        const screenTexture = screenTextures[index % screenTextures.length].clone();
-        screenTexture.center.set(0.5, 0.5);
-        screenTexture.rotation = screen.name.startsWith('sec_tv') ? Math.PI / 2 : 0;
-        screenTexture.needsUpdate = true;
-        screen.material = new THREE.MeshBasicMaterial({
-          map: screenTexture,
-          toneMapped: false,
-        });
-      });
-
-      const bounds = new THREE.Box3().setFromObject(model);
-      const center = bounds.getCenter(new THREE.Vector3());
-      const size = bounds.getSize(new THREE.Vector3());
-      model.position.sub(center);
-      model.position.y -= 0.06;
-      baseY = model.position.y;
-      const fitHeightDistance = size.y / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5)));
-      const fitWidthDistance = fitHeightDistance / camera.aspect;
-      camera.position.z = Math.max(fitHeightDistance, fitWidthDistance) * 1.38;
-      camera.lookAt(0, 0, 0);
-      scene.add(model);
-      mount.classList.add('is-ready');
-    });
-
-    const resize = () => {
-      const width = mount.clientWidth;
-      const height = mount.clientHeight;
-      if (!width || !height) return;
-      renderer.setSize(width, height, false);
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-    };
-    new ResizeObserver(resize).observe(mount);
-    resize();
-
-    mount.addEventListener('pointermove', (event) => {
-      const rect = mount.getBoundingClientRect();
-      targetY = ((event.clientX - rect.left) / rect.width - 0.5) * 0.18 - 0.08;
-      targetX = ((event.clientY - rect.top) / rect.height - 0.5) * 0.06;
-    });
-    mount.addEventListener('pointerleave', () => { targetX = 0; targetY = -0.08; });
-    new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }, { rootMargin: '120px' }).observe(mount);
-
-    const startedAt = performance.now();
-    const render = (now: number) => {
-      requestAnimationFrame(render);
-      if (!visible) return;
-      const elapsed = (now - startedAt) / 1000;
-      if (model) {
-        model.rotation.x += (targetX - model.rotation.x) * 0.035;
-        model.rotation.y += (targetY - model.rotation.y) * 0.035;
-        model.position.y = baseY + Math.sin(elapsed * 0.55) * 0.012;
-      }
-      blueLight.intensity = 14 + Math.sin(elapsed * 0.7) * 1.2;
-      warmLight.intensity = 10 + Math.cos(elapsed * 0.55) * 1.1;
-      renderer.render(scene, camera);
-    };
-    requestAnimationFrame(render);
-  };
-
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(() => void startScene(), { timeout: 700 });
-  } else {
-    setTimeout(() => void startScene(), 0);
-  }
-</script>

@@ -7,8 +7,6 @@ export type Project = {
   next: string;
   stack: string[];
   repository: string;
-  image: string;
-  imageAlt: string;
   featured: boolean;
 };
 
@@ -25,8 +23,6 @@ export const projects: Project[] = [
       'Validate the remaining launch controls against a production-like environment and expand verified route coverage.',
     stack: ['FastAPI', 'PostGIS', 'Next.js', 'OR-Tools', 'Prometheus'],
     repository: 'https://github.com/MooketsiMagwaza/transit-route-optimization',
-    image: 'images/tsela.jpg',
-    imageAlt: 'Tsela public transport platform landing page',
     featured: true,
   },
   {
@@ -41,8 +37,6 @@ export const projects: Project[] = [
       'Harden event delivery and complete a reproducible deployment path before calling the system production-ready.',
     stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React'],
     repository: 'https://github.com/MooketsiMagwaza/stocklink',
-    image: 'images/stocklink.png',
-    imageAlt: 'StockLink warehouse dashboard',
     featured: true,
   },
   {
@@ -57,8 +51,6 @@ export const projects: Project[] = [
       'Turn the tested development build into a repeatable, signed release without hiding the constraints of iOS background execution.',
     stack: ['Swift', 'Go', 'Syncthing', 'XCTest', 'GitHub Actions'],
     repository: 'https://github.com/MooketsiMagwaza/obsidian-sync-ios',
-    image: 'images/obsidian-sync.jpg',
-    imageAlt: 'Obsidian Sync active vault session on iPad',
     featured: true,
   },
 ];
