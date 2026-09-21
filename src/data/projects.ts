@@ -10,7 +10,22 @@ export type Project = {
   featured: boolean;
 };
 
+// Order is the order they are shown in: StockLink leads.
 export const projects: Project[] = [
+  {
+    slug: 'stocklink',
+    name: 'StockLink',
+    kicker: 'Wholesale stock, from warehouse to shop door',
+    summary:
+      'A platform that connects warehouses, retail stores, and delivery drivers, with bulk-order pooling, handover codes, and public parcel tracking.',
+    evidence:
+      'Five Rust and Axum services own separate PostgreSQL databases behind an nginx gateway, with Redis-backed controls. One React app serves warehouses, stores, drivers, and staff in light and dark, with an in-house admin console beside Prometheus and Grafana. Every page is captured from a sample-data preview, and the repository lists what has not yet run.',
+    next:
+      'Bring the full Docker stack up end to end for the first time, run the newest migrations against a real PostgreSQL, and finish event delivery before calling it production-ready.',
+    stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React'],
+    repository: 'https://github.com/MooketsiMagwaza/stocklink',
+    featured: true,
+  },
   {
     slug: 'tsela',
     name: 'Tsela',
@@ -23,20 +38,6 @@ export const projects: Project[] = [
       'Validate the remaining launch controls against a production-like environment and expand verified route coverage.',
     stack: ['FastAPI', 'PostGIS', 'Next.js', 'OR-Tools', 'Prometheus'],
     repository: 'https://github.com/MooketsiMagwaza/transit-route-optimization',
-    featured: true,
-  },
-  {
-    slug: 'stocklink',
-    name: 'StockLink',
-    kicker: 'Warehouse operations across clear service boundaries',
-    summary:
-      'A logistics platform exploring service-owned data, authentication controls, and a practical warehouse workflow.',
-    evidence:
-      'Four Rust and Axum services own separate PostgreSQL databases behind an nginx gateway, with Redis-backed controls, a React interface, and generated Fumadocs documentation.',
-    next:
-      'Harden event delivery and complete a reproducible deployment path before calling the system production-ready.',
-    stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React'],
-    repository: 'https://github.com/MooketsiMagwaza/stocklink',
     featured: true,
   },
   {

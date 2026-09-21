@@ -1,0 +1,27 @@
+---
+// A screenshot in a Mac window: traffic lights, a centred title, and the picture.
+// It sizes itself from its wrapper's width, so it scales as one piece. The CSS is
+// src/styles/mockups.css.
+interface Props {
+  src: string;
+  alt: string;
+  title?: string;
+  theme?: 'light' | 'dark';
+  class?: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+}
+
+const { src, alt, title = '', theme = 'light', class: className, width, height, loading = 'lazy' } = Astro.props;
+---
+
+<div class:list={['mac-wrap', className]}>
+  <figure class={`mac mac--${theme}`}>
+    <div class="mac__bar">
+      <span class="mac__lights" aria-hidden="true"><i></i><i></i><i></i></span>
+      {title && <span class="mac__title">{title}</span>}
+    </div>
+    <img class="mac__screen" src={src} alt={alt} width={width} height={height} loading={loading} decoding="async" />
+  </figure>
+</div>
