@@ -42,7 +42,7 @@ const images = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/images`;
           <span class="glass-shine" aria-hidden="true"></span>
           <div class="glass-card-head"><span>01</span><strong>StockLink</strong><small>Wholesale, end to end</small></div>
           <div class="glass-card-body">
-            <p>Warehouses, stores, and delivery drivers on one platform.</p>
+            <p>Warehouses, shops and drivers in one place.</p>
             <div class="glass-tags">{stocklink.stack.slice(0, 3).map((item) => <span>{item}</span>)}</div>
           </div>
         </a>
@@ -79,7 +79,7 @@ const images = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/images`;
         <div class="showcase-copy">
           <p class="project-label">01 · Wholesale logistics platform</p>
           <h3>{stocklink.name}</h3>
-          <p>Small shops buy stock from many warehouses, and getting it to their door is the hard part. StockLink puts the order, the payment, and the delivery in one place—down to the code a driver needs to hand a parcel over.</p>
+          <p>Small shops buy from lots of different warehouses, and the hard part is getting it all to their door. StockLink puts the order, the payment and the delivery in one place, right down to the code a driver needs before handing a parcel over.</p>
           <div class="actions centered">
             <a class="button primary" href={stocklink.repository}>View the repository</a>
             <a class="button link-button" href="#stocklink-proof">What’s verified <span>›</span></a>
@@ -126,10 +126,10 @@ const images = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/images`;
             width={620}
             height={610}
           />
-          <figcaption><strong>No account needed.</strong> Anyone with the tracking link sees a parcel’s journey and a position rounded to about 100 metres—never names, addresses, or contents.</figcaption>
+          <figcaption><strong>No account needed.</strong> Anyone with the tracking link can see where a parcel is, to within about 100 metres. They never see names, addresses or what’s inside.</figcaption>
         </figure>
 
-        <p class="stage-note">Dark mode, from StockLink’s sample-data preview: the accounts, orders, and figures are invented, and each page says so.</p>
+        <p class="stage-note">Dark mode, from StockLink’s sample-data preview. The shops, orders and numbers are made up, and every page says so.</p>
 
         <div class="proof" id="stocklink-proof">
           <div><span>Built with</span><p>{stocklink.stack.join(' · ')}</p></div>
