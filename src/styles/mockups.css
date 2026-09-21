@@ -1,0 +1,192 @@
+/* Device mockups: a Mac window with its traffic lights, and an iPhone with a
+   Dynamic Island. Each sizes itself from the width of its wrapper (container
+   query units), so the whole device scales as one piece — a screenshot in a
+   window, not a window with a screenshot squeezed inside it.
+
+   The same rules are used by tools/mockups to bake the README images. */
+
+.mac-wrap,
+.iphone-wrap {
+  container-type: inline-size;
+}
+
+/* ── Mac window ───────────────────────────────────────────────────────── */
+
+.mac {
+  --u: calc(100cqw / 1280);
+  --bar: max(24px, calc(38 * var(--u)));
+  --dot: max(9px, calc(12 * var(--u)));
+  margin: 0;
+  overflow: hidden;
+  border-radius: max(9px, calc(14 * var(--u)));
+  background: var(--mac-bar);
+  box-shadow:
+    0 0 0 1px var(--mac-edge),
+    0 calc(40 * var(--u)) calc(90 * var(--u)) rgb(0 0 0 / 0.28),
+    0 calc(10 * var(--u)) calc(24 * var(--u)) rgb(0 0 0 / 0.18);
+}
+
+.mac--light {
+  --mac-bar: #f0efec;
+  --mac-edge: rgb(0 0 0 / 0.2);
+  --mac-line: rgb(0 0 0 / 0.12);
+  --mac-title: rgb(0 0 0 / 0.55);
+}
+
+.mac--dark {
+  --mac-bar: #2b2b2d;
+  --mac-edge: rgb(255 255 255 / 0.16);
+  --mac-line: rgb(0 0 0 / 0.55);
+  --mac-title: rgb(255 255 255 / 0.6);
+}
+
+.mac__bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--bar);
+  padding-inline: calc(var(--bar) * 0.38);
+  background: var(--mac-bar);
+  border-bottom: 1px solid var(--mac-line);
+}
+
+.mac__lights {
+  display: flex;
+  gap: calc(var(--dot) * 0.66);
+}
+
+.mac__lights i {
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgb(0 0 0 / 0.22);
+}
+
+.mac__lights i:nth-child(1) { background: #ff5f57; }
+.mac__lights i:nth-child(2) { background: #febc2e; }
+.mac__lights i:nth-child(3) { background: #28c840; }
+
+.mac__title {
+  position: absolute;
+  inset-inline: 0;
+  color: var(--mac-title);
+  font: 500 max(10px, calc(13 * var(--u))) / 1 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Inter, sans-serif;
+  text-align: center;
+  pointer-events: none;
+}
+
+.mac__screen {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ── iPhone ───────────────────────────────────────────────────────────── */
+/* Designed at 414 units wide: a 390-wide screen inside a 12-unit bezel. */
+
+.iphone {
+  --u: calc(100cqw / 414);
+  --status-bg: #000;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: calc(12 * var(--u));
+  border-radius: calc(62 * var(--u));
+  background: #0c0c0d;
+  box-shadow:
+    0 0 0 calc(1.5 * var(--u)) #56565b,
+    0 0 0 calc(3 * var(--u)) #1a1a1c,
+    0 calc(34 * var(--u)) calc(70 * var(--u)) rgb(0 0 0 / 0.34),
+    0 calc(8 * var(--u)) calc(20 * var(--u)) rgb(0 0 0 / 0.2);
+}
+
+/* Side buttons: action and volume on the left, power on the right. */
+.iphone::before,
+.iphone::after {
+  content: '';
+  position: absolute;
+  width: calc(4 * var(--u));
+  border-radius: calc(2 * var(--u));
+  background: #2c2c2e;
+}
+
+.iphone::before {
+  left: calc(-5.5 * var(--u));
+  top: calc(150 * var(--u));
+  height: calc(56 * var(--u));
+  box-shadow: 0 calc(78 * var(--u)) 0 #2c2c2e;
+}
+
+.iphone::after {
+  right: calc(-5.5 * var(--u));
+  top: calc(220 * var(--u));
+  height: calc(96 * var(--u));
+}
+
+.iphone__screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(50 * var(--u));
+  background: #000;
+}
+
+.iphone__status {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: calc(54 * var(--u));
+  padding: 0 calc(34 * var(--u)) calc(11 * var(--u)) calc(44 * var(--u));
+  background: var(--status-bg);
+  color: #fff;
+  font: 600 calc(16.5 * var(--u)) / 1 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Inter, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.iphone__island {
+  position: absolute;
+  top: calc(12 * var(--u));
+  left: 50%;
+  width: calc(122 * var(--u));
+  height: calc(36 * var(--u));
+  border-radius: calc(20 * var(--u));
+  background: #000;
+  transform: translateX(-50%);
+}
+
+.iphone__icons {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--u));
+}
+
+.iphone__icons svg {
+  display: block;
+  height: calc(13 * var(--u));
+  width: auto;
+  fill: currentColor;
+}
+
+.iphone__screenshot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* The strip under the tab bar, where the home indicator lives. */
+.iphone__safe {
+  position: relative;
+  height: calc(26 * var(--u));
+  background: var(--status-bg);
+}
+
+.iphone__home {
+  position: absolute;
+  left: 50%;
+  bottom: calc(8 * var(--u));
+  width: calc(138 * var(--u));
+  height: calc(5 * var(--u));
+  border-radius: calc(3 * var(--u));
+  background: rgb(255 255 255 / 0.86);
+  transform: translateX(-50%);
+}

@@ -1,8 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import IPhone from '@/components/IPhone.astro';
+import MacWindow from '@/components/MacWindow.astro';
 import { projects, supportingProjects } from '@/data/projects';
 
-const [tsela, stocklink, obsidian] = projects;
+const [stocklink, tsela, obsidian] = projects;
+const images = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/images`;
 ---
 
 <Layout>
@@ -35,20 +38,20 @@ const [tsela, stocklink, obsidian] = projects;
       <div class="glass-stage" aria-label="Selected project previews">
         <span class="stage-glow stage-glow-blue" aria-hidden="true"></span>
         <span class="stage-glow stage-glow-pink" aria-hidden="true"></span>
-        <a class="glass-card glass-card-main" href={tsela.repository} aria-label="View Tsela on GitHub">
+        <a class="glass-card glass-card-main" href={stocklink.repository} aria-label="View StockLink on GitHub">
           <span class="glass-shine" aria-hidden="true"></span>
-          <div class="glass-card-head"><span>01</span><strong>Tsela</strong><small>Transit, made clearer</small></div>
+          <div class="glass-card-head"><span>01</span><strong>StockLink</strong><small>Wholesale, end to end</small></div>
           <div class="glass-card-body">
-            <p>Routes, stops, and local knowledge in one calm platform.</p>
-            <div class="glass-tags">{tsela.stack.slice(0, 3).map((item) => <span>{item}</span>)}</div>
+            <p>Warehouses, stores, and delivery drivers on one platform.</p>
+            <div class="glass-tags">{stocklink.stack.slice(0, 3).map((item) => <span>{item}</span>)}</div>
           </div>
         </a>
-        <a class="glass-card glass-card-left" href={stocklink.repository} aria-label="View StockLink on GitHub">
+        <a class="glass-card glass-card-left" href={tsela.repository} aria-label="View Tsela on GitHub">
           <span class="glass-shine" aria-hidden="true"></span>
-          <div class="glass-card-head"><span>02</span><strong>StockLink</strong><small>Warehouse operations</small></div>
+          <div class="glass-card-head"><span>02</span><strong>Tsela</strong><small>Transit, made clearer</small></div>
           <div class="glass-card-body">
-            <p>Shared visibility across warehouse teams.</p>
-            <div class="glass-tags">{stocklink.stack.slice(0, 2).map((item) => <span>{item}</span>)}</div>
+            <p>Routes, stops, and local knowledge in one calm platform.</p>
+            <div class="glass-tags">{tsela.stack.slice(0, 2).map((item) => <span>{item}</span>)}</div>
           </div>
         </a>
         <a class="glass-card glass-card-right" href={obsidian.repository} aria-label="View Obsidian Sync for iOS on GitHub">
@@ -72,34 +75,100 @@ const [tsela, stocklink, obsidian] = projects;
         <h2 id="work-title">Things I’ve been building.<br /><span>Made for real people.</span></h2>
       </header>
 
-      <article class="showcase showcase-blue">
+      <article class="showcase showcase-blue" id="stocklink">
         <div class="showcase-copy">
-          <p class="project-label">01 · Public transport platform</p>
-          <h3>{tsela.name}</h3>
-          <p>Getting around Gaborone shouldn’t require insider knowledge. Tsela brings routes, stops, directions, and community knowledge into one calm place.</p>
+          <p class="project-label">01 · Wholesale logistics platform</p>
+          <h3>{stocklink.name}</h3>
+          <p>Small shops buy stock from many warehouses, and getting it to their door is the hard part. StockLink puts the order, the payment, and the delivery in one place—down to the code a driver needs to hand a parcel over.</p>
           <div class="actions centered">
-            <a class="button primary" href={tsela.repository}>View the repository</a>
-            <a class="button link-button" href="#tsela-proof">What’s verified <span>›</span></a>
+            <a class="button primary" href={stocklink.repository}>View the repository</a>
+            <a class="button link-button" href="#stocklink-proof">What’s verified <span>›</span></a>
           </div>
         </div>
-        <div class="proof" id="tsela-proof">
-          <div><span>Built with</span><p>{tsela.stack.join(' · ')}</p></div>
-          <div><span>Verified today</span><p>{tsela.evidence}</p></div>
-          <div><span>Next milestone</span><p>{tsela.next}</p></div>
+
+        <div class="device-stage" aria-label="StockLink on a Mac and on a phone">
+          <IPhone
+            class="device-phone device-phone-left"
+            src={`${images}/stocklink/driver-pickup-screen-dark.png`}
+            alt="StockLink driver app in dark mode: collecting a parcel from the warehouse with its pickup code"
+            statusBg="#161617"
+            width={390}
+            height={820}
+            loading="eager"
+          />
+          <MacWindow
+            class="device-mac"
+            src={`${images}/stocklink/store-order-dark.png`}
+            alt="StockLink retail store view in dark mode: an order in transit, with its delivery code, QR code, and live position"
+            title="StockLink — Order"
+            theme="dark"
+            width={1280}
+            height={870}
+            loading="eager"
+          />
+          <IPhone
+            class="device-phone device-phone-right"
+            src={`${images}/stocklink/driver-road-screen-dark.png`}
+            alt="StockLink driver app in dark mode: on the road, with the handover form and position sharing"
+            statusBg="#161617"
+            width={390}
+            height={820}
+            loading="eager"
+          />
+        </div>
+
+        <figure class="tracking-stage">
+          <MacWindow
+            src={`${images}/stocklink/public-tracking-dark.png`}
+            alt="StockLink public tracking page in dark mode: a parcel’s journey and rounded position, with no account needed"
+            title="Track a parcel"
+            theme="dark"
+            width={620}
+            height={610}
+          />
+          <figcaption><strong>No account needed.</strong> Anyone with the tracking link sees a parcel’s journey and a position rounded to about 100 metres—never names, addresses, or contents.</figcaption>
+        </figure>
+
+        <p class="stage-note">Dark mode, from StockLink’s sample-data preview: the accounts, orders, and figures are invented, and each page says so.</p>
+
+        <div class="proof" id="stocklink-proof">
+          <div><span>Built with</span><p>{stocklink.stack.join(' · ')}</p></div>
+          <div><span>Verified today</span><p>{stocklink.evidence}</p></div>
+          <div><span>Next milestone</span><p>{stocklink.next}</p></div>
         </div>
       </article>
 
       <div class="showcase-grid">
         <article class="showcase showcase-light compact-showcase">
           <div class="showcase-copy">
-            <p class="project-label">02 · Warehouse operations</p>
-            <h3>{stocklink.name}</h3>
-            <p>Stock moves through a warehouse faster when every team can see the same clear picture. StockLink explores that shared operational view.</p>
-            <a class="button link-button" href={stocklink.repository}>View project <span>›</span></a>
+            <p class="project-label">02 · Public transport platform</p>
+            <h3>{tsela.name}</h3>
+            <p>Getting around Gaborone shouldn’t require insider knowledge. Tsela brings routes, stops, directions, and community knowledge into one calm place.</p>
+            <a class="button link-button" href={tsela.repository}>View project <span>›</span></a>
           </div>
-          <div class="project-facts" aria-label="StockLink project details">
-            <div><span>Built with</span><p>{stocklink.stack.join(' · ')}</p></div>
-            <div><span>Current focus</span><p>{stocklink.next}</p></div>
+          <div class="compact-stage" aria-label="The Tsela rider app">
+            <MacWindow
+              class="compact-stage-back"
+              src={`${images}/tsela/rider-routes.jpg`}
+              alt="Tsela rider app: every mapped route in Gaborone, with search"
+              title="Tsela — Explore every route"
+              theme="light"
+              width={1440}
+              height={960}
+            />
+            <MacWindow
+              class="compact-stage-front"
+              src={`${images}/tsela/rider-live-route.jpg`}
+              alt="Tsela rider app: live trip guidance for Tlokweng Route 1, with a stop picker"
+              title="Live trip guidance"
+              theme="light"
+              width={1440}
+              height={960}
+            />
+          </div>
+          <div class="project-facts" aria-label="Tsela project details">
+            <div><span>Built with</span><p>{tsela.stack.join(' · ')}</p></div>
+            <div><span>Verified today</span><p>{tsela.evidence}</p></div>
           </div>
         </article>
 
