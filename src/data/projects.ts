@@ -17,11 +17,11 @@ export const projects: Project[] = [
     name: 'StockLink',
     kicker: 'Wholesale stock, from warehouse to shop door',
     summary:
-      'A platform that connects warehouses, retail stores, and delivery drivers, with bulk-order pooling, handover codes, and public parcel tracking.',
+      'Connects warehouses, shops and delivery drivers, with bulk orders, handover codes and public parcel tracking.',
     evidence:
-      'Five Rust and Axum services own separate PostgreSQL databases behind an nginx gateway, with Redis-backed controls. One React app serves warehouses, stores, drivers, and staff in light and dark, with an in-house admin console beside Prometheus and Grafana. Every page is captured from a sample-data preview, and the repository lists what has not yet run.',
+      'Five Rust services, each with its own PostgreSQL database, sit behind one gateway. One React app works for warehouses, shops, drivers and staff, in light and dark, and there’s an admin console for staff next to Prometheus and Grafana. Every page has a screenshot from a sample-data preview, and the repo says plainly what hasn’t been run yet.',
     next:
-      'Bring the full Docker stack up end to end for the first time, run the newest migrations against a real PostgreSQL, and finish event delivery before calling it production-ready.',
+      'Get the whole stack running on Docker for the first time, try the newest migrations on a real PostgreSQL, and finish event delivery before I call it production-ready.',
     stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React'],
     repository: 'https://github.com/MooketsiMagwaza/stocklink',
     featured: true,
