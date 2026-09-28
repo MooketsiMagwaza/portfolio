@@ -1,0 +1,36 @@
+---
+import Icon from '@/components/Icon.astro';
+
+const menus = ['File', 'Edit', 'View', 'Go', 'Window', 'Help'];
+---
+
+<header class="menubar">
+  <nav class="menubar__left" role="menubar" aria-label="Menu bar">
+    <button class="mb-item mb-item--logo" type="button" role="menuitem" aria-haspopup="menu" aria-expanded="false" aria-label="mOS menu" data-menu="system">
+      <Icon name="logo" size={18} />
+    </button>
+    <button class="mb-item mb-item--app" type="button" role="menuitem" aria-haspopup="menu" aria-expanded="false" data-menu="app">
+      <strong data-active-app>Finder</strong>
+    </button>
+    {
+      menus.map((menu) => (
+        <button class="mb-item mb-item--menu" type="button" role="menuitem" aria-haspopup="menu" aria-expanded="false" data-menu={menu.toLowerCase()}>
+          {menu}
+        </button>
+      ))
+    }
+  </nav>
+  <div class="menubar__right">
+    <span class="mb-item mb-item--static mb-item--wifi" aria-hidden="true"><Icon name="wifi" size={17} /></span>
+    <button class="mb-item" type="button" aria-label="Control Center" aria-haspopup="dialog" aria-expanded="false" data-cc-toggle>
+      <Icon name="control" size={17} />
+    </button>
+    <button class="mb-item" type="button" aria-label="Search" title="Search  (Ctrl/⌘ K)" data-spotlight-open>
+      <Icon name="search" size={16} />
+    </button>
+    <button class="mb-item mb-item--clock" type="button" aria-label="Date and time" data-clock aria-haspopup="dialog" data-cc-toggle>
+      <time data-clock-text></time>
+    </button>
+  </div>
+</header>
+<div class="menu-layer" data-menu-layer></div>

@@ -1,0 +1,82 @@
+---
+import Window from '@/components/Window.astro';
+import Icon from '@/components/Icon.astro';
+import { principles, profile } from '@/data/site';
+
+const notes = [
+  { id: 'hello', title: profile.headline, snippet: 'A short hello', pinned: true },
+  ...principles.map((principle, index) => ({
+    id: `principle-${index + 1}`,
+    title: principle.title,
+    snippet: principle.body,
+    pinned: false,
+  })),
+];
+---
+
+<Window id="notes" label="How I work, in Notes" w={720} h={470} minW={520} minH={340}>
+  <div class="notes" data-notes>
+    <aside class="sidebar sidebar--notes" aria-label="Notes list">
+      <div class="sidebar__grip" data-drag></div>
+      <h3 class="sidebar__heading">How I work</h3>
+      <ul class="note-list" role="tablist" aria-orientation="vertical">
+        {
+          notes.map((note, index) => (
+            <li role="presentation">
+              <button
+                class:list={['note-item', { 'is-active': index === 0 }]}
+                type="button"
+                role="tab"
+                id={`tab-${note.id}`}
+                aria-controls={`page-${note.id}`}
+                aria-selected={index === 0 ? 'true' : 'false'}
+                data-note={note.id}
+              >
+                <strong>{note.pinned && <Icon name="pin-fill" size={11} class="note-item__pin" />}{note.title}</strong>
+                <span>{note.snippet}</span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+
+    <div class="notes__main">
+      <header class="toolbar toolbar--plain" data-drag>
+        <span class="toolbar__note-count">{notes.length} notes</span>
+      </header>
+      <div class="notes__pages">
+        <article class="page" role="tabpanel" id="page-hello" aria-labelledby="tab-hello" data-note-page="hello">
+          <h1>{profile.headline}</h1>
+          <p>{profile.intro}</p>
+          <ul class="checks">
+            {profile.focus.map((item) => <li><Icon name="check" size={14} />{item}</li>)}
+          </ul>
+          <p class="page__hint">
+            Pick a note on the left to see how I approach the work, or
+            <button type="button" class="link" data-open-app="finder">browse the projects</button>.
+          </p>
+        </article>
+        {
+          principles.map((principle, index) => (
+            <article class="page" role="tabpanel" id={`page-principle-${index + 1}`} aria-labelledby={`tab-principle-${index + 1}`} data-note-page={`principle-${index + 1}`} hidden>
+              <p class="page__eyebrow">Principle {index + 1} of {principles.length}</p>
+              <h1>{principle.title}</h1>
+              <p>{principle.body}</p>
+              {principle.points && (
+                <ul class="checks">
+                  {principle.points.map((point) => <li><Icon name="check" size={14} />{point}</li>)}
+                </ul>
+              )}
+              <aside class="page__example">
+                <span>In practice</span>
+                <p>{principle.example.note}</p>
+                <button type="button" class="link" data-open-project={principle.example.slug}>See it in the gallery</button>
+              </aside>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Window>

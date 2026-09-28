@@ -1,0 +1,34 @@
+---
+import Window from '@/components/Window.astro';
+import Icon from '@/components/Icon.astro';
+import { profile } from '@/data/site';
+---
+
+<Window id="mail" label="New message, in Mail" w={580} h={500} minW={420} minH={380}>
+  <form class="mail" data-mail-form>
+    <header class="titlebar titlebar--split" data-drag>
+      <span class="titlebar__title">New Message</span>
+      <button class="btn btn--primary" type="submit" data-nodrag>
+        <Icon name="send" size={14} /> Send
+      </button>
+    </header>
+    <div class="mail__fields">
+      <div class="field">
+        <span class="field__label">To:</span>
+        <span class="recipient">{profile.shortName} <small>&lt;{profile.email}&gt;</small></span>
+      </div>
+      <label class="field">
+        <span class="field__label">Subject:</span>
+        <input name="subject" type="text" value="Hello from your portfolio" autocomplete="off" />
+      </label>
+    </div>
+    <label class="mail__body">
+      <span class="sr-only">Message</span>
+      <textarea name="body" placeholder="Got something useful in mind? A product, a stubborn systems problem, or work that genuinely helps people…"></textarea>
+    </label>
+    <footer class="mail__foot">
+      <p>Send opens your own email app with this message ready to go. Nothing is sent from this page.</p>
+      <button class="btn" type="button" data-copy-email><Icon name="copy" size={13} /> Copy address</button>
+    </footer>
+  </form>
+</Window>

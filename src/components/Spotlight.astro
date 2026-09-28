@@ -1,0 +1,26 @@
+---
+import Icon from '@/components/Icon.astro';
+---
+
+<div class="spotlight" data-spotlight hidden>
+  <div class="spotlight__scrim" data-spotlight-close></div>
+  <div class="spotlight__panel" role="dialog" aria-label="Spotlight search">
+    <div class="spotlight__field">
+      <Icon name="search" size={22} />
+      <input
+        type="text"
+        data-spotlight-input
+        placeholder="Spotlight Search"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls="spotlight-results"
+        aria-autocomplete="list"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+      />
+    </div>
+    <ul class="spotlight__results" id="spotlight-results" role="listbox" data-spotlight-results></ul>
+    <p class="spotlight__foot"><span><kbd>↑</kbd><kbd>↓</kbd> to move</span><span><kbd>↵</kbd> to open</span><span><kbd>esc</kbd> to close</span></p>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+---
+import AppIcon from '@/components/AppIcon.astro';
+
+const icons = [
+  { icon: 'drive', label: 'Macintosh HD', app: 'about' },
+  { icon: 'folder', label: 'Projects', app: 'finder' },
+  { icon: 'doc', label: 'About Me.txt', app: 'contacts' },
+];
+---
+
+<ul class="desktop-icons" aria-label="Desktop">
+  {
+    icons.map((item) => (
+      <li>
+        <button class="desktop-icon" type="button" data-desktop-icon data-open-app={item.app}>
+          <AppIcon name={item.icon} size={64} />
+          <span>{item.label}</span>
+        </button>
+      </li>
+    ))
+  }
+</ul>
