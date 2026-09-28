@@ -67,5 +67,5 @@ export const stackGroups: { label: string; items: string[] }[] = [
 export const inspiration = {
   name: 'Loago Moremi',
   url: 'https://loag0.github.io/',
-  description: 'a portfolio that lives inside a Windows XP desktop',
+  description: 'which lives inside a Windows XP desktop',
 } as const;
