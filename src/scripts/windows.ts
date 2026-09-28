@@ -231,12 +231,21 @@ export function toggleZoom(id: AppId): void {
    Pointer interaction: drag and resize
    -------------------------------------------------------------------------- */
 
+/** Route the rest of a gesture to `el`. Capture can legitimately fail (e.g. a cancelled pointer), and dragging still works without it. */
+function capture(el: HTMLElement, pointerId: number): void {
+  try {
+    el.setPointerCapture(pointerId);
+  } catch {
+    // Not fatal.
+  }
+}
+
 function startDrag(event: PointerEvent, win: Win, handle: HTMLElement): void {
   if (event.button !== 0 || isCompact() || win.zoomed || isInteractive(event.target, handle)) return;
   const start = getRect(win.el);
   const originX = event.clientX;
   const originY = event.clientY;
-  handle.setPointerCapture(event.pointerId);
+  capture(handle, event.pointerId);
   win.el.classList.add('is-dragging');
 
   const move = (ev: PointerEvent) => {
@@ -262,7 +271,7 @@ function startResize(event: PointerEvent, win: Win, edge: string, handle: HTMLEl
   const minH = Number(win.el.dataset.minH) || 300;
   const originX = event.clientX;
   const originY = event.clientY;
-  handle.setPointerCapture(event.pointerId);
+  capture(handle, event.pointerId);
   win.el.classList.add('is-resizing');
 
   const move = (ev: PointerEvent) => {
