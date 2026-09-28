@@ -70,7 +70,33 @@ export function frameAspect(frame: Frame, shot: Shot): number {
   return (w + 2 * pad * w) / (h + 2 * pad * w);
 }
 
+// Order is the order they are shown in: StockLink leads.
 export const projects: Project[] = [
+  {
+    slug: 'stocklink',
+    name: 'StockLink',
+    filename: 'StockLink.app',
+    kind: 'Logistics platform',
+    kicker: 'Wholesale stock, from warehouse to shop door',
+    summary:
+      'Connects warehouses, shops and delivery drivers, with bulk orders, handover codes and public parcel tracking.',
+    story:
+      'Small shops buy from lots of different warehouses, and the hard part is getting it all to their door. StockLink puts the order, the payment and the delivery in one place, right down to the code a driver needs before handing a parcel over.',
+    evidence:
+      'Five Rust services, each with its own PostgreSQL database, sit behind one gateway. One React app works for warehouses, shops, drivers and staff, in light and dark, and there’s an admin console for staff next to Prometheus and Grafana. Every page has a screenshot from a sample-data preview, and the repo says plainly what hasn’t been run yet.',
+    next: 'Get the whole stack running on Docker for the first time, try the newest migrations on a real PostgreSQL, and finish event delivery before I call it production-ready.',
+    stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React'],
+    tags: ['systems', 'web'],
+    repository: 'https://github.com/MooketsiMagwaza/stocklink',
+    featured: true,
+    frame: 'bare',
+    theme: { from: '#1a1410', to: '#7a4a1e', glow: '#ffb020' },
+    shots: [
+      { file: 'store-order', alt: 'StockLink’s retail store view in dark mode, in a Mac window: an order in transit, with its delivery code, QR code, and live position', caption: 'A shop follows its order · sample data', w: 1280, h: 964 },
+      { file: 'driver-phones', alt: 'The StockLink driver app in dark mode on two iPhones: collecting a parcel with the warehouse’s pickup code, then on the road with the handover form', caption: 'Driver app, built phone-first · sample data', w: 1100, h: 1229 },
+      { file: 'public-tracking', alt: 'The public tracking page in dark mode, in a Mac window: a parcel’s journey and its position rounded to about 100 metres, no account needed, and never names, addresses, or contents', caption: 'Public tracking, no account needed · sample data', w: 760, h: 765 },
+    ],
+  },
   {
     slug: 'tsela',
     name: 'Tsela',
@@ -92,34 +118,9 @@ export const projects: Project[] = [
     theme: { from: '#0a1f44', to: '#0e5a94', glow: '#2dd4bf' },
     shots: [
       { file: 'rider-routes', alt: 'The Tsela rider app in a Mac window: every mapped route in Gaborone, with search and a route list', caption: 'Rider app: explore every route', w: 1280, h: 949, frame: 'bare' },
+      { file: 'rider-live-route', alt: 'The Tsela rider app: live trip guidance for Tlokweng Route 1, with a stop picker', caption: 'Rider app: live trip guidance', w: 1440, h: 960 },
       { file: 'home', alt: 'Tsela’s marketing site: “Know which combi gets you there”, with a route preview map', caption: 'Marketing site', w: 1440, h: 960 },
-      { file: 'admin', alt: 'Tsela’s admin console dashboard showing capacity and reliability figures', caption: 'Admin console', w: 1440, h: 960 },
       { file: 'route', alt: 'A route detail page in the admin console, with stops and a street map', caption: 'Route detail and map', w: 1440, h: 960 },
-    ],
-  },
-  {
-    slug: 'stocklink',
-    name: 'StockLink',
-    filename: 'StockLink.app',
-    kind: 'Logistics platform',
-    kicker: 'Wholesale stock, from warehouse to shop door',
-    summary:
-      'A logistics platform where shops order from many warehouses in one cart, and every parcel can be followed from the warehouse door to the shop.',
-    story:
-      'Small shops often buy from several warehouses and then wait on deliveries they can’t see. StockLink puts all of that in one place: one cart across many warehouses, demand pooled into bulk orders, and every parcel followed to the shop.',
-    evidence:
-      'Five Rust (Axum) services, each with its own PostgreSQL database, sit behind one nginx gateway: identity, commerce, notifications, media, and ops. Redis handles the denylist and rate limits, and one React app covers warehouses, shops, drivers, and staff.',
-    next: 'Bring the whole Docker stack up end to end for the first time, then finish event delivery (the outbox and Kafka publisher are not finished).',
-    stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React', 'nginx'],
-    tags: ['systems', 'web'],
-    repository: 'https://github.com/MooketsiMagwaza/stocklink',
-    featured: true,
-    frame: 'bare',
-    theme: { from: '#1a1410', to: '#7a4a1e', glow: '#ffb020' },
-    shots: [
-      { file: 'store-order', alt: 'StockLink’s retail store view in dark mode, in a Mac window: an order in transit, with its delivery code, QR code, and live position', caption: 'A shop follows its order', w: 1280, h: 964 },
-      { file: 'driver-phones', alt: 'The StockLink driver app in dark mode on two iPhones: collecting a parcel with the warehouse’s pickup code, then on the road with the handover form', caption: 'Driver app, built phone-first', w: 1100, h: 1229 },
-      { file: 'public-tracking', alt: 'The public tracking page in dark mode, in a Mac window: a parcel’s journey and rounded position, no account needed', caption: 'Public tracking, no account needed', w: 760, h: 765 },
     ],
   },
   {

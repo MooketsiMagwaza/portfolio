@@ -1,0 +1,36 @@
+---
+// A phone screenshot in an iPhone: bezel, Dynamic Island, status bar and home
+// indicator. `src` is a 390-wide phone screen; `statusBg` is the app's top-bar
+// colour, so the status bar looks like part of the app. Sized from its wrapper's
+// width; the CSS is src/styles/mockups.css.
+interface Props {
+  src: string;
+  alt: string;
+  statusBg?: string;
+  time?: string;
+  class?: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+}
+
+const { src, alt, statusBg = '#000', time = '9:41', class: className, width, height, loading = 'lazy' } = Astro.props;
+---
+
+<div class:list={['iphone-wrap', className]}>
+  <figure class="iphone" style={`--status-bg:${statusBg}`}>
+    <div class="iphone__screen">
+      <div class="iphone__status">
+        <span>{time}</span>
+        <span class="iphone__island"></span>
+        <span class="iphone__icons" aria-hidden="true">
+          <svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+          <svg viewBox="0 0 17 12"><path d="M8.5 2.4c2.3 0 4.4.9 6 2.4l.9-1A10.3 10.3 0 0 0 8.5 1 10.3 10.3 0 0 0 1.6 3.8l.9 1a8.9 8.9 0 0 1 6-2.4Zm0 3.6c1.4 0 2.6.5 3.6 1.4l.9-1A7.3 7.3 0 0 0 8.5 4.6c-1.9 0-3.7.7-4.5 1.8l.9 1c1-.9 2.2-1.4 3.6-1.4Zm0 3.5a1.6 1.6 0 1 0 0 3.2 1.6 1.6 0 0 0 0-3.2Z" transform="translate(0 -1)"/></svg>
+          <svg viewBox="0 0 27 12"><rect x="0.5" y="0.5" width="22" height="11" rx="3.2" fill="none" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="19" height="8" rx="2"/><rect x="24" y="4" width="2" height="4" rx="1" opacity=".5"/></svg>
+        </span>
+      </div>
+      <img class="iphone__screenshot" src={src} alt={alt} width={width} height={height} loading={loading} decoding="async" />
+      <div class="iphone__safe"><span class="iphone__home"></span></div>
+    </div>
+  </figure>
+</div>
