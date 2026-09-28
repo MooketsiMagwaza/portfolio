@@ -17,8 +17,8 @@ type Win = {
 export type WindowEvent = { type: 'open' | 'close' | 'minimize' | 'restore' | 'focus' | 'zoom'; id: AppId | null };
 
 export const MENUBAR_H = 28;
-/** Space kept clear for the Dock when zooming or placing windows. */
-const DOCK_RESERVE = 92;
+/** Space kept clear at the bottom for the Dock when placing or zooming windows. */
+const DOCK_CLEARANCE = 90;
 
 const wins = new Map<AppId, Win>();
 let zTop = 20;
@@ -38,27 +38,27 @@ function setRect(el: HTMLElement, rect: Rect): void {
   el.style.height = `${Math.round(rect.h)}px`;
 }
 
-/** Keep a window fully reachable inside the viewport. */
+/** Keep a window inside the viewport and clear of the Dock. */
 function fit(rect: Rect): Rect {
   const w = Math.min(rect.w, innerWidth - 16);
-  const h = Math.min(rect.h, innerHeight - MENUBAR_H - 16);
+  const h = Math.min(rect.h, Math.max(200, innerHeight - MENUBAR_H - DOCK_CLEARANCE - 4));
   return {
     w,
     h,
     x: clamp(rect.x, 8, Math.max(8, innerWidth - w - 8)),
-    y: clamp(rect.y, MENUBAR_H + 4, Math.max(MENUBAR_H + 4, innerHeight - h - 8)),
+    y: clamp(rect.y, MENUBAR_H + 4, Math.max(MENUBAR_H + 4, innerHeight - DOCK_CLEARANCE - h)),
   };
 }
 
-function defaultRect(win: Win): Rect {
+/** Where a window opens when nothing says otherwise: centred, and nudged for each one opened. */
+function defaultRect(win: Win, nudge: boolean): Rect {
   const width = Number(win.el.dataset.w) || 640;
   const height = Number(win.el.dataset.h) || 440;
-  const step = (cascade++ % 6) * 26;
+  const step = nudge ? (cascade++ % 6) * 26 : 0;
   const w = Math.min(width, innerWidth - 24);
-  const h = Math.min(height, innerHeight - MENUBAR_H - DOCK_RESERVE);
   return fit({
     w,
-    h,
+    h: height,
     x: Math.round((innerWidth - w) / 2 - 40 + step),
     y: Math.round(MENUBAR_H + 28 + step),
   });
@@ -68,7 +68,7 @@ const zoomRect = (): Rect => ({
   x: 8,
   y: MENUBAR_H + 6,
   w: innerWidth - 16,
-  h: innerHeight - MENUBAR_H - 6 - DOCK_RESERVE,
+  h: innerHeight - MENUBAR_H - 6 - DOCK_CLEARANCE,
 });
 
 const isInteractive = (target: EventTarget | null, boundary: HTMLElement): boolean => {
@@ -140,7 +140,7 @@ export function openApp(id: AppId, options: { rect?: Partial<Rect> } = {}): void
   win.open = true;
   win.minimized = false;
   win.zoomed = false;
-  setRect(win.el, fit({ ...defaultRect(win), ...options.rect }));
+  setRect(win.el, fit({ ...defaultRect(win, !options.rect), ...options.rect }));
   win.el.classList.remove('is-closing', 'is-minimized', 'is-zoomed');
   win.el.classList.add('is-open');
 
