@@ -1,0 +1,224 @@
+---
+import Window from '@/components/Window.astro';
+import Icon from '@/components/Icon.astro';
+import AppIcon from '@/components/AppIcon.astro';
+import Cover from '@/components/Cover.astro';
+import ShotFrame from '@/components/ShotFrame.astro';
+import { projects, featuredProjects, tagLabels, type Project, type ProjectTag } from '@/data/projects';
+import { profile } from '@/data/site';
+
+const tags = Object.keys(tagLabels) as ProjectTag[];
+const tagCount = (tag: ProjectTag) => projects.filter((project) => project.tags.includes(tag)).length;
+const firstSlug = projects[0]?.slug;
+const views = [
+  { id: 'icons', label: 'as Icons', icon: 'grid' },
+  { id: 'list', label: 'as List', icon: 'list' },
+  { id: 'gallery', label: 'as Gallery', icon: 'gallery' },
+];
+
+/** The colours behind a project's screenshots, as CSS custom properties. */
+const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`;
+---
+
+<Window id="finder" label="Projects, in Finder" w={860} h={540} minW={480} minH={380}>
+  <div class="finder" data-finder data-view="gallery" data-filter="all">
+    <aside class="sidebar" aria-label="Finder sidebar">
+      <div class="sidebar__grip" data-drag></div>
+      <nav class="sidebar__nav" aria-label="Filter projects">
+        <h3 class="sidebar__heading">Favorites</h3>
+        <button class="side-item is-active" type="button" data-filter-btn="all" aria-pressed="true">
+          <Icon name="folder" /><span>All Projects</span><em>{projects.length}</em>
+        </button>
+        <button class="side-item" type="button" data-filter-btn="featured" aria-pressed="false">
+          <Icon name="star" /><span>Featured</span><em>{featuredProjects.length}</em>
+        </button>
+        <h3 class="sidebar__heading">Tags</h3>
+        {
+          tags.map((tag) => (
+            <button class="side-item" type="button" data-filter-btn={tag} aria-pressed="false">
+              <i class={`tag-dot tag-dot--${tag}`}></i><span>{tagLabels[tag]}</span><em>{tagCount(tag)}</em>
+            </button>
+          ))
+        }
+        <h3 class="sidebar__heading">Locations</h3>
+        <a class="side-item" href={profile.github} target="_blank" rel="noopener noreferrer">
+          <Icon name="code" /><span>GitHub</span><Icon name="external" size={12} class="side-item__ext" />
+        </a>
+        <button class="side-item" type="button" data-open-app="about">
+          <AppIcon name="drive" size={16} /><span>Macintosh HD</span>
+        </button>
+      </nav>
+    </aside>
+
+    <div class="finder__main">
+      <header class="toolbar" data-drag>
+        <div class="toolbar__title">
+          <strong>Projects</strong>
+          <span data-finder-count>{projects.length} items</span>
+        </div>
+        <div class="segmented" role="radiogroup" aria-label="View style" data-nodrag>
+          {
+            views.map((view) => (
+              <button type="button" role="radio" aria-checked={view.id === 'gallery' ? 'true' : 'false'} data-set-view={view.id} title={view.label} aria-label={view.label}>
+                <Icon name={view.icon} size={16} />
+              </button>
+            ))
+          }
+        </div>
+        <label class="search" data-nodrag>
+          <Icon name="search" size={14} />
+          <input type="search" placeholder="Search" data-finder-search aria-label="Search projects" autocomplete="off" />
+        </label>
+      </header>
+
+      <div class="chips" role="group" aria-label="Filter projects" data-nodrag>
+        <button class="chip is-active" type="button" data-filter-btn="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-filter-btn="featured" aria-pressed="false">Featured</button>
+        {
+          tags.map((tag) => (
+            <button class="chip" type="button" data-filter-btn={tag} aria-pressed="false">{tagLabels[tag]}</button>
+          ))
+        }
+      </div>
+
+      <div class="finder__body">
+        <!-- Gallery: a big preview of real screenshots, a filmstrip, and an inspector -->
+        <section class="view view--gallery" data-view-panel="gallery" aria-label="Gallery view">
+          <div class="gallery__stage">
+            {
+              projects.map((project) => (
+                <div class="preview" data-preview={project.slug} style={themeVars(project)} hidden={project.slug !== firstSlug}>
+                  <div class="preview__frames">
+                    {project.shots.map((shot, index) => (
+                      <ShotFrame project={project} shot={shot} index={index} tilt eager={index === 0} hidden={index !== 0} />
+                    ))}
+                  </div>
+                  {
+                    project.shots.length > 1 && (
+                      <div class="pager" role="group" aria-label={`${project.name} screenshots`} data-nodrag>
+                        <button type="button" class="pager__btn" data-shot-step="-1" aria-label="Previous screenshot" title="Previous screenshot (↑)">
+                          <Icon name="chevron-left" size={14} />
+                        </button>
+                        <span class="pager__label" aria-live="polite">
+                          <b data-shot-caption>{project.shots[0].caption}</b>
+                          <em data-shot-count>1 / {project.shots.length}</em>
+                        </span>
+                        <button type="button" class="pager__btn" data-shot-step="1" aria-label="Next screenshot" title="Next screenshot (↓)">
+                          <Icon name="chevron-right" size={14} />
+                        </button>
+                      </div>
+                    )
+                  }
+                </div>
+              ))
+            }
+          </div>
+          <div class="gallery__strip" role="group" aria-label="All projects">
+            {
+              projects.map((project) => (
+                <button class="thumb" type="button" data-project={project.slug} aria-pressed={project.slug === firstSlug ? 'true' : 'false'}>
+                  <Cover project={project} class="thumb__art" />
+                  <span class="thumb__label">{project.filename}</span>
+                </button>
+              ))
+            }
+          </div>
+          <aside class="inspector" aria-label="Project details" aria-live="polite">
+            {
+              projects.map((project) => (
+                <div class="inspector__panel" data-panel={project.slug} hidden={project.slug !== firstSlug}>
+                  <header class="inspector__head">
+                    <h2>{project.name}</h2>
+                    <p>{project.kicker}</p>
+                  </header>
+                  <div class="inspector__actions">
+                    <a class="btn btn--primary" href={project.repository} target="_blank" rel="noopener noreferrer">
+                      Open on GitHub <Icon name="external" size={13} />
+                    </a>
+                    <button class="btn" type="button" data-quicklook={project.slug}>
+                      <Icon name="eye" size={14} /> Quick Look
+                    </button>
+                  </div>
+                  <p class="inspector__story">{project.story}</p>
+                  <dl class="facts">
+                    <div>
+                      <dt>Kind</dt>
+                      <dd>{project.kind}</dd>
+                    </div>
+                    <div>
+                      <dt>Built with</dt>
+                      <dd class="pills">{project.stack.map((item) => <span>{item}</span>)}</dd>
+                    </div>
+                    <div>
+                      <dt>Evidence</dt>
+                      <dd>{project.evidence}</dd>
+                    </div>
+                    {
+                      project.next && (
+                        <div>
+                          <dt>Next milestone</dt>
+                          <dd>{project.next}</dd>
+                        </div>
+                      )
+                    }
+                    <div>
+                      <dt>Tags</dt>
+                      <dd class="tags">
+                        {project.tags.map((tag) => <span><i class={`tag-dot tag-dot--${tag}`}></i>{tagLabels[tag]}</span>)}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              ))
+            }
+          </aside>
+        </section>
+
+        <!-- Icons -->
+        <section class="view view--icons" data-view-panel="icons" aria-label="Icon view" hidden>
+          <div class="icon-grid" role="group" aria-label="All projects">
+            {
+              projects.map((project) => (
+                <button class="icon-item" type="button" data-project={project.slug} aria-pressed="false">
+                  <Cover project={project} class="icon-item__art" />
+                  <span class="icon-item__name">{project.filename}</span>
+                  <span class="icon-item__kind">{project.kind}</span>
+                </button>
+              ))
+            }
+          </div>
+        </section>
+
+        <!-- List -->
+        <section class="view view--list" data-view-panel="list" aria-label="List view" hidden>
+          <table class="list">
+            <thead>
+              <tr><th scope="col">Name</th><th scope="col">Kind</th><th scope="col">Built with</th><th scope="col">Tags</th></tr>
+            </thead>
+            <tbody>
+              {
+                projects.map((project) => (
+                  <tr data-project={project.slug} tabindex="0">
+                    <td class="list__name">
+                      <Cover project={project} class="list__art" />
+                      {project.filename}
+                    </td>
+                    <td>{project.kind}</td>
+                    <td class="list__stack">{project.stack.join(' · ')}</td>
+                    <td class="list__tags">
+                      {project.tags.map((tag) => <i class={`tag-dot tag-dot--${tag}`} title={tagLabels[tag]}></i>)}
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </section>
+
+        <p class="empty" data-empty hidden>Nothing matches “<span data-empty-query></span>”.</p>
+      </div>
+
+      <footer class="statusbar" data-finder-status aria-live="polite">{projects.length} items</footer>
+    </div>
+  </div>
+</Window>

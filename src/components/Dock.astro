@@ -1,0 +1,37 @@
+---
+import AppIcon from '@/components/AppIcon.astro';
+import { apps } from '@/data/apps';
+import { profile } from '@/data/site';
+
+const dockApps = apps.filter((app) => app.dock);
+---
+
+<nav class="dock" aria-label="Dock" data-dock>
+  <div class="dock__shelf" aria-hidden="true"></div>
+  <ul class="dock__list">
+    {
+      dockApps.map((app) => (
+        <li class="dock__item">
+          <button class="dock__btn" type="button" data-dock={app.id} data-open-app={app.id} aria-label={`${app.name}: ${app.title}`}>
+            <AppIcon name={app.icon} size={64} />
+            <span class="dock__tip" aria-hidden="true">{app.title}</span>
+            <span class="dock__dot" aria-hidden="true"></span>
+          </button>
+        </li>
+      ))
+    }
+    <li class="dock__sep" role="separator"></li>
+    <li class="dock__item">
+      <a class="dock__btn" data-dock="github" href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">
+        <AppIcon name="code" size={64} />
+        <span class="dock__tip" aria-hidden="true">GitHub ↗</span>
+      </a>
+    </li>
+    <li class="dock__item">
+      <button class="dock__btn" type="button" data-dock="trash" data-trash aria-label="Trash">
+        <AppIcon name="trash" size={64} />
+        <span class="dock__tip" aria-hidden="true">Trash</span>
+      </button>
+    </li>
+  </ul>
+</nav>

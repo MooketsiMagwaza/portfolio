@@ -1,0 +1,46 @@
+---
+import Window from '@/components/Window.astro';
+import Icon from '@/components/Icon.astro';
+import { profile } from '@/data/site';
+---
+
+<Window id="contacts" label="About Mooketsi Magwaza, in Contacts" w={360} h={540} minW={300} minH={380} fit>
+  <div class="contact">
+    <header class="titlebar" data-drag></header>
+    <div class="contact__scroll" data-fit-target>
+      <div class="contact__hero">
+        <div class="avatar" aria-hidden="true">{profile.initials}</div>
+        <h2>{profile.shortName}</h2>
+        <p class="contact__role">{profile.role}</p>
+      </div>
+
+      <div class="quick-actions" role="group" aria-label="Get in touch">
+        <button type="button" class="quick" data-open-app="mail">
+          <span><Icon name="bubble" size={20} /></span>message
+        </button>
+        <a class="quick" href={`mailto:${profile.email}`}>
+          <span><Icon name="mail" size={20} /></span>email
+        </a>
+        <a class="quick" href={profile.github} target="_blank" rel="noopener noreferrer">
+          <span><Icon name="code" size={20} /></span>github
+        </a>
+        <button type="button" class="quick" data-open-app="finder">
+          <span><Icon name="folder" size={20} /></span>projects
+        </button>
+      </div>
+
+      <dl class="card-rows">
+        <div><dt>location</dt><dd><Icon name="pin" size={14} /> {profile.location}</dd></div>
+        <div><dt>email</dt><dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd></div>
+        <div><dt>github</dt><dd><a href={profile.github} target="_blank" rel="noopener noreferrer">@{profile.githubHandle}</a></dd></div>
+        <div><dt>focus</dt><dd class="pills">{profile.focus.map((item) => <span>{item}</span>)}</dd></div>
+      </dl>
+
+      <section class="card-notes" aria-labelledby="contact-notes">
+        <h3 id="contact-notes">Notes</h3>
+        <p class="card-notes__headline">{profile.headline}</p>
+        <p>{profile.intro}</p>
+      </section>
+    </div>
+  </div>
+</Window>

@@ -1,0 +1,26 @@
+---
+import Icon from '@/components/Icon.astro';
+import { profile } from '@/data/site';
+---
+
+<div class="cc" data-cc hidden role="dialog" aria-label="Control Center">
+  <section class="cc__tile">
+    <h3>Appearance</h3>
+    <div class="segmented segmented--wide" role="radiogroup" aria-label="Appearance">
+      <button type="button" role="radio" aria-checked="false" data-theme-set="light"><Icon name="sun" size={15} /> Light</button>
+      <button type="button" role="radio" aria-checked="false" data-theme-set="dark"><Icon name="moon" size={15} /> Dark</button>
+    </div>
+  </section>
+  <section class="cc__tile cc__tile--row">
+    <label class="switch">
+      <span>Reduce motion</span>
+      <input type="checkbox" data-motion-toggle />
+      <i aria-hidden="true"></i>
+    </label>
+  </section>
+  <section class="cc__tile cc__tile--time">
+    <h3>{profile.location.split(',')[0]}</h3>
+    <p data-gaborone-time>—</p>
+    <small>local time for me</small>
+  </section>
+</div>

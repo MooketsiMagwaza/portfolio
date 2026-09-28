@@ -1,0 +1,82 @@
+---
+import Window from '@/components/Window.astro';
+import AppIcon from '@/components/AppIcon.astro';
+import Icon from '@/components/Icon.astro';
+import { projects } from '@/data/projects';
+import { inspiration, profile, stackGroups } from '@/data/site';
+
+const tabs = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'stack', label: 'Stack' },
+  { id: 'credits', label: 'Credits' },
+];
+---
+
+<Window id="about" label="About This Mac" w={540} h={470} fixed>
+  <div class="about" data-about>
+    <header class="titlebar" data-drag>
+      <span class="titlebar__title">About This Mac</span>
+    </header>
+    <div class="about__tabs segmented" role="tablist" aria-label="About sections" data-nodrag>
+      {
+        tabs.map((tab, index) => (
+          <button type="button" role="tab" id={`about-tab-${tab.id}`} aria-controls={`about-${tab.id}`} aria-selected={index === 0 ? 'true' : 'false'} data-about-tab={tab.id}>
+            {tab.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="about__panels">
+      <section class="about__panel" id="about-overview" role="tabpanel" aria-labelledby="about-tab-overview" data-about-panel="overview">
+        <div class="about__hero">
+          <AppIcon name="logo" size={92} class="about__logo" />
+          <div>
+            <h2>mOS</h2>
+            <p>Portfolio edition · built with Astro</p>
+          </div>
+        </div>
+        <dl class="specs">
+          <div><dt>Name</dt><dd>{profile.name}</dd></div>
+          <div><dt>Role</dt><dd>{profile.role}</dd></div>
+          <div><dt>Location</dt><dd>{profile.location}</dd></div>
+          <div><dt>Focus</dt><dd>{profile.focus.join(' · ')}</dd></div>
+          <div><dt>Projects</dt><dd>{projects.length} in the gallery</dd></div>
+          <div><dt>Contact</dt><dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd></div>
+        </dl>
+      </section>
+
+      <section class="about__panel" id="about-stack" role="tabpanel" aria-labelledby="about-tab-stack" data-about-panel="stack" hidden>
+        <p class="about__lede">My technical toolkit, as listed on my GitHub profile.</p>
+        <div class="stack-groups">
+          {
+            stackGroups.map((group) => (
+              <div class="stack-group">
+                <h3>{group.label}</h3>
+                <ul class="pills">{group.items.map((item) => <li>{item}</li>)}</ul>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="about__panel" id="about-credits" role="tabpanel" aria-labelledby="about-tab-credits" data-about-panel="credits" hidden>
+        <div class="credit-card">
+          <h3>Inspired by {inspiration.name}</h3>
+          <p>
+            A portfolio that lives inside a desktop operating system is an idea I first saw on{' '}
+            <a href={inspiration.url} target="_blank" rel="noopener noreferrer">{inspiration.name}’s site <Icon name="external" size={12} /></a>,{' '}
+            {inspiration.description}. This is a macOS take on it. Thank you for the spark.
+          </p>
+        </div>
+        <ul class="credit-list">
+          <li>The app icons are drawn from scratch for this site. Project screenshots come from each project’s own repository docs, and the University CS Docs shots were captured from its live site.</li>
+          <li>Set in Inter (SIL Open Font License) via Fontsource, with system fonts on Apple devices.</li>
+          <li>Built with Astro and TypeScript. No trackers, no cookies.</li>
+          <li>macOS, Finder, and other Apple names are trademarks of Apple Inc. This is an independent tribute, not affiliated with Apple.</li>
+        </ul>
+        <a class="btn" href={profile.sourceRepo} target="_blank" rel="noopener noreferrer"><Icon name="code" size={14} /> View source <Icon name="external" size={12} /></a>
+      </section>
+    </div>
+  </div>
+</Window>

@@ -1,0 +1,54 @@
+---
+import Icon from '@/components/Icon.astro';
+import ShotFrame from '@/components/ShotFrame.astro';
+import { projects, tagLabels } from '@/data/projects';
+---
+
+<div class="quicklook" data-ql-root hidden>
+  <div class="quicklook__scrim" data-quicklook-close></div>
+  <article class="quicklook__panel" role="dialog" aria-modal="true" aria-label="Quick Look" tabindex="-1">
+    <header class="quicklook__bar">
+      <button class="quicklook__close" type="button" aria-label="Close Quick Look" data-quicklook-close>
+        <Icon name="close" size={12} />
+      </button>
+      <strong data-ql-title></strong>
+      <a class="btn" data-ql-open target="_blank" rel="noopener noreferrer">Open on GitHub <Icon name="external" size={12} /></a>
+    </header>
+    {
+      projects.map((project) => (
+        <div class="quicklook__page" data-ql={project.slug} hidden>
+          <div class="quicklook__stage" style={`--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`}>
+            {project.shots.map((shot, index) => (
+              <ShotFrame project={project} shot={shot} index={index} hidden={index !== 0} />
+            ))}
+            {
+              project.shots.length > 1 && (
+                <>
+                  <button type="button" class="quicklook__nav quicklook__nav--prev" data-ql-step="-1" aria-label="Previous screenshot">
+                    <Icon name="chevron-left" size={18} />
+                  </button>
+                  <button type="button" class="quicklook__nav quicklook__nav--next" data-ql-step="1" aria-label="Next screenshot">
+                    <Icon name="chevron-right" size={18} />
+                  </button>
+                </>
+              )
+            }
+          </div>
+          <div class="quicklook__body">
+            <p class="quicklook__count" aria-live="polite">
+              <b data-ql-caption>{project.shots[0].caption}</b>
+              {project.shots.length > 1 && <span data-ql-count>1 / {project.shots.length}</span>}
+            </p>
+            <h2>{project.name}</h2>
+            <p class="quicklook__kicker">{project.kicker}</p>
+            <p>{project.summary}</p>
+            <p class="pills">{project.stack.map((item) => <span>{item}</span>)}</p>
+            <p class="quicklook__tags">
+              {project.tags.map((tag) => <span><i class={`tag-dot tag-dot--${tag}`}></i>{tagLabels[tag]}</span>)}
+            </p>
+          </div>
+        </div>
+      ))
+    }
+  </article>
+</div>

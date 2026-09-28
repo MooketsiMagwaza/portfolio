@@ -1,0 +1,18 @@
+---
+import Window from '@/components/Window.astro';
+---
+
+<Window id="terminal" label="Terminal" w={660} h={430} minW={420} minH={260} class="window--dark">
+  <div class="terminal" data-terminal>
+    <header class="titlebar titlebar--terminal" data-drag>
+      <span class="titlebar__title">guest — zsh — 80×24</span>
+    </header>
+    <div class="terminal__screen" data-terminal-screen>
+      <div class="terminal__out" data-terminal-out role="log" aria-live="polite"></div>
+      <form class="terminal__line" data-terminal-form>
+        <label for="terminal-input" class="terminal__prompt">guest@mooketsi ~ %</label>
+        <input id="terminal-input" data-terminal-input type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+      </form>
+    </div>
+  </div>
+</Window>

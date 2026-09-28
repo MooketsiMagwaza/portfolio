@@ -1,0 +1,47 @@
+---
+import type { AppId } from '@/data/apps';
+
+interface Props {
+  id: AppId;
+  label: string;
+  w?: number;
+  h?: number;
+  minW?: number;
+  minH?: number;
+  /** Fixed windows can't be resized or zoomed (like About This Mac). */
+  fixed?: boolean;
+  /** Grow on open so the `[data-fit-target]` content shows without scrolling, if there's room. */
+  fit?: boolean;
+  class?: string;
+}
+
+const { id, label, w = 640, h = 440, minW = 420, minH = 300, fixed = false, fit = false, class: className } = Astro.props;
+const edges = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'];
+---
+
+<section
+  class:list={['window', `window--${id}`, className]}
+  data-window={id}
+  data-w={w}
+  data-h={h}
+  data-min-w={minW}
+  data-min-h={minH}
+  data-fixed={fixed ? '' : undefined}
+  data-fit={fit ? '' : undefined}
+  aria-label={label}
+  tabindex="-1"
+>
+  <div class="traffic" role="group" aria-label="Window controls">
+    <button class="traffic__btn traffic__btn--close" type="button" data-action="close" aria-label="Close window">
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.3 3.3l5.4 5.4M8.7 3.3 3.3 8.7"></path></svg>
+    </button>
+    <button class="traffic__btn traffic__btn--min" type="button" data-action="minimize" aria-label="Minimize window" disabled={fixed}>
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.8 6h6.4"></path></svg>
+    </button>
+    <button class="traffic__btn traffic__btn--zoom" type="button" data-action="zoom" aria-label="Zoom window" disabled={fixed}>
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.4 8.6V4.9l3.7 3.7zM8.6 3.4v3.7L4.9 3.4z" fill="currentColor" stroke="none"></path></svg>
+    </button>
+  </div>
+  <slot />
+  {!fixed && edges.map((edge) => <span class={`resize resize--${edge}`} data-resize={edge} aria-hidden="true"></span>)}
+</section>

@@ -1,0 +1,41 @@
+---
+import { frameAspect, shotFrame, shotUrl, type Project, type Shot } from '@/data/projects';
+
+interface Props {
+  project: Project;
+  shot: Shot;
+  index: number;
+  eager?: boolean;
+  tilt?: boolean;
+  hidden?: boolean;
+}
+
+const { project, shot, index, eager = false, tilt = false, hidden = false } = Astro.props;
+const frame = shotFrame(project, shot);
+const aspect = frameAspect(frame, shot).toFixed(4);
+---
+
+<figure
+  class:list={['frame', `frame--${frame}`]}
+  style={`--ar:${aspect}`}
+  data-shot={index}
+  data-tilt={tilt ? '' : undefined}
+  hidden={hidden}
+>
+  {
+    frame === 'browser' && (
+      <div class="frame__bar" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </div>
+    )
+  }
+  <img
+    src={shotUrl(project, shot)}
+    alt={shot.alt}
+    width={shot.w}
+    height={shot.h}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+    draggable="false"
+  />
+</figure>

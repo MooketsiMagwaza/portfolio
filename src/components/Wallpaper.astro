@@ -1,0 +1,25 @@
+---
+/** A soft, layered ribbon wallpaper. Colours come from CSS variables so it follows light/dark. */
+---
+
+<div class="wallpaper" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <defs>
+      <linearGradient id="wp-a" x1="0" y1="0" x2="1" y2="0">
+        <stop class="wp-stop wp-stop--a1" offset="0"></stop>
+        <stop class="wp-stop wp-stop--a2" offset="1"></stop>
+      </linearGradient>
+      <linearGradient id="wp-b" x1="1" y1="0" x2="0" y2="1">
+        <stop class="wp-stop wp-stop--b1" offset="0"></stop>
+        <stop class="wp-stop wp-stop--b2" offset="1"></stop>
+      </linearGradient>
+      <linearGradient id="wp-c" x1="0" y1="0" x2="1" y2="1">
+        <stop class="wp-stop wp-stop--c1" offset="0"></stop>
+        <stop class="wp-stop wp-stop--c2" offset="1"></stop>
+      </linearGradient>
+    </defs>
+    <path d="M-60 250C240 60 470 390 850 190S1300 20 1500 200V-60H-60Z" fill="url(#wp-c)" opacity=".8"></path>
+    <path d="M-60 640C230 400 430 800 780 570S1220 330 1500 560V960H-60Z" fill="url(#wp-a)" opacity=".85"></path>
+    <path d="M-60 780C270 570 520 940 900 720S1250 600 1500 720V960H-60Z" fill="url(#wp-b)" opacity=".8"></path>
+  </svg>
+</div>

@@ -1,0 +1,16 @@
+---
+import { coverThumbUrl, type Project } from '@/data/projects';
+
+interface Props {
+  project: Project;
+  class?: string;
+}
+
+const { project, class: className } = Astro.props;
+const { from, to, glow } = project.theme;
+---
+
+<!-- A project's first screenshot on its own colours: the small "product shot" used in thumbnails. -->
+<span class:list={['cover', className]} style={`--g1:${from};--g2:${to};--glow:${glow}`}>
+  <img src={coverThumbUrl(project)} alt="" loading="lazy" decoding="async" draggable="false" />
+</span>
