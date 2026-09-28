@@ -10,7 +10,7 @@ import { initSpotlight } from './spotlight';
 import { initStatusBar } from './statusbar';
 import { initTerminal } from './terminal';
 import { initTheme } from './theme';
-import { initWindows, MENUBAR_H, openApp } from './windows';
+import { getWindowRect, initWindows, MENUBAR_H, openApp } from './windows';
 
 /** Lay the first windows out to suit the screen: a pair on wide desktops, one everywhere else. */
 function openFirstWindows(): void {
@@ -32,8 +32,10 @@ function openFirstWindows(): void {
     const gap = 22;
     const finderWidth = Math.min(920, usable - contactsWidth - gap - 64);
     const x = Math.round((usable - (contactsWidth + gap + finderWidth)) / 2) + 6;
+    // The About card sizes itself to its content; the gallery then matches its height.
     openApp('contacts', { rect: { x, y, w: contactsWidth, h: winHeight } });
-    openApp('finder', { rect: { x: x + contactsWidth + gap, y, w: finderWidth, h: winHeight } });
+    const cardHeight = getWindowRect('contacts')?.h ?? winHeight;
+    openApp('finder', { rect: { x: x + contactsWidth + gap, y, w: finderWidth, h: cardHeight } });
   } else {
     const finderWidth = Math.min(900, usable - 24);
     openApp('finder', { rect: { x: Math.round((usable - finderWidth) / 2), y, w: finderWidth, h: winHeight } });

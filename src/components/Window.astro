@@ -10,10 +10,12 @@ interface Props {
   minH?: number;
   /** Fixed windows can't be resized or zoomed (like About This Mac). */
   fixed?: boolean;
+  /** Grow on open so the `[data-fit-target]` content shows without scrolling, if there's room. */
+  fit?: boolean;
   class?: string;
 }
 
-const { id, label, w = 640, h = 440, minW = 420, minH = 300, fixed = false, class: className } = Astro.props;
+const { id, label, w = 640, h = 440, minW = 420, minH = 300, fixed = false, fit = false, class: className } = Astro.props;
 const edges = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'];
 ---
 
@@ -25,6 +27,7 @@ const edges = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw'];
   data-min-w={minW}
   data-min-h={minH}
   data-fixed={fixed ? '' : undefined}
+  data-fit={fit ? '' : undefined}
   aria-label={label}
   tabindex="-1"
 >

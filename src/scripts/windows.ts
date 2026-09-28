@@ -64,6 +64,21 @@ function defaultRect(win: Win, nudge: boolean): Rect {
   });
 }
 
+/** Grow a window that opted in (data-fit) until its content shows without scrolling, if there's room. */
+function fitToContent(win: Win): void {
+  const target = $<HTMLElement>('[data-fit-target]', win.el);
+  if (!target) return;
+  const overflow = target.scrollHeight - target.clientHeight;
+  if (overflow <= 0) return;
+  const rect = getRect(win.el);
+  setRect(win.el, fit({ ...rect, h: rect.h + overflow }));
+}
+
+export const getWindowRect = (id: AppId): Rect | null => {
+  const win = wins.get(id);
+  return win?.open ? getRect(win.el) : null;
+};
+
 const zoomRect = (): Rect => ({
   x: 8,
   y: MENUBAR_H + 6,
@@ -143,6 +158,7 @@ export function openApp(id: AppId, options: { rect?: Partial<Rect> } = {}): void
   setRect(win.el, fit({ ...defaultRect(win, !options.rect), ...options.rect }));
   win.el.classList.remove('is-closing', 'is-minimized', 'is-zoomed');
   win.el.classList.add('is-open');
+  if (win.el.hasAttribute('data-fit')) fitToContent(win);
 
   if (!prefersReducedMotion()) {
     win.el.classList.add('is-opening');

@@ -4,10 +4,10 @@ import Icon from '@/components/Icon.astro';
 import { profile } from '@/data/site';
 ---
 
-<Window id="contacts" label="About Mooketsi Magwaza, in Contacts" w={360} h={540} minW={320} minH={380}>
+<Window id="contacts" label="About Mooketsi Magwaza, in Contacts" w={360} h={540} minW={300} minH={380} fit>
   <div class="contact">
     <header class="titlebar" data-drag></header>
-    <div class="contact__scroll">
+    <div class="contact__scroll" data-fit-target>
       <div class="contact__hero">
         <div class="avatar" aria-hidden="true">{profile.initials}</div>
         <h2>{profile.shortName}</h2>
