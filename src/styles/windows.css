@@ -20,9 +20,9 @@
   overflow: hidden;
   border-radius: var(--radius-win);
   color: var(--fg);
-  background: var(--material);
-  backdrop-filter: blur(44px) saturate(190%);
-  -webkit-backdrop-filter: blur(44px) saturate(190%);
+  /* Opaque on purpose: a live backdrop blur behind several large windows is the
+     single most expensive thing a page like this can do, and it made dragging janky. */
+  background: var(--window-bg);
   box-shadow: var(--shadow-win-inactive);
   outline: 0;
   user-select: text;
@@ -30,7 +30,6 @@
   transition:
     transform 0.5s cubic-bezier(0.32, 0.72, 0, 1),
     opacity 0.3s,
-    box-shadow 0.2s,
     visibility 0s;
 }
 
@@ -66,8 +65,7 @@
     left 0.32s var(--ease-out),
     top 0.32s var(--ease-out),
     width 0.32s var(--ease-out),
-    height 0.32s var(--ease-out),
-    box-shadow 0.2s;
+    height 0.32s var(--ease-out);
 }
 
 .window.is-minimized {
@@ -227,7 +225,7 @@
   min-height: 0;
   overflow-y: auto;
   padding-bottom: 12px;
-  background: var(--sidebar-bg);
+  background: var(--sidebar-solid);
   border-right: 1px solid var(--hairline);
   user-select: none;
   -webkit-user-select: none;
@@ -509,7 +507,7 @@
 /* Dark windows (Terminal) ------------------------------------------------ */
 .window--dark {
   color: #f2f2f4;
-  background: rgba(24, 24, 27, 0.86);
+  background: #18181b;
   --fg: #f2f2f4;
   --fg-2: rgba(235, 235, 245, 0.66);
   --hairline: rgba(255, 255, 255, 0.1);

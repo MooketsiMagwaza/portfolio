@@ -98,10 +98,8 @@
   padding: 4px;
   border-radius: 999px;
   color: #fff;
-  background: rgba(18, 18, 24, 0.5);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 8px 22px rgba(0, 0, 0, 0.35);
+  background: rgba(18, 18, 24, 0.66);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 6px 16px rgba(0, 0, 0, 0.3);
   transform: translateX(-50%);
   user-select: none;
 }
@@ -160,7 +158,6 @@
   background: #16161a;
   box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.55), 0 32px 60px -18px rgba(0, 0, 0, 0.65), 0 10px 26px rgba(0, 0, 0, 0.3);
   container-type: inline-size;
-  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 0.25s var(--ease-out);
 }
 
@@ -168,8 +165,11 @@
   display: none;
 }
 
+/* The tilt transform only exists while the pointer is over the frame, so idle frames aren't layers. */
 .frame.is-tilting {
-  transition: transform 0.05s linear;
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.06s linear;
+  will-change: transform;
 }
 
 .frame img {
@@ -230,23 +230,6 @@
   border-radius: 0;
   background: none;
   box-shadow: none;
-}
-
-.frame--bare .frame__glare {
-  display: none;
-}
-
-.frame__glare {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, 0.24), transparent 55%);
-  opacity: 0;
-  transition: opacity 0.25s;
-  pointer-events: none;
-}
-
-.frame.is-tilting .frame__glare {
-  opacity: 1;
 }
 
 @keyframes preview-in {

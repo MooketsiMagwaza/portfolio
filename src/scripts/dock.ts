@@ -33,9 +33,10 @@ export function initDock(): void {
   // Item centres are measured at rest (relative to the Dock's centre) so growing icons
   // never feed back into their own distance calculation.
   let offsets: number[] = [];
+  let centre = 0;
   const measure = () => {
     const box = dock.getBoundingClientRect();
-    const centre = box.left + box.width / 2;
+    centre = box.left + box.width / 2;
     offsets = items.map((item) => {
       const rect = item.getBoundingClientRect();
       return rect.left + rect.width / 2 - centre;
@@ -43,6 +44,7 @@ export function initDock(): void {
   };
 
   let frame = 0;
+  let lastX = -1;
   const fine = matchMedia('(hover: hover) and (pointer: fine)');
 
   dock.addEventListener('pointerenter', (event) => {
@@ -51,12 +53,14 @@ export function initDock(): void {
     dock.classList.add('is-hovering');
   });
 
+  // The Dock stays centred as it grows, so its centre is measured once (at rest) rather than on every
+  // move, which would force a synchronous layout each frame.
   dock.addEventListener('pointermove', (event) => {
-    if (!dock.classList.contains('is-hovering')) return;
+    if (!dock.classList.contains('is-hovering') || Math.abs(event.clientX - lastX) < 1) return;
+    lastX = event.clientX;
     cancelAnimationFrame(frame);
     frame = requestAnimationFrame(() => {
-      const box = dock.getBoundingClientRect();
-      const pointer = event.clientX - (box.left + box.width / 2);
+      const pointer = lastX - centre;
       items.forEach((item, index) => {
         const distance = Math.abs(pointer - (offsets[index] ?? 0));
         const weight = distance >= RANGE ? 0 : Math.cos((distance / RANGE) * (Math.PI / 2)) ** 2;
@@ -67,6 +71,7 @@ export function initDock(): void {
 
   dock.addEventListener('pointerleave', () => {
     cancelAnimationFrame(frame);
+    lastX = -1;
     dock.classList.remove('is-hovering');
     items.forEach((item) => item.style.removeProperty('--s'));
   });

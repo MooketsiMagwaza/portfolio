@@ -90,7 +90,7 @@ const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${proje
                 <div class="preview" data-preview={project.slug} style={themeVars(project)} hidden={project.slug !== firstSlug}>
                   <div class="preview__frames">
                     {project.shots.map((shot, index) => (
-                      <ShotFrame project={project} shot={shot} index={index} tilt eager={index === 0 && project.slug === firstSlug} hidden={index !== 0} />
+                      <ShotFrame project={project} shot={shot} index={index} tilt eager={index === 0} hidden={index !== 0} />
                     ))}
                   </div>
                   {

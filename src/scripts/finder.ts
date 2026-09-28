@@ -166,21 +166,32 @@ function move(delta: number, vertical: boolean): void {
 
 function wireTilt(): void {
   $$('[data-tilt]', root).forEach((card) => {
+    let box: DOMRect | null = null;
+    let frame = 0;
+    let px = 0.5;
+    let py = 0.5;
+
+    // Measure once on entry (the frame is untilted then) and update at most once per frame.
+    card.addEventListener('pointerenter', (event) => {
+      if (event.pointerType === 'mouse') box = card.getBoundingClientRect();
+    });
     card.addEventListener('pointermove', (event) => {
-      if (event.pointerType !== 'mouse' || prefersReducedMotion()) return;
-      const box = card.getBoundingClientRect();
-      const px = (event.clientX - box.left) / box.width;
-      const py = (event.clientY - box.top) / box.height;
-      card.classList.add('is-tilting');
-      card.style.setProperty('--ry', `${((px - 0.5) * 7).toFixed(2)}deg`);
-      card.style.setProperty('--rx', `${((0.5 - py) * 6).toFixed(2)}deg`);
-      card.style.setProperty('--gx', `${(px * 100).toFixed(1)}%`);
-      card.style.setProperty('--gy', `${(py * 100).toFixed(1)}%`);
+      if (!box || event.pointerType !== 'mouse' || prefersReducedMotion()) return;
+      px = (event.clientX - box.left) / box.width;
+      py = (event.clientY - box.top) / box.height;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        card.classList.add('is-tilting');
+        card.style.setProperty('--ry', `${((px - 0.5) * 7).toFixed(2)}deg`);
+        card.style.setProperty('--rx', `${((0.5 - py) * 6).toFixed(2)}deg`);
+      });
     });
     card.addEventListener('pointerleave', () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      box = null;
       card.classList.remove('is-tilting');
-      card.style.setProperty('--rx', '0deg');
-      card.style.setProperty('--ry', '0deg');
     });
   });
 }
