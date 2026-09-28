@@ -54,13 +54,13 @@ export const principles: Principle[] = [
   },
 ];
 
-/** Everything here is drawn from the projects' own stacks. */
+/** The "Technical toolkit" from the GitHub profile README. */
 export const stackGroups: { label: string; items: string[] }[] = [
-  { label: 'Services', items: ['Rust', 'Axum', 'FastAPI', 'Go'] },
-  { label: 'Web', items: ['React', 'Next.js'] },
-  { label: 'Data & routing', items: ['PostgreSQL', 'PostGIS', 'pgRouting', 'Redis', 'OR-Tools'] },
-  { label: 'Devices', items: ['Swift', 'Syncthing', 'Android', 'Bluetooth HID', 'USB/ADB'] },
-  { label: 'Delivery & quality', items: ['Docker', 'nginx', 'Prometheus', 'GitHub Actions', 'CodeQL', 'XCTest'] },
+  { label: 'Backend', items: ['Rust', 'Axum', 'Python', 'FastAPI', 'Go', 'Java', 'REST APIs'] },
+  { label: 'Web', items: ['TypeScript', 'React', 'Next.js', 'Vite', 'Accessible responsive UI'] },
+  { label: 'Data', items: ['PostgreSQL', 'PostGIS', 'pgRouting', 'Redis', 'SQLAlchemy', 'sqlx', 'Alembic'] },
+  { label: 'Operations', items: ['Docker', 'nginx', 'GitHub Actions', 'Prometheus', 'Grafana', 'Tempo', 'OpenTelemetry'] },
+  { label: 'Native', items: ['Swift', 'SwiftUI', 'Android platform APIs', 'Bluetooth HID'] },
 ];
 
 /** Where the desktop-in-a-browser idea comes from. */

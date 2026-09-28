@@ -1,5 +1,5 @@
 ---
-import { frameAspect, shotUrl, type Project, type Shot } from '@/data/projects';
+import { frameAspect, shotFrame, shotUrl, type Project, type Shot } from '@/data/projects';
 
 interface Props {
   project: Project;
@@ -11,18 +11,19 @@ interface Props {
 }
 
 const { project, shot, index, eager = false, tilt = false, hidden = false } = Astro.props;
-const aspect = frameAspect(project.frame, shot).toFixed(4);
+const frame = shotFrame(project, shot);
+const aspect = frameAspect(frame, shot).toFixed(4);
 ---
 
 <figure
-  class:list={['frame', `frame--${project.frame}`]}
+  class:list={['frame', `frame--${frame}`]}
   style={`--ar:${aspect}`}
   data-shot={index}
   data-tilt={tilt ? '' : undefined}
   hidden={hidden}
 >
   {
-    project.frame === 'browser' && (
+    frame === 'browser' && (
       <div class="frame__bar" aria-hidden="true">
         <i></i><i></i><i></i>
       </div>

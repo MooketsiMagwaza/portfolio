@@ -224,6 +224,18 @@
   border-radius: 16px;
 }
 
+/* Images that already include their own Mac window or iPhone mockup (and soft shadow). */
+.frame--bare {
+  overflow: visible;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.frame--bare .frame__glare {
+  display: none;
+}
+
 .frame__glare {
   position: absolute;
   inset: 0;

@@ -1,7 +1,10 @@
 export type ProjectTag = 'web' | 'systems' | 'mobile' | 'docs';
 
-/** How a project's screenshots are presented: a browser window, a tablet, or a landscape phone. */
-export type Frame = 'browser' | 'tablet' | 'phone';
+/**
+ * How a screenshot is presented: a browser window, a tablet, or a landscape phone drawn around it,
+ * or `bare` for images that already come with their own Mac window or iPhone mockup.
+ */
+export type Frame = 'browser' | 'tablet' | 'phone' | 'bare';
 
 export type Shot = {
   /** File name (without extension) inside public/images/projects/<slug>/. */
@@ -11,6 +14,8 @@ export type Shot = {
   /** Pixel size of the optimised image, used to reserve space before it loads. */
   w: number;
   h: number;
+  /** Overrides the project's default frame for this one image. */
+  frame?: Frame;
 };
 
 export type Project = {
@@ -22,7 +27,7 @@ export type Project = {
   kind: string;
   kicker: string;
   summary: string;
-  /** The longer, first-person story behind the project. */
+  /** The longer story behind the project. */
   story: string;
   evidence: string;
   next?: string;
@@ -30,6 +35,7 @@ export type Project = {
   tags: ProjectTag[];
   repository: string;
   featured: boolean;
+  /** The default frame for this project's screenshots. */
   frame: Frame;
   /** Colours behind the screenshots: a gradient and a soft highlight. */
   theme: { from: string; to: string; glow: string };
@@ -48,6 +54,7 @@ export const tagLabels: Record<ProjectTag, string> = {
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 export const asset = (path: string): string => `${base}/${path}`;
 
+export const shotFrame = (project: Project, shot: Shot): Frame => shot.frame ?? project.frame;
 export const shotUrl = (project: Project, shot: Shot): string => asset(`images/projects/${project.slug}/${shot.file}.webp`);
 export const coverThumbUrl = (project: Project): string => asset(`images/projects/${project.slug}/${project.shots[0].file}-sm.webp`);
 
@@ -57,6 +64,7 @@ export const coverThumbUrl = (project: Project): string => asset(`images/project
  */
 export function frameAspect(frame: Frame, shot: Shot): number {
   const { w, h } = shot;
+  if (frame === 'bare') return w / h;
   if (frame === 'browser') return w / (h + w * 0.04);
   const pad = frame === 'tablet' ? 0.022 : 0.018;
   return (w + 2 * pad * w) / (h + 2 * pad * w);
@@ -68,25 +76,25 @@ export const projects: Project[] = [
     name: 'Tsela',
     filename: 'Tsela.app',
     kind: 'Transit platform',
-    kicker: 'Public transport, mapped for how people actually move',
+    kicker: 'Gaborone transit, made searchable',
     summary:
       'A multi-surface transit platform for riders, operators, developers, and route contributors in Botswana.',
     story:
-      'Getting around Gaborone shouldn’t require insider knowledge. Tsela brings routes, stops, directions, and community knowledge into one calm place.',
+      'Tsela turns Gaborone’s informal combi knowledge into a route-planning platform. A rider can choose an origin and destination, compare road-following routes, see where to board, and understand where to get off.',
     evidence:
-      'The repository combines a FastAPI service, PostGIS and pgRouting, OR-Tools, multiple Next.js applications, Docker development, observability scaffolding, route documentation, and real product screens.',
-    next: 'Validate the remaining launch controls against a production-like environment and expand verified route coverage.',
-    stack: ['FastAPI', 'PostGIS', 'Next.js', 'OR-Tools', 'Prometheus'],
+      'FastAPI owns the HTTP API; PostgreSQL, PostGIS, and pgRouting own spatial data and road-aligned routing; OR-Tools supports optimization. Five product surfaces share one platform, with Prometheus, Grafana, Tempo, and OpenTelemetry giving an observable path through it.',
+    next: 'Check the route data against real Gaborone roads and what riders actually know, and move sign-in and ops controls from local demos to something ready to launch.',
+    stack: ['FastAPI', 'PostGIS', 'pgRouting', 'Next.js', 'OR-Tools', 'Prometheus'],
     tags: ['web', 'systems'],
     repository: 'https://github.com/MooketsiMagwaza/transit-route-optimization',
     featured: true,
     frame: 'browser',
     theme: { from: '#0a1f44', to: '#0e5a94', glow: '#2dd4bf' },
     shots: [
+      { file: 'rider-routes', alt: 'The Tsela rider app in a Mac window: every mapped route in Gaborone, with search and a route list', caption: 'Rider app: explore every route', w: 1280, h: 949, frame: 'bare' },
       { file: 'home', alt: 'Tsela’s marketing site: “Know which combi gets you there”, with a route preview map', caption: 'Marketing site', w: 1440, h: 960 },
       { file: 'admin', alt: 'Tsela’s admin console dashboard showing capacity and reliability figures', caption: 'Admin console', w: 1440, h: 960 },
       { file: 'route', alt: 'A route detail page in the admin console, with stops and a street map', caption: 'Route detail and map', w: 1440, h: 960 },
-      { file: 'rider', alt: 'The rider guide: “Know the route. Ride with context.”', caption: 'Rider guide', w: 1440, h: 960 },
     ],
   },
   {
@@ -94,25 +102,24 @@ export const projects: Project[] = [
     name: 'StockLink',
     filename: 'StockLink.app',
     kind: 'Logistics platform',
-    kicker: 'Warehouse operations across clear service boundaries',
+    kicker: 'Wholesale stock, from warehouse to shop door',
     summary:
-      'A logistics platform exploring service-owned data, authentication controls, and a practical warehouse workflow.',
+      'A logistics platform where shops order from many warehouses in one cart, and every parcel can be followed from the warehouse door to the shop.',
     story:
-      'Stock moves through a warehouse faster when every team can see the same clear picture. StockLink connects warehouses to retail stores with consolidated bulk ordering and live parcel tracking.',
+      'Small shops often buy from several warehouses and then wait on deliveries they can’t see. StockLink puts all of that in one place: one cart across many warehouses, demand pooled into bulk orders, and every parcel followed to the shop.',
     evidence:
-      'Four Rust and Axum services own separate PostgreSQL databases behind an nginx gateway, with Redis-backed controls, a React interface, and generated Fumadocs documentation.',
-    next: 'Harden event delivery and complete a reproducible deployment path before calling the system production-ready.',
-    stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React'],
+      'Five Rust (Axum) services, each with its own PostgreSQL database, sit behind one nginx gateway: identity, commerce, notifications, media, and ops. Redis handles the denylist and rate limits, and one React app covers warehouses, shops, drivers, and staff.',
+    next: 'Bring the whole Docker stack up end to end for the first time, then finish event delivery (the outbox and Kafka publisher are not finished).',
+    stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React', 'nginx'],
     tags: ['systems', 'web'],
     repository: 'https://github.com/MooketsiMagwaza/stocklink',
     featured: true,
-    frame: 'browser',
-    theme: { from: '#24140a', to: '#9a5410', glow: '#ffb020' },
+    frame: 'bare',
+    theme: { from: '#1a1410', to: '#7a4a1e', glow: '#ffb020' },
     shots: [
-      { file: 'marketplace', alt: 'StockLink’s marketplace, where stores browse stock from connected warehouses', caption: 'Marketplace (sample data)', w: 1280, h: 800 },
-      { file: 'dashboard', alt: 'The warehouse dashboard, with charts and a table of recent orders', caption: 'Warehouse dashboard', w: 1280, h: 800 },
-      { file: 'catalogue', alt: 'The catalogue, where a warehouse publishes and manages its stock', caption: 'Catalogue', w: 1280, h: 800 },
-      { file: 'orders', alt: 'The warehouse orders table, with order status and payment state', caption: 'Orders', w: 1280, h: 800 },
+      { file: 'store-order', alt: 'StockLink’s retail store view in dark mode, in a Mac window: an order in transit, with its delivery code, QR code, and live position', caption: 'A shop follows its order', w: 1280, h: 964 },
+      { file: 'driver-phones', alt: 'The StockLink driver app in dark mode on two iPhones: collecting a parcel with the warehouse’s pickup code, then on the road with the handover form', caption: 'Driver app, built phone-first', w: 1100, h: 1229 },
+      { file: 'public-tracking', alt: 'The public tracking page in dark mode, in a Mac window: a parcel’s journey and rounded position, no account needed', caption: 'Public tracking, no account needed', w: 760, h: 765 },
     ],
   },
   {
@@ -120,22 +127,22 @@ export const projects: Project[] = [
     name: 'Obsidian Sync for iOS',
     filename: 'Obsidian Sync.app',
     kind: 'iPadOS prototype',
-    kicker: 'A real synchronization engine behind a native interface',
+    kicker: 'Local-first vault synchronization',
     summary:
-      'An iPad-focused prototype that integrates Syncthing with Swift and a carefully documented Go boundary.',
+      'A free, open-source iPhone and iPad companion that joins an existing Syncthing cluster to sync an Obsidian vault, with no hosted account.',
     story:
-      'I wanted notes to move between my devices without handing them to another cloud. This is the native iPad experiment that came from that.',
+      'I wanted notes to move between my devices without handing them to another cloud. This is the native iPad experiment that came from that: it joins an existing Syncthing cluster and synchronizes an Obsidian vault without a hosted account or proprietary sync service.',
     evidence:
-      'Physical-device tests demonstrated bidirectional transfer and deletion propagation. The project includes simulator tests, integration coverage, CI, security guidance, and third-party notices.',
+      'Physical testing proved desktop-to-iPad and iPad-to-desktop transfers, including a deletion propagated back to the desktop. GitHub Actions cross-compiles the XCFramework, builds the iOS app, and runs the simulator suite.',
     next: 'Turn the tested development build into a repeatable, signed release without hiding the constraints of iOS background execution.',
-    stack: ['Swift', 'Go', 'Syncthing', 'XCTest', 'GitHub Actions'],
+    stack: ['Swift', 'SwiftUI', 'Go', 'Syncthing', 'GitHub Actions'],
     tags: ['mobile', 'systems'],
     repository: 'https://github.com/MooketsiMagwaza/obsidian-sync-ios',
     featured: true,
     frame: 'tablet',
     theme: { from: '#150b28', to: '#4a2590', glow: '#a78bfa' },
     shots: [
-      { file: 'session', alt: 'Vault Sync on an iPad, mid-way through a sync session', caption: 'A sync session in progress', w: 1080, h: 751 },
+      { file: 'session', alt: 'Obsidian Sync transferring an established vault on a physical iPad', caption: 'A sync session in progress', w: 1080, h: 751 },
       { file: 'activity', alt: 'The recent activity list on iPad, showing files that were updated', caption: 'Recent activity', w: 1080, h: 751 },
       { file: 'vault', alt: 'An Obsidian vault, kept in sync, open on an iPad', caption: 'The synced vault in Obsidian', w: 1080, h: 751 },
     ],
@@ -147,12 +154,12 @@ export const projects: Project[] = [
     kind: 'Study hub',
     kicker: 'Notes, code & quizzes for University of Botswana CS',
     summary:
-      'An open, interactive Computer Science study hub for University of Botswana courses, live on the web.',
+      'A deployed, open-source learning platform for University of Botswana computer-science courses.',
     story:
       'Notes, code, and quizzes for computer science courses at the University of Botswana, with a focus timer for study sessions. It is open, and built to be contributed to.',
     evidence:
-      'A live site, CI, CodeQL analysis, dependency review, project governance, and a documented contributor path.',
-    stack: ['Next.js', 'CI', 'CodeQL', 'Dependency review'],
+      'A live site backed by CI, CodeQL analysis, dependency review, project governance, a documented contributor path, and reusable interactive MDX components.',
+    stack: ['Next.js', 'MDX', 'CI', 'CodeQL'],
     tags: ['docs', 'web'],
     repository: 'https://github.com/MooketsiMagwaza/university-cs-docs',
     featured: false,
@@ -170,11 +177,11 @@ export const projects: Project[] = [
     name: 'GlassHID',
     filename: 'GlassHID.apk',
     kind: 'Android utility',
-    kicker: 'An Android phone as a Bluetooth keyboard, trackpad, and gamepad',
+    kicker: 'A phone that is a keyboard, trackpad, remote, and gamepad',
     summary:
-      'Turn an Android phone into an offline Bluetooth keyboard, trackpad, media remote, and gamepad.',
+      'Turns an Android phone into a local-only Bluetooth keyboard, trackpad, media remote, and gamepad using native HID APIs.',
     story:
-      'A phone that doubles as your input devices over Bluetooth HID or USB/ADB, fully offline. It is presented honestly: the CI and compatibility evidence is still being expanded.',
+      'A small, local-only Android utility that turns a phone into the input devices you need, over Bluetooth HID or USB/ADB. It is presented honestly: the CI and compatibility evidence is still being expanded.',
     evidence: 'An offline Android utility covering Bluetooth HID and USB/ADB.',
     next: 'Expand CI and device-compatibility evidence.',
     stack: ['Android', 'Bluetooth HID', 'USB/ADB'],
