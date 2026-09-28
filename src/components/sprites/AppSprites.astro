@@ -1,0 +1,142 @@
+---
+/**
+ * Original app and desktop icons, drawn for this portfolio.
+ * Each symbol is a 64×64 squircle referenced with <use href="#app-…">.
+ */
+---
+
+<defs>
+  <linearGradient id="gr-finder" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#63cbff"></stop>
+    <stop offset="1" stop-color="#0a6cff"></stop>
+  </linearGradient>
+  <linearGradient id="gr-contacts" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffb867"></stop>
+    <stop offset="1" stop-color="#f0692f"></stop>
+  </linearGradient>
+  <linearGradient id="gr-notes-band" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffe04d"></stop>
+    <stop offset="1" stop-color="#ffc21a"></stop>
+  </linearGradient>
+  <linearGradient id="gr-terminal" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#48484c"></stop>
+    <stop offset="1" stop-color="#0c0c0e"></stop>
+  </linearGradient>
+  <linearGradient id="gr-mail" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#5cc4ff"></stop>
+    <stop offset="1" stop-color="#1668ff"></stop>
+  </linearGradient>
+  <linearGradient id="gr-code" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#4b4d55"></stop>
+    <stop offset="1" stop-color="#17181c"></stop>
+  </linearGradient>
+  <linearGradient id="gr-logo" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#8b6cff"></stop>
+    <stop offset="1" stop-color="#2f7bff"></stop>
+  </linearGradient>
+  <linearGradient id="gr-trash" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#b9bcc6"></stop>
+    <stop offset="1" stop-color="#7c808c"></stop>
+  </linearGradient>
+  <linearGradient id="gr-drive" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#eceef3"></stop>
+    <stop offset="1" stop-color="#a9adba"></stop>
+  </linearGradient>
+  <linearGradient id="gr-folder-back" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#4fb6ff"></stop>
+    <stop offset="1" stop-color="#2a86f5"></stop>
+  </linearGradient>
+  <linearGradient id="gr-folder-front" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#8bd6ff"></stop>
+    <stop offset="1" stop-color="#4ba6ff"></stop>
+  </linearGradient>
+  <linearGradient id="gr-sheen" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fff" stop-opacity=".38"></stop>
+    <stop offset=".5" stop-color="#fff" stop-opacity="0"></stop>
+  </linearGradient>
+  <clipPath id="cp-squircle"><rect width="64" height="64" rx="15"></rect></clipPath>
+</defs>
+
+<!-- Finder: a folder holding a picture, because this one is a gallery. -->
+<symbol id="app-finder" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="url(#gr-finder)"></rect>
+  <path d="M12 21a4 4 0 0 1 4-4h10.4a4 4 0 0 1 2.9 1.2L32 21h16a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4z" fill="#c6e6ff"></path>
+  <rect x="12" y="26" width="40" height="23" rx="4" fill="#fff"></rect>
+  <path d="M17 45l8.5-9.5 5.5 5.5 4-4L47 45z" fill="#2f8bff" opacity=".92"></path>
+  <circle cx="43" cy="33" r="2.7" fill="#2f8bff"></circle>
+  <rect width="64" height="64" rx="15" fill="url(#gr-sheen)"></rect>
+</symbol>
+
+<symbol id="app-contacts" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="url(#gr-contacts)"></rect>
+  <circle cx="32" cy="24.5" r="8" fill="#fff"></circle>
+  <path d="M16 50c0-9.4 6.7-15 16-15s16 5.6 16 15z" fill="#fff"></path>
+  <rect x="55" y="16" width="4" height="8" rx="2" fill="#fff" opacity=".55"></rect>
+  <rect x="55" y="27" width="4" height="8" rx="2" fill="#fff" opacity=".55"></rect>
+  <rect x="55" y="38" width="4" height="8" rx="2" fill="#fff" opacity=".55"></rect>
+  <rect width="64" height="64" rx="15" fill="url(#gr-sheen)"></rect>
+</symbol>
+
+<symbol id="app-notes" viewBox="0 0 64 64">
+  <g clip-path="url(#cp-squircle)">
+    <rect width="64" height="64" fill="#fdfdfb"></rect>
+    <rect width="64" height="19" fill="url(#gr-notes-band)"></rect>
+    <path d="M12 33h40M12 41h40M12 49h26" stroke="#d5d5d0" stroke-width="2.6" stroke-linecap="round" fill="none"></path>
+    <path d="M12 12h14" stroke="#b78900" stroke-width="2.6" stroke-linecap="round" opacity=".55" fill="none"></path>
+  </g>
+  <rect width="64" height="64" rx="15" fill="url(#gr-sheen)"></rect>
+</symbol>
+
+<symbol id="app-terminal" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="url(#gr-terminal)"></rect>
+  <rect x=".75" y=".75" width="62.5" height="62.5" rx="14.4" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="1.5"></rect>
+  <path d="M17 24.5 28.5 32 17 39.5" fill="none" stroke="#fff" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round"></path>
+  <path d="M33 42h15" fill="none" stroke="#fff" stroke-width="4.4" stroke-linecap="round"></path>
+  <rect width="64" height="64" rx="15" fill="url(#gr-sheen)"></rect>
+</symbol>
+
+<symbol id="app-mail" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="url(#gr-mail)"></rect>
+  <rect x="11" y="18" width="42" height="28" rx="5" fill="#fff"></rect>
+  <path d="m13.5 21.5 18.5 14 18.5-14" fill="none" stroke="#2b78ff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+  <rect width="64" height="64" rx="15" fill="url(#gr-sheen)"></rect>
+</symbol>
+
+<symbol id="app-code" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="url(#gr-code)"></rect>
+  <path d="M25 22 14.5 32 25 42M39 22l10.5 10L39 42M35.5 18.5 28.5 45.5" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+  <rect width="64" height="64" rx="15" fill="url(#gr-sheen)"></rect>
+</symbol>
+
+<!-- The portfolio's own mark: the "M" from the favicon on a violet-to-blue tile. -->
+<symbol id="app-logo" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="url(#gr-logo)"></rect>
+  <path d="M15 44V20h8l9 13 9-13h8v24h-8V32l-9 12-9-12v12z" fill="#fff"></path>
+  <rect width="64" height="64" rx="15" fill="url(#gr-sheen)"></rect>
+</symbol>
+
+<symbol id="app-trash" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="15" fill="url(#gr-trash)"></rect>
+  <path d="M19 22h26M28 22v-3.5a1.5 1.5 0 0 1 1.5-1.5h5a1.5 1.5 0 0 1 1.5 1.5V22M22 26l1.7 21a2 2 0 0 0 2 1.8h12.6a2 2 0 0 0 2-1.8L42 26M28.5 31v12M35.5 31v12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+  <rect width="64" height="64" rx="15" fill="url(#gr-sheen)"></rect>
+</symbol>
+
+<!-- Desktop icons -->
+<symbol id="app-drive" viewBox="0 0 64 64">
+  <rect x="5" y="20" width="54" height="26" rx="6" fill="url(#gr-drive)"></rect>
+  <rect x="5.5" y="20.5" width="53" height="25" rx="5.5" fill="none" stroke="#000" stroke-opacity=".18"></rect>
+  <path d="M12 39h26" stroke="#8b8f9c" stroke-width="2.5" stroke-linecap="round"></path>
+  <circle cx="50" cy="39" r="2.4" fill="#34c759"></circle>
+</symbol>
+
+<symbol id="app-folder" viewBox="0 0 64 64">
+  <path d="M6 18a5 5 0 0 1 5-5h11.6a5 5 0 0 1 3.6 1.5L30 18h23a5 5 0 0 1 5 5v25a5 5 0 0 1-5 5H11a5 5 0 0 1-5-5z" fill="url(#gr-folder-back)"></path>
+  <path d="M6 26a5 5 0 0 1 5-5h42a5 5 0 0 1 5 5v22a5 5 0 0 1-5 5H11a5 5 0 0 1-5-5z" fill="url(#gr-folder-front)"></path>
+</symbol>
+
+<symbol id="app-doc" viewBox="0 0 64 64">
+  <path d="M15 6h24l12 12v36a4 4 0 0 1-4 4H15a4 4 0 0 1-4-4V10a4 4 0 0 1 4-4z" fill="#fff"></path>
+  <path d="M15.5 6.5h23.3l11.7 11.7V54a3.5 3.5 0 0 1-3.5 3.5H15a3.5 3.5 0 0 1-3.5-3.5V10A3.5 3.5 0 0 1 15 6.5z" fill="none" stroke="#000" stroke-opacity=".2"></path>
+  <path d="M39 6v9a3 3 0 0 0 3 3h9z" fill="#d9dbe2"></path>
+  <path d="M19 30h26M19 37h26M19 44h16" stroke="#b7bac6" stroke-width="2.6" stroke-linecap="round"></path>
+</symbol>

@@ -1,0 +1,12 @@
+---
+import AppSprites from './AppSprites.astro';
+import GlyphSprites from './GlyphSprites.astro';
+import ArtSprites from './ArtSprites.astro';
+---
+
+<!-- One shared sprite sheet. It must stay rendered (not display:none) so gradients resolve. -->
+<svg class="sprites" width="0" height="0" aria-hidden="true" focusable="false">
+  <AppSprites />
+  <GlyphSprites />
+  <ArtSprites />
+</svg>
