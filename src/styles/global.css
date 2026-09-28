@@ -228,6 +228,8 @@ svg {
 }
 
 .glyph {
+  display: inline-block;
+  vertical-align: -0.14em;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.7;
