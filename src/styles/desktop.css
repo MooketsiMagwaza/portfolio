@@ -629,6 +629,13 @@
   background: var(--control-bg-hover);
 }
 
+.spotlight__row svg.art {
+  width: 48px;
+  height: 30px;
+  border-radius: 6px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.25);
+}
+
 .spotlight__row strong {
   display: block;
   font-size: 14px;
