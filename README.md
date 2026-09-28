@@ -66,6 +66,11 @@ To add or replace one, export it as WebP (about 1,400px wide is plenty), drop it
 in the project's folder, and update its `shots` entry. `w` and `h` are the
 image's pixel size; they reserve space so the layout doesn't jump.
 
+`tools/mockups/` is the script that bakes those Mac-window and iPhone mockups
+from the raw screens in `public/images/stocklink/` and `public/images/tsela/`
+(see its README). The site itself doesn't use those raw screens or
+`src/styles/mockups.css` any more, but the tool reads them, so they are kept.
+
 ## Credit
 
 The idea of a portfolio that lives inside a desktop operating system comes from
