@@ -1,6 +1,6 @@
 ---
-import Art from '@/components/Art.astro';
 import Icon from '@/components/Icon.astro';
+import ShotFrame from '@/components/ShotFrame.astro';
 import { projects, tagLabels } from '@/data/projects';
 ---
 
@@ -17,8 +17,28 @@ import { projects, tagLabels } from '@/data/projects';
     {
       projects.map((project) => (
         <div class="quicklook__page" data-ql={project.slug} hidden>
-          <Art name={project.art} label={`Illustration for ${project.name}`} class="quicklook__art" />
+          <div class="quicklook__stage" style={`--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`}>
+            {project.shots.map((shot, index) => (
+              <ShotFrame project={project} shot={shot} index={index} hidden={index !== 0} />
+            ))}
+            {
+              project.shots.length > 1 && (
+                <>
+                  <button type="button" class="quicklook__nav quicklook__nav--prev" data-ql-step="-1" aria-label="Previous screenshot">
+                    <Icon name="chevron-left" size={18} />
+                  </button>
+                  <button type="button" class="quicklook__nav quicklook__nav--next" data-ql-step="1" aria-label="Next screenshot">
+                    <Icon name="chevron-right" size={18} />
+                  </button>
+                </>
+              )
+            }
+          </div>
           <div class="quicklook__body">
+            <p class="quicklook__count" aria-live="polite">
+              <b data-ql-caption>{project.shots[0].caption}</b>
+              {project.shots.length > 1 && <span data-ql-count>1 / {project.shots.length}</span>}
+            </p>
             <h2>{project.name}</h2>
             <p class="quicklook__kicker">{project.kicker}</p>
             <p>{project.summary}</p>

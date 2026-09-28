@@ -2,8 +2,9 @@
 import Window from '@/components/Window.astro';
 import Icon from '@/components/Icon.astro';
 import AppIcon from '@/components/AppIcon.astro';
-import Art from '@/components/Art.astro';
-import { projects, featuredProjects, tagLabels, type ProjectTag } from '@/data/projects';
+import Cover from '@/components/Cover.astro';
+import ShotFrame from '@/components/ShotFrame.astro';
+import { projects, featuredProjects, tagLabels, type Project, type ProjectTag } from '@/data/projects';
 import { profile } from '@/data/site';
 
 const tags = Object.keys(tagLabels) as ProjectTag[];
@@ -14,6 +15,9 @@ const views = [
   { id: 'list', label: 'as List', icon: 'list' },
   { id: 'gallery', label: 'as Gallery', icon: 'gallery' },
 ];
+
+/** The colours behind a project's screenshots, as CSS custom properties. */
+const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`;
 ---
 
 <Window id="finder" label="Projects, in Finder" w={860} h={540} minW={480} minH={380}>
@@ -78,16 +82,33 @@ const views = [
       </div>
 
       <div class="finder__body">
-        <!-- Gallery: a big preview, a filmstrip, and an inspector -->
+        <!-- Gallery: a big preview of real screenshots, a filmstrip, and an inspector -->
         <section class="view view--gallery" data-view-panel="gallery" aria-label="Gallery view">
           <div class="gallery__stage">
             {
               projects.map((project) => (
-                <div class="preview" data-preview={project.slug} hidden={project.slug !== firstSlug}>
-                  <div class="preview__tilt" data-tilt>
-                    <Art name={project.art} label={`Illustration for ${project.name}`} />
-                    <span class="preview__glare" aria-hidden="true"></span>
+                <div class="preview" data-preview={project.slug} style={themeVars(project)} hidden={project.slug !== firstSlug}>
+                  <div class="preview__frames">
+                    {project.shots.map((shot, index) => (
+                      <ShotFrame project={project} shot={shot} index={index} tilt eager={index === 0 && project.slug === firstSlug} hidden={index !== 0} />
+                    ))}
                   </div>
+                  {
+                    project.shots.length > 1 && (
+                      <div class="pager" role="group" aria-label={`${project.name} screenshots`} data-nodrag>
+                        <button type="button" class="pager__btn" data-shot-step="-1" aria-label="Previous screenshot" title="Previous screenshot (↑)">
+                          <Icon name="chevron-left" size={14} />
+                        </button>
+                        <span class="pager__label" aria-live="polite">
+                          <b data-shot-caption>{project.shots[0].caption}</b>
+                          <em data-shot-count>1 / {project.shots.length}</em>
+                        </span>
+                        <button type="button" class="pager__btn" data-shot-step="1" aria-label="Next screenshot" title="Next screenshot (↓)">
+                          <Icon name="chevron-right" size={14} />
+                        </button>
+                      </div>
+                    )
+                  }
                 </div>
               ))
             }
@@ -96,7 +117,7 @@ const views = [
             {
               projects.map((project) => (
                 <button class="thumb" type="button" data-project={project.slug} aria-pressed={project.slug === firstSlug ? 'true' : 'false'}>
-                  <span class="thumb__art"><Art name={project.art} label="" /></span>
+                  <Cover project={project} class="thumb__art" />
                   <span class="thumb__label">{project.filename}</span>
                 </button>
               ))
@@ -159,7 +180,7 @@ const views = [
             {
               projects.map((project) => (
                 <button class="icon-item" type="button" data-project={project.slug} aria-pressed="false">
-                  <span class="icon-item__art"><Art name={project.art} label="" /></span>
+                  <Cover project={project} class="icon-item__art" />
                   <span class="icon-item__name">{project.filename}</span>
                   <span class="icon-item__kind">{project.kind}</span>
                 </button>
@@ -179,7 +200,7 @@ const views = [
                 projects.map((project) => (
                   <tr data-project={project.slug} tabindex="0">
                     <td class="list__name">
-                      <span class="list__art"><Art name={project.art} label="" /></span>
+                      <Cover project={project} class="list__art" />
                       {project.filename}
                     </td>
                     <td>{project.kind}</td>

@@ -630,7 +630,8 @@
   background: var(--control-bg-hover);
 }
 
-.spotlight__row svg.art {
+.spotlight__row .cover {
+  flex: none;
   width: 48px;
   height: 30px;
   border-radius: 6px;
@@ -759,11 +760,62 @@
   overflow-y: auto;
 }
 
-.quicklook__art {
-  display: block;
+.quicklook__stage {
+  --pad-x: 28px;
+  --pad-top: 26px;
+  --pad-bottom: 26px;
+  position: relative;
+  display: grid;
+  place-items: center;
   width: 100%;
-  aspect-ratio: 8 / 5;
-  max-height: 46vh;
+  aspect-ratio: 16 / 9;
+  max-height: 48vh;
+  padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+  background:
+    radial-gradient(80% 100% at 82% -10%, color-mix(in srgb, var(--glow) 34%, transparent), transparent 62%),
+    linear-gradient(135deg, var(--g1), var(--g2));
+  container-type: size;
+}
+
+.quicklook__nav {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(18, 18, 24, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%);
+}
+
+.quicklook__nav:hover {
+  background: rgba(18, 18, 24, 0.7);
+}
+
+.quicklook__nav--prev { left: 10px; }
+.quicklook__nav--next { right: 10px; }
+
+.quicklook__count {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--fg-2);
+  font-size: 12px;
+}
+
+.quicklook__count b {
+  font-weight: 600;
+}
+
+.quicklook__count span {
+  font-variant-numeric: tabular-nums;
 }
 
 .quicklook__body {

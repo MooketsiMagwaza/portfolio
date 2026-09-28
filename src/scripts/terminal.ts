@@ -127,6 +127,7 @@ export function initTerminal(): void {
         row({ t: 'built with  ', c: 't-dim' }, project.stack.join(' · '));
         row({ t: 'evidence    ', c: 't-dim' }, project.evidence);
         if (project.next) row({ t: 'next        ', c: 't-dim' }, project.next);
+        row({ t: 'screens     ', c: 't-dim' }, `${project.shots.length} (open ${project.slug} to browse them)`);
         row({ t: 'source      ', c: 't-dim' }, { t: project.repository, href: project.repository });
       },
     },

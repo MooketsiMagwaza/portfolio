@@ -1,7 +1,7 @@
 import { apps } from '@/data/apps';
-import { projects } from '@/data/projects';
+import { coverThumbUrl, projects, type Project } from '@/data/projects';
 import * as actions from './actions';
-import { $$, appIcon, artThumb, glyph, isTypingTarget, must } from './lib';
+import { $$, appIcon, glyph, isTypingTarget, must } from './lib';
 
 type Group = 'Projects' | 'Apps' | 'Actions';
 
@@ -10,7 +10,7 @@ type Entry = {
   title: string;
   subtitle: string;
   keywords: string;
-  icon: () => SVGSVGElement;
+  icon: () => Element;
   run: () => void;
   suggested?: boolean;
 };
@@ -25,13 +25,26 @@ let shown: Entry[] = [];
 let selected = 0;
 let previousFocus: HTMLElement | null = null;
 
+/** A small cover screenshot on the project's own colours, matching the gallery thumbnails. */
+function coverBadge(project: Project): HTMLElement {
+  const badge = document.createElement('span');
+  badge.className = 'cover';
+  badge.style.cssText = `--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`;
+  const img = document.createElement('img');
+  img.src = coverThumbUrl(project);
+  img.alt = '';
+  img.decoding = 'async';
+  badge.append(img);
+  return badge;
+}
+
 function buildIndex(): Entry[] {
   const projectEntries: Entry[] = projects.map((project) => ({
     group: 'Projects',
     title: project.name,
     subtitle: `${project.kind} · ${project.stack.slice(0, 3).join(', ')}`,
     keywords: [project.filename, project.kicker, ...project.stack].join(' '),
-    icon: () => artThumb(project.art, 48),
+    icon: () => coverBadge(project),
     run: () => actions.openProject(project.slug),
     suggested: project.featured,
   }));

@@ -44,8 +44,6 @@ export function svgUse(href: string, className: string, size = 24, viewBox = '0 
 
 export const appIcon = (name: string, size = 30): SVGSVGElement => svgUse(`app-${name}`, 'app-icon', size);
 export const glyph = (name: string, size = 16): SVGSVGElement => svgUse(`g-${name}`, 'glyph', size, '0 0 24 24');
-export const artThumb = (name: string, width = 46): SVGSVGElement =>
-  svgUse(`art-${name}`, 'art', width, '0 0 640 400', Math.round(width * 0.625));
 
 export function openExternal(url: string): void {
   window.open(url, '_blank', 'noopener,noreferrer');
