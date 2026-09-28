@@ -28,6 +28,7 @@
   --fg-2: rgba(60, 60, 67, 0.74);
   --fg-3: rgba(60, 60, 67, 0.46);
   --accent: #0a7aff;
+  --accent-text: #0a67d8;
   --accent-soft: rgba(10, 122, 255, 0.14);
   --accent-fg: #fff;
 
@@ -55,7 +56,8 @@
   --tip-fg: #1d1d1f;
 
   --desktop-label: #fff;
-  --credit-fg: rgba(255, 255, 255, 0.92);
+  --credit-fg: rgba(34, 28, 84, 0.82);
+  --credit-shadow: none;
 
   --wp-base: #b9b3ff;
   --wp-a1: #ffb48a;
@@ -75,6 +77,7 @@
   --fg-2: rgba(235, 235, 245, 0.66);
   --fg-3: rgba(235, 235, 245, 0.38);
   --accent: #0a84ff;
+  --accent-text: #6cb6ff;
   --accent-soft: rgba(10, 132, 255, 0.24);
 
   --menubar-bg: rgba(20, 20, 24, 0.42);
@@ -100,6 +103,8 @@
   --tip-bg: rgba(48, 48, 54, 0.94);
   --tip-fg: #f5f5f7;
 
+  --credit-fg: rgba(255, 255, 255, 0.9);
+  --credit-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   --wp-base: #0e0a26;
   --wp-a1: #6d3fd0;
   --wp-a2: #d0407f;
@@ -151,7 +156,7 @@ button {
 }
 
 a {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: none;
 }
 
@@ -179,6 +184,11 @@ svg {
 
 ::selection {
   background: var(--accent-soft);
+}
+
+/* Author display rules would otherwise beat the UA's [hidden] rule. */
+[hidden] {
+  display: none !important;
 }
 
 .sprites {

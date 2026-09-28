@@ -194,7 +194,7 @@
 .desktop-icon span {
   padding: 1px 6px;
   border-radius: 4px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 0, 0, 0.35);
 }
 
 .desktop-icon:hover svg {
@@ -351,13 +351,14 @@
   margin: 0;
   color: var(--credit-fg);
   font-size: 11.5px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  text-shadow: var(--credit-shadow);
 }
 
 .credit a {
   color: inherit;
   text-decoration: underline;
-  text-decoration-color: rgba(255, 255, 255, 0.5);
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
@@ -778,7 +779,7 @@
 }
 
 .quicklook__kicker {
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 600;
 }
 

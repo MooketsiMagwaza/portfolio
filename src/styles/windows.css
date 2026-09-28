@@ -455,7 +455,7 @@
   padding: 2px 9px;
   border-radius: 999px;
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 11.5px;
   font-weight: 500;
   line-height: 1.5;

@@ -541,7 +541,7 @@
 }
 
 .card-rows dt {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 12px;
   text-align: right;
 }
@@ -562,7 +562,7 @@
 }
 
 .card-notes h3 {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 12px;
   font-weight: 500;
 }
@@ -818,7 +818,7 @@
   padding: 2px 10px;
   border-radius: 999px;
   background: var(--accent-soft);
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 500;
 }
 
