@@ -1,161 +1,63 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { projects, supportingProjects } from '@/data/projects';
-
-const [tsela, stocklink, obsidian] = projects;
+import Sprites from '@/components/sprites/Sprites.astro';
+import Wallpaper from '@/components/Wallpaper.astro';
+import MenuBar from '@/components/MenuBar.astro';
+import DesktopIcons from '@/components/DesktopIcons.astro';
+import Dock from '@/components/Dock.astro';
+import Spotlight from '@/components/Spotlight.astro';
+import QuickLook from '@/components/QuickLook.astro';
+import ControlCenter from '@/components/ControlCenter.astro';
+import FinderApp from '@/components/apps/FinderApp.astro';
+import ContactsApp from '@/components/apps/ContactsApp.astro';
+import NotesApp from '@/components/apps/NotesApp.astro';
+import TerminalApp from '@/components/apps/TerminalApp.astro';
+import MailApp from '@/components/apps/MailApp.astro';
+import AboutApp from '@/components/apps/AboutApp.astro';
+import { inspiration, profile } from '@/data/site';
 ---
 
 <Layout>
-  <header class="global-nav">
-    <nav class="nav-inner" aria-label="Primary navigation">
-      <a class="wordmark" href="#top" aria-label="Mooketsi Magwaza, home">M</a>
-      <div class="nav-links">
-        <a href="#work">Work</a>
-        <a href="#about">Approach</a>
-        <a href="https://github.com/MooketsiMagwaza">GitHub</a>
-      </div>
-      <a class="nav-cta" href="mailto:mooketsimagwazajr@gmail.com">Contact</a>
-    </nav>
-  </header>
+  <Sprites />
+  <a class="skip-link" href="#main">Skip to the projects</a>
+  <h1 class="sr-only">{profile.shortName} — {profile.role}. {profile.headline}</h1>
 
-  <main id="main">
-    <section class="hero" id="top">
-      <div class="hero-content">
-        <p class="availability"><span></span> Full-stack engineer · Gaborone, Botswana</p>
-        <h1>I make complicated software <span>feel simple.</span></h1>
-        <p class="hero-copy">
-          I’m Mooketsi. I turn messy, real-world problems into tools people can
-          actually use—from the screen they tap to the systems working behind it.
-        </p>
-        <div class="actions">
-          <a class="button primary" href="#work">Explore my work</a>
-          <a class="button link-button" href="mailto:mooketsimagwazajr@gmail.com">Get in touch <span>›</span></a>
-        </div>
-      </div>
-      <div class="glass-stage" aria-label="Selected project previews">
-        <span class="stage-glow stage-glow-blue" aria-hidden="true"></span>
-        <span class="stage-glow stage-glow-pink" aria-hidden="true"></span>
-        <a class="glass-card glass-card-main" href={tsela.repository} aria-label="View Tsela on GitHub">
-          <span class="glass-shine" aria-hidden="true"></span>
-          <div class="glass-card-head"><span>01</span><strong>Tsela</strong><small>Transit, made clearer</small></div>
-          <div class="glass-card-body">
-            <p>Routes, stops, and local knowledge in one calm platform.</p>
-            <div class="glass-tags">{tsela.stack.slice(0, 3).map((item) => <span>{item}</span>)}</div>
-          </div>
-        </a>
-        <a class="glass-card glass-card-left" href={stocklink.repository} aria-label="View StockLink on GitHub">
-          <span class="glass-shine" aria-hidden="true"></span>
-          <div class="glass-card-head"><span>02</span><strong>StockLink</strong><small>Warehouse operations</small></div>
-          <div class="glass-card-body">
-            <p>Shared visibility across warehouse teams.</p>
-            <div class="glass-tags">{stocklink.stack.slice(0, 2).map((item) => <span>{item}</span>)}</div>
-          </div>
-        </a>
-        <a class="glass-card glass-card-right" href={obsidian.repository} aria-label="View Obsidian Sync for iOS on GitHub">
-          <span class="glass-shine" aria-hidden="true"></span>
-          <div class="glass-card-head"><span>03</span><strong>Obsidian Sync</strong><small>Native, private sync</small></div>
-          <div class="glass-card-body">
-            <p>Private notes moving between your own devices.</p>
-            <div class="glass-tags">{obsidian.stack.slice(0, 2).map((item) => <span>{item}</span>)}</div>
-          </div>
-        </a>
-      </div>
-    </section>
+  <div class="desktop" id="desktop">
+    <Wallpaper />
+    <MenuBar />
+    <DesktopIcons />
 
-    <section class="intro-strip" aria-label="Engineering focus">
-      <p>Product thinking</p><span>+</span><p>Systems engineering</p><span>+</span><p>Operational clarity</p>
-    </section>
+    <main class="windows" id="main" data-windows>
+      <FinderApp />
+      <ContactsApp />
+      <NotesApp />
+      <TerminalApp />
+      <MailApp />
+      <AboutApp />
+    </main>
 
-    <section class="work" id="work" aria-labelledby="work-title">
-      <header class="section-intro">
-        <p class="section-label">Selected work</p>
-        <h2 id="work-title">Things I’ve been building.<br /><span>Made for real people.</span></h2>
-      </header>
+    <Dock />
+    <ControlCenter />
+    <Spotlight />
+    <QuickLook />
+    <div class="notifications" data-notifications aria-live="polite"></div>
 
-      <article class="showcase showcase-blue">
-        <div class="showcase-copy">
-          <p class="project-label">01 · Public transport platform</p>
-          <h3>{tsela.name}</h3>
-          <p>Getting around Gaborone shouldn’t require insider knowledge. Tsela brings routes, stops, directions, and community knowledge into one calm place.</p>
-          <div class="actions centered">
-            <a class="button primary" href={tsela.repository}>View the repository</a>
-            <a class="button link-button" href="#tsela-proof">What’s verified <span>›</span></a>
-          </div>
-        </div>
-        <div class="proof" id="tsela-proof">
-          <div><span>Built with</span><p>{tsela.stack.join(' · ')}</p></div>
-          <div><span>Verified today</span><p>{tsela.evidence}</p></div>
-          <div><span>Next milestone</span><p>{tsela.next}</p></div>
-        </div>
-      </article>
+    <p class="credit">
+      Inspired by <a href={inspiration.url} target="_blank" rel="noopener noreferrer">{inspiration.name}’s portfolio</a>
+    </p>
+  </div>
 
-      <div class="showcase-grid">
-        <article class="showcase showcase-light compact-showcase">
-          <div class="showcase-copy">
-            <p class="project-label">02 · Warehouse operations</p>
-            <h3>{stocklink.name}</h3>
-            <p>Stock moves through a warehouse faster when every team can see the same clear picture. StockLink explores that shared operational view.</p>
-            <a class="button link-button" href={stocklink.repository}>View project <span>›</span></a>
-          </div>
-          <div class="project-facts" aria-label="StockLink project details">
-            <div><span>Built with</span><p>{stocklink.stack.join(' · ')}</p></div>
-            <div><span>Current focus</span><p>{stocklink.next}</p></div>
-          </div>
-        </article>
-
-        <article class="showcase showcase-dark compact-showcase">
-          <div class="showcase-copy">
-            <p class="project-label">03 · Native synchronization</p>
-            <h3>{obsidian.name}</h3>
-            <p>I wanted notes to move between my devices without handing them to another cloud. This is the native iPad experiment that came from that.</p>
-            <a class="button link-button light-link" href={obsidian.repository}>View project <span>›</span></a>
-          </div>
-          <div class="project-facts project-facts-dark" aria-label="Obsidian Sync project details">
-            <div><span>Built with</span><p>{obsidian.stack.join(' · ')}</p></div>
-            <div><span>Verified</span><p>{obsidian.evidence}</p></div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="approach" id="about" aria-labelledby="approach-title">
-      <div class="approach-heading">
-        <p class="section-label">How I work</p>
-        <h2 id="approach-title">Good software starts<br /><span>with paying attention.</span></h2>
-      </div>
-      <div class="principles">
-        <article><p class="principle-number">01</p><h3>Listen before building.</h3><p>The best technical decision starts with understanding what someone is actually trying to get done.</p></article>
-        <article><p class="principle-number">02</p><h3>Make the edges obvious.</h3><p>Clear ownership for data, services, permissions, and failures keeps a growing system understandable.</p></article>
-        <article><p class="principle-number">03</p><h3>Show the receipts.</h3><p>Tests, traces, screenshots, and runbooks make the work easier to trust—and easier for the next person to continue.</p></article>
-      </div>
-    </section>
-
-    <section class="more-work" aria-labelledby="more-title">
-      <header>
-        <p class="section-label">More work</p>
-        <h2 id="more-title">Different surfaces.<br /><span>The same care.</span></h2>
-      </header>
-      <div class="more-grid">
-        {supportingProjects.map((project, index) => (
-          <a class={`more-card more-card-${index + 1}`} href={project.href}>
-            <span class="card-index">0{index + 4}</span>
-            <div><h3>{project.name}</h3><p>{project.description}</p></div>
-            <span class="arrow" aria-hidden="true">↗</span>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <section class="contact" id="contact">
-      <p class="section-label">Let’s build something useful</p>
-      <h2>Got something useful<br />in mind?</h2>
-      <p>I’m always happy to talk about a thoughtful product, a stubborn systems problem, or work that genuinely helps people.</p>
-      <a class="button primary" href="mailto:mooketsimagwazajr@gmail.com">Start a conversation</a>
-    </section>
-  </main>
-
-  <footer>
-    <p>© {new Date().getFullYear()} Mooketsi Vincent Magwaza</p>
-    <div><span>Gaborone, Botswana</span><a href="https://github.com/MooketsiMagwaza">GitHub</a><a href="mailto:mooketsimagwazajr@gmail.com">Email</a></div>
-  </footer>
+  <noscript>
+    <style>
+      .menubar, .dock, .desktop-icons, .wallpaper, .credit, .traffic, .resize { display: none !important; }
+      .desktop { position: static; overflow: visible; background: #ececf1; color: #1d1d1f; padding: 24px 16px 48px; }
+      .windows { position: static; display: grid; gap: 24px; max-width: 900px; margin: 0 auto; }
+      .window { position: relative !important; display: flex !important; inset: auto !important; left: auto !important; top: auto !important; width: auto !important; height: auto !important; max-height: none !important; }
+      .window--terminal, .window--mail { display: none !important; }
+    </style>
+  </noscript>
 </Layout>
+
+<script>
+  import '@/scripts/desktop';
+</script>
