@@ -24,8 +24,10 @@ function openFirstWindows(): void {
 
   const iconColumn = 130;
   const usable = width - iconColumn;
-  const winHeight = Math.max(380, Math.min(560, height - MENUBAR_H - 130));
-  const y = MENUBAR_H + Math.max(20, Math.round((height - MENUBAR_H - 96 - winHeight) / 2));
+  // Use most of the available height: a project's full description often needs more
+  // than the old 560px cap gave it, which meant near-constant scrolling in the inspector.
+  const winHeight = Math.max(420, Math.min(840, height - MENUBAR_H - 110));
+  const y = MENUBAR_H + Math.max(16, Math.round((height - MENUBAR_H - 96 - winHeight) / 2));
 
   if (usable >= 1100) {
     const contactsWidth = 350;
