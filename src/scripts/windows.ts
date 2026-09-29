@@ -14,7 +14,7 @@ type Win = {
   closeTimer: number;
 };
 
-export type WindowEvent = { type: 'open' | 'close' | 'minimize' | 'restore' | 'focus' | 'zoom'; id: AppId | null };
+export type WindowEvent = { type: 'open' | 'close' | 'minimize' | 'restore' | 'focus' | 'zoom' | 'nudge'; id: AppId | null };
 
 export const MENUBAR_H = 28;
 /** Space kept clear at the bottom for the Dock when placing or zooming windows. */
@@ -133,6 +133,18 @@ export function focusApp(id: AppId): void {
   }
 }
 
+/** A brief pulse on a window that's already open, so clicking its Dock icon (or a Spotlight
+ *  result, or an "open project" link) again never feels like nothing happened. */
+function nudge(win: Win): void {
+  if (prefersReducedMotion()) return;
+  win.el.classList.remove('is-nudging');
+  void win.el.offsetWidth; // restart the animation if it's triggered again quickly
+  win.el.classList.add('is-nudging');
+  const done = () => win.el.classList.remove('is-nudging');
+  win.el.addEventListener('animationend', done, { once: true });
+  window.setTimeout(done, 400); // fallback: animationend isn't guaranteed (e.g. an interrupted animation)
+}
+
 function activateTop(): void {
   const candidates = [...wins.values()].filter((win) => win.open && !win.minimized);
   candidates.sort((a, b) => Number(b.el.style.zIndex || 0) - Number(a.el.style.zIndex || 0));
@@ -149,7 +161,12 @@ export function openApp(id: AppId, options: { rect?: Partial<Rect> } = {}): void
   const win = wins.get(id);
   if (!win) return;
   if (win.open && win.minimized) return restoreApp(id);
-  if (win.open) return focusApp(id);
+  if (win.open) {
+    focusApp(id);
+    nudge(win);
+    emit('nudge', id);
+    return;
+  }
 
   window.clearTimeout(win.closeTimer);
   win.open = true;

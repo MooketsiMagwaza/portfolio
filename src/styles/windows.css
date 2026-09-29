@@ -92,6 +92,18 @@
   to { opacity: 0; transform: scale(0.95); }
 }
 
+/* "You clicked to open this, and it's already open" — a quick, tasteful pulse
+   rather than nothing happening. */
+.window.is-nudging {
+  animation: win-nudge 0.32s var(--ease-out);
+}
+
+@keyframes win-nudge {
+  0% { box-shadow: var(--shadow-win); }
+  35% { transform: scale(1.012); box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow-win); }
+  100% { transform: none; box-shadow: var(--shadow-win); }
+}
+
 /* Traffic lights --------------------------------------------------------- */
 .traffic {
   position: absolute;
