@@ -895,6 +895,11 @@
     bottom: calc(var(--dock-icon) + 34px);
     max-width: 55vw;
   }
+
+  /* Keyboard shortcuts don't apply on a touch screen; tapping the scrim to close is self-evident. */
+  .spotlight__foot {
+    display: none;
+  }
 }
 
 @media (max-width: 400px) {
