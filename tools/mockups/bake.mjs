@@ -46,11 +46,18 @@ const JOBS = [
     html: mac({ src: image('stocklink/public-tracking-dark.png'), alt: 'StockLink public tracking page', title: 'Track a parcel', theme: 'dark' }),
   },
   {
-    name: 'tsela-rider-routes',
+    // Tsela's four surfaces (rider, marketing, ops, developer portal) as one 2x2 grid,
+    // so the README shows the platform's breadth in a single image.
+    name: 'tsela-surfaces',
     dpr: 1,
     width: 1280,
-    pad: { t: 40, r: 70, b: 120, l: 70 },
-    html: mac({ src: image('tsela/rider-routes.jpg'), alt: 'Tsela rider app: every mapped route in Gaborone, with search', title: 'Tsela — Explore every route', theme: 'light' }),
+    pad: { t: 40, r: 70, b: 70, l: 70 },
+    html: `<div style="display:grid;grid-template-columns:1fr 1fr;gap:36px">
+      ${mac({ src: image('tsela/rider-routes.webp'), alt: 'Tsela rider app: every mapped route in Gaborone, with search', title: 'Rider app', theme: 'light' })}
+      ${mac({ src: image('tsela/marketing-home.webp'), alt: 'Tsela marketing site: “Know which combi gets you there”', title: 'Marketing site', theme: 'light' })}
+      ${mac({ src: image('tsela/admin-dashboard.webp'), alt: 'Tsela admin dashboard: capacity and reliability across the network', title: 'Admin dashboard', theme: 'light' })}
+      ${mac({ src: image('tsela/docs-console.webp'), alt: 'Tsela developer portal: the API console with credentials and usage', title: 'Developer portal', theme: 'light' })}
+    </div>`,
   },
 ];
 

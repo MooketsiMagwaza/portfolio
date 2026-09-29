@@ -117,10 +117,10 @@ export const projects: Project[] = [
     frame: 'browser',
     theme: { from: '#0a1f44', to: '#0e5a94', glow: '#2dd4bf' },
     shots: [
-      { file: 'rider-routes', alt: 'The Tsela rider app in a Mac window: every mapped route in Gaborone, with search and a route list', caption: 'Rider app: explore every route', w: 1280, h: 949, frame: 'bare' },
-      { file: 'rider-live-route', alt: 'The Tsela rider app: live trip guidance for Tlokweng Route 1, with a stop picker', caption: 'Rider app: live trip guidance', w: 1440, h: 960 },
-      { file: 'home', alt: 'Tsela’s marketing site: “Know which combi gets you there”, with a route preview map', caption: 'Marketing site', w: 1440, h: 960 },
-      { file: 'route', alt: 'A route detail page in the admin console, with stops and a street map', caption: 'Route detail and map', w: 1440, h: 960 },
+      { file: 'rider-routes', alt: 'The Tsela rider app: every mapped route in Gaborone, with search and a route list', caption: 'Rider app: explore every route', w: 1440, h: 960 },
+      { file: 'marketing-home', alt: 'Tsela’s marketing site: “Know which combi gets you there”, with a route preview map', caption: 'Marketing site', w: 1440, h: 960 },
+      { file: 'admin-dashboard', alt: 'The Tsela admin dashboard: capacity and reliability across the network', caption: 'Admin dashboard', w: 1440, h: 960 },
+      { file: 'docs-console', alt: 'The Tsela developer portal: the API console with credentials and usage', caption: 'Developer portal', w: 1440, h: 960 },
     ],
   },
   {
