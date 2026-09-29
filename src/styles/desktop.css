@@ -892,7 +892,9 @@
 
   .credit {
     left: 12px;
-    bottom: calc(var(--dock-icon) + 34px);
+    /* --dock-icon is scoped to .dock, so it can't be used here. On phones the Dock's top edge
+       is ~70px from the bottom and windows end ~96px up, leaving a gap this fits into. */
+    bottom: 74px;
     max-width: 55vw;
   }
 }
