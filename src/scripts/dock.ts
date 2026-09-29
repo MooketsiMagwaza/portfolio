@@ -22,10 +22,15 @@ export function initDock(): void {
   document.addEventListener('wm:change', (event) => {
     const { type, id } = (event as CustomEvent<WindowEvent>).detail;
     syncRunning();
-    if (type === 'open' && id && !prefersReducedMotion()) {
+    // A fresh launch bounces to say "here it comes"; a nudge bounces to say "it's already open".
+    if ((type === 'open' || type === 'nudge') && id && !prefersReducedMotion()) {
       const button = buttons.find((entry) => entry.dataset.dock === id);
-      button?.classList.add('is-bouncing');
-      button?.addEventListener('animationend', () => button.classList.remove('is-bouncing'), { once: true });
+      if (button) {
+        button.classList.add('is-bouncing');
+        const done = () => button.classList.remove('is-bouncing');
+        button.addEventListener('animationend', done, { once: true });
+        window.setTimeout(done, 1450); // fallback: two 0.7s iterations, in case animationend never fires
+      }
     }
   });
 
@@ -80,7 +85,9 @@ export function initDock(): void {
   dock.querySelector<HTMLElement>('[data-trash]')?.addEventListener('click', (event) => {
     const button = event.currentTarget as HTMLElement;
     button.classList.add('is-shaking');
-    button.addEventListener('animationend', () => button.classList.remove('is-shaking'), { once: true });
+    const doneShaking = () => button.classList.remove('is-shaking');
+    button.addEventListener('animationend', doneShaking, { once: true });
+    window.setTimeout(doneShaking, 450);
     notify({ title: 'Trash', body: 'Empty. Nothing shipped here gets thrown away.', icon: 'trash', timeout: 3500 });
   });
 

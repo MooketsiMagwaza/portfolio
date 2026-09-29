@@ -14,7 +14,7 @@ const notes = [
 ];
 ---
 
-<Window id="notes" label="How I work, in Notes" w={720} h={470} minW={520} minH={340}>
+<Window id="notes" label="How I work, in Notes" w={720} h={560} minW={520} minH={340}>
   <div class="notes" data-notes>
     <aside class="sidebar sidebar--notes" aria-label="Notes list">
       <div class="sidebar__grip" data-drag></div>
@@ -45,7 +45,7 @@ const notes = [
       <header class="toolbar toolbar--plain" data-drag>
         <span class="toolbar__note-count">{notes.length} notes</span>
       </header>
-      <div class="notes__pages">
+      <div class="notes__pages scroll-fade">
         <article class="page" role="tabpanel" id="page-hello" aria-labelledby="tab-hello" data-note-page="hello">
           <h1>{profile.headline}</h1>
           <p>{profile.intro}</p>

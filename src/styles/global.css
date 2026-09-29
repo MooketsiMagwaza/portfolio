@@ -50,6 +50,7 @@
   --shadow-win: 0 0 0 0.5px rgba(0, 0, 0, 0.3), 0 26px 64px -10px rgba(28, 24, 70, 0.42), 0 8px 22px rgba(0, 0, 0, 0.14);
   --shadow-win-inactive: 0 0 0 0.5px rgba(0, 0, 0, 0.22), 0 14px 36px -10px rgba(28, 24, 70, 0.26), 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-pop: 0 0 0 0.5px rgba(0, 0, 0, 0.2), 0 18px 44px -6px rgba(20, 20, 50, 0.34), 0 4px 14px rgba(0, 0, 0, 0.12);
+  --scroll-shadow: rgba(0, 0, 0, 0.16);
 
   --traffic-off: #cfcfd4;
   --dock-bg: rgba(255, 255, 255, 0.36);
@@ -100,6 +101,7 @@
   --shadow-win: 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.55), 0 30px 72px -8px rgba(0, 0, 0, 0.66);
   --shadow-win-inactive: 0 0 0 0.5px rgba(255, 255, 255, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.5), 0 16px 40px -8px rgba(0, 0, 0, 0.5);
   --shadow-pop: 0 0 0 0.5px rgba(255, 255, 255, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.5), 0 22px 54px -6px rgba(0, 0, 0, 0.6);
+  --scroll-shadow: rgba(0, 0, 0, 0.5);
 
   --traffic-off: #4b4b52;
   --dock-bg: rgba(40, 40, 48, 0.42);
@@ -201,6 +203,24 @@ svg {
   height: 0;
   overflow: hidden;
   pointer-events: none;
+}
+
+/* A scroll cue: a soft shadow that appears only at an edge with more content past it,
+   so a scrollable panel reads as "there's more, scroll" rather than "this is cut off".
+   The fade layers scroll with the content (masking the shadow once you're past the
+   first/last 40px); the shadow layers stay fixed to the viewport. No JS needed.
+   Give the element its own `--fade-bg` (its solid background colour) before use. */
+.scroll-fade {
+  background-color: var(--fade-bg);
+  background-repeat: no-repeat;
+  background-image:
+    linear-gradient(var(--fade-bg) 30%, transparent),
+    linear-gradient(transparent, var(--fade-bg) 70%),
+    radial-gradient(farthest-side at 50% 0, var(--scroll-shadow), transparent),
+    radial-gradient(farthest-side at 50% 100%, var(--scroll-shadow), transparent);
+  background-position: top, bottom, top, bottom;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-attachment: local, local, scroll, scroll;
 }
 
 .sr-only {
