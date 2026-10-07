@@ -59,7 +59,7 @@ Screenshots live in `public/images/projects/<slug>/` as WebP, with a small
 - the images chosen for the [GitHub profile README](https://github.com/MooketsiMagwaza)
   (when it used baked Mac-window and iPhone mockups), which use the `bare` frame;
 - real captures of each project's own running app or deployed site (Zenith's tutorial screens, Orb View's live site);
-- each project's own repository docs (Obsidian Sync for iOS, GlassHID);
+- each project's own repository docs (GlassHID);
 - captures of the live [University CS Docs](https://university-cs-docs.vercel.app) site.
 
 To add or replace one, export it as WebP (about 1,400px wide is plenty), drop it

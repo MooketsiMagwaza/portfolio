@@ -121,31 +121,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'obsidian-sync',
-    name: 'Obsidian Sync for iOS',
-    filename: 'Obsidian Sync.app',
-    kind: 'iPadOS prototype',
-    kicker: 'Local-first vault synchronization',
-    summary:
-      'A free, open-source iPhone and iPad companion that joins an existing Syncthing cluster to sync an Obsidian vault, with no hosted account.',
-    story:
-      'I wanted notes to move between my devices without handing them to another cloud. This is the native iPad experiment that came from that: it joins an existing Syncthing cluster and synchronizes an Obsidian vault without a hosted account or proprietary sync service.',
-    evidence:
-      'Physical testing proved desktop-to-iPad and iPad-to-desktop transfers, including a deletion propagated back to the desktop. GitHub Actions cross-compiles the XCFramework, builds the iOS app, and runs the simulator suite.',
-    next: 'Turn the tested development build into a repeatable, signed release without hiding the constraints of iOS background execution.',
-    stack: ['Swift', 'SwiftUI', 'Go', 'Syncthing', 'GitHub Actions'],
-    tags: ['mobile', 'systems'],
-    repository: 'https://github.com/MooketsiMagwaza/obsidian-sync-ios',
-    featured: true,
-    frame: 'tablet',
-    theme: { from: '#150b28', to: '#4a2590', glow: '#a78bfa' },
-    shots: [
-      { file: 'session', alt: 'Obsidian Sync transferring an established vault on a physical iPad', caption: 'A sync session in progress', w: 1080, h: 751 },
-      { file: 'activity', alt: 'The recent activity list on iPad, showing files that were updated', caption: 'Recent activity', w: 1080, h: 751 },
-      { file: 'vault', alt: 'An Obsidian vault, kept in sync, open on an iPad', caption: 'The synced vault in Obsidian', w: 1080, h: 751 },
-    ],
-  },
-  {
     slug: 'university-cs-docs',
     name: 'University CS Docs',
     filename: 'University CS Docs.webloc',
