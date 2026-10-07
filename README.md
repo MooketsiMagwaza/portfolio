@@ -57,9 +57,9 @@ Screenshots live in `public/images/projects/<slug>/` as WebP, with a small
 `-sm` thumbnail for each cover. They come from:
 
 - the images chosen for the [GitHub profile README](https://github.com/MooketsiMagwaza)
-  (StockLink's dark-mode shots and Tsela's rider app), which already include a
-  Mac window or iPhone mockup and use the `bare` frame;
-- each project's own repository docs (Tsela, Obsidian Sync for iOS, GlassHID);
+  (when it used baked Mac-window and iPhone mockups), which use the `bare` frame;
+- real captures of each project's own running app or deployed site (Zenith's tutorial screens, Orb View's live site);
+- each project's own repository docs (Obsidian Sync for iOS, GlassHID);
 - captures of the live [University CS Docs](https://university-cs-docs.vercel.app) site.
 
 To add or replace one, export it as WebP (about 1,400px wide is plenty), drop it
@@ -67,7 +67,7 @@ in the project's folder, and update its `shots` entry. `w` and `h` are the
 image's pixel size; they reserve space so the layout doesn't jump.
 
 `tools/mockups/` is the script that bakes those Mac-window and iPhone mockups
-from the raw screens in `public/images/stocklink/` and `public/images/tsela/`
+from raw screens (there are none at the moment; the StockLink and Tsela screens were removed)
 (see its README). The site itself doesn't use those raw screens or
 `src/styles/mockups.css` any more, but the tool reads them, so they are kept.
 

@@ -70,57 +70,54 @@ export function frameAspect(frame: Frame, shot: Shot): number {
   return (w + 2 * pad * w) / (h + 2 * pad * w);
 }
 
-// Order is the order they are shown in: StockLink leads.
+// Order is the order they are shown in: Zenith leads. (Tsela and StockLink are company assets and are no longer shown here.)
 export const projects: Project[] = [
   {
-    slug: 'stocklink',
-    name: 'StockLink',
-    filename: 'StockLink.app',
-    kind: 'Logistics platform',
-    kicker: 'Wholesale stock, from warehouse to shop door',
+    slug: 'zenith',
+    name: 'Zenith',
+    filename: 'Zenith.app',
+    kind: 'Focus workspace',
+    kicker: 'Time tracking with intention',
     summary:
-      'Connects warehouses, shops and delivery drivers, with bulk orders, handover codes and public parcel tracking.',
+      'A deliberate-practice timer, a deck and card workspace, a markdown journal, and a full-screen Zen mode, all running in your browser.',
     story:
-      'Small shops buy from lots of different warehouses, and the hard part is getting it all to their door. StockLink puts the order, the payment and the delivery in one place, right down to the code a driver needs before handing a parcel over.',
+      'Most productivity apps are built to capture tasks or to bill time. Zenith is built for attention: pick one thing, put time into it, and write down what happened. There are no streaks, no XP bars, and no nags.',
     evidence:
-      'Five Rust services, each with its own PostgreSQL database, sit behind one gateway. One React app works for warehouses, shops, drivers and staff, in light and dark, and there’s an admin console for staff next to Prometheus and Grafana. Every page has a screenshot from a sample-data preview, and the repo says plainly what hasn’t been run yet.',
-    next: 'Get the whole stack running on Docker for the first time, try the newest migrations on a real PostgreSQL, and finish event delivery before I call it production-ready.',
-    stack: ['Rust', 'Axum', 'PostgreSQL', 'Redis', 'React'],
-    tags: ['systems', 'web'],
-    repository: 'https://github.com/MooketsiMagwaza/stocklink',
+      'It is local-first: data lives in the browser, every delete can be undone, and each card and deck has exactly one journal. Optional accounts add sync across devices. The README is the full specification, down to every key and storage name.',
+    stack: ['React', 'TypeScript', 'TanStack', 'Tailwind CSS', 'Supabase'],
+    tags: ['web'],
+    repository: 'https://github.com/MooketsiMagwaza/Zenith',
     featured: true,
-    frame: 'bare',
-    theme: { from: '#1a1410', to: '#7a4a1e', glow: '#ffb020' },
+    frame: 'browser',
+    theme: { from: '#0a0a0a', to: '#3a2f12', glow: '#c9a84c' },
     shots: [
-      { file: 'store-order', alt: 'StockLink’s retail store view in dark mode, in a Mac window: an order in transit, with its delivery code, QR code, and live position', caption: 'A shop follows its order · sample data', w: 1280, h: 964 },
-      { file: 'driver-phones', alt: 'The StockLink driver app in dark mode on two iPhones: collecting a parcel with the warehouse’s pickup code, then on the road with the handover form', caption: 'Driver app, built phone-first · sample data', w: 1100, h: 1229 },
-      { file: 'public-tracking', alt: 'The public tracking page in dark mode, in a Mac window: a parcel’s journey and its position rounded to about 100 metres, no account needed, and never names, addresses, or contents', caption: 'Public tracking, no account needed · sample data', w: 760, h: 765 },
+      { file: 'decks', alt: 'Zenith’s decks view: a deck called Academics with three timed cards for a study session, a lab, and practice', caption: 'Decks and cards, each with its own timer', w: 1536, h: 864 },
+      { file: 'journal', alt: 'Zenith’s markdown journal, one document per card or deck', caption: 'One journal per card or deck', w: 1536, h: 864 },
+      { file: 'history', alt: 'Zenith’s history view of past focus sessions', caption: 'History of what you put time into', w: 1536, h: 864 },
+      { file: 'zen', alt: 'Zenith’s full-screen Zen mode, with almost nothing on screen', caption: 'Zen mode removes everything else', w: 1536, h: 864 },
     ],
   },
   {
-    slug: 'tsela',
-    name: 'Tsela',
-    filename: 'Tsela.app',
-    kind: 'Transit platform',
-    kicker: 'Gaborone transit, made searchable',
+    slug: 'orb-view',
+    name: 'Orb View',
+    filename: 'Orb View.app',
+    kind: 'Learning app',
+    kicker: 'Explore how ideas connect',
     summary:
-      'A multi-surface transit platform for riders, operators, developers, and route contributors in Botswana.',
+      'A visual learning library and concept map: browse ideas by subject, follow guided learning paths, or move through an open graph of connected concepts.',
     story:
-      'Tsela turns Gaborone’s informal combi knowledge into a route-planning platform. A rider can choose an origin and destination, compare road-following routes, see where to board, and understand where to get off.',
+      'I wanted to see how ideas connect instead of reading them as a list. Orb View lets you browse a library, open a concept to see its layers and prerequisites, or wander the map one connection at a time.',
     evidence:
-      'FastAPI owns the HTTP API; PostgreSQL, PostGIS, and pgRouting own spatial data and road-aligned routing; OR-Tools supports optimization. Five product surfaces share one platform, with Prometheus, Grafana, Tempo, and OpenTelemetry giving an observable path through it.',
-    next: 'Check the route data against real Gaborone roads and what riders actually know, and move sign-in and ops controls from local demos to something ready to launch.',
-    stack: ['FastAPI', 'PostGIS', 'pgRouting', 'Next.js', 'OR-Tools', 'Prometheus'],
-    tags: ['web', 'systems'],
-    repository: 'https://github.com/MooketsiMagwaza/transit-route-optimization',
+      'The library holds hundreds of concepts as validated JSON, with checks for data, links, and learning paths. A separate documentation site publishes the whole library, and the app also builds as a Tauri 2 desktop app. It is deployed on the web.',
+    stack: ['React', 'TypeScript', 'Vite', 'Tauri 2'],
+    tags: ['web', 'docs'],
+    repository: 'https://github.com/MooketsiMagwaza/orb-view',
     featured: true,
     frame: 'browser',
-    theme: { from: '#0a1f44', to: '#0e5a94', glow: '#2dd4bf' },
+    theme: { from: '#0a1a33', to: '#1f5fbf', glow: '#8fd3ff' },
     shots: [
-      { file: 'rider-routes', alt: 'The Tsela rider app in a Mac window: every mapped route in Gaborone, with search and a route list', caption: 'Rider app: explore every route', w: 1280, h: 949, frame: 'bare' },
-      { file: 'rider-live-route', alt: 'The Tsela rider app: live trip guidance for Tlokweng Route 1, with a stop picker', caption: 'Rider app: live trip guidance', w: 1440, h: 960 },
-      { file: 'home', alt: 'Tsela’s marketing site: “Know which combi gets you there”, with a route preview map', caption: 'Marketing site', w: 1440, h: 960 },
-      { file: 'route', alt: 'A route detail page in the admin console, with stops and a street map', caption: 'Route detail and map', w: 1440, h: 960 },
+      { file: 'library', alt: 'The Orb View library: a search field, subject filters, and cards for Me and Engineering and Technology with their topics', caption: 'The library, by subject', w: 1440, h: 900 },
+      { file: 'map', alt: 'The Orb View concept map: Entropy at the centre with eight connected ideas around it', caption: 'The concept map', w: 1440, h: 900 },
     ],
   },
   {
