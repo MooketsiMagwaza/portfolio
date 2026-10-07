@@ -110,12 +110,6 @@ export const projects: Project[] = [
     featured: true,
     frame: 'bare',
     theme: { from: '#0a0a0a', to: '#3a2f12', glow: '#c9a84c' },
-    shots: [
-      { file: 'decks', alt: 'Zenith’s decks view: a deck called Academics with three timed cards for a study session, a lab, and practice', caption: 'Decks and cards, each with its own timer', w: 1420, h: 919 },
-      { file: 'journal', alt: 'Zenith’s markdown journal, one document per card or deck', caption: 'One journal per card or deck', w: 1420, h: 919 },
-      { file: 'history', alt: 'Zenith’s history view of past focus sessions', caption: 'History of what you put time into', w: 1420, h: 919 },
-      { file: 'zen', alt: 'Zenith’s full-screen Zen mode, with almost nothing on screen', caption: 'Zen mode removes everything else', w: 1420, h: 919 },
-    ],
   },
   {
     slug: 'orb-view',
@@ -136,10 +130,6 @@ export const projects: Project[] = [
     frame: 'bare',
     theme: { from: '#0a1a33', to: '#1f5fbf', glow: '#8fd3ff' },
     mark: 'OV',
-    shots: [
-      { file: 'library', alt: 'The Orb View library: a search field, subject filters, and cards for Me and Engineering and Technology with their topics', caption: 'The library, by subject', w: 1420, h: 999 },
-      { file: 'map', alt: 'The Orb View concept map: Entropy at the centre with eight connected ideas around it', caption: 'The concept map', w: 1420, h: 999 },
-    ],
   },
   {
     slug: 'university-cs-docs',
@@ -160,12 +150,6 @@ export const projects: Project[] = [
     frame: 'browser',
     theme: { from: '#06241c', to: '#0f7a55', glow: '#5eead4' },
     mark: 'CS',
-    shots: [
-      { file: 'home', alt: 'The University CS Docs home page with course cards for data structures, discrete maths, functional programming and calculus', caption: 'Home', w: 1440, h: 900 },
-      { file: 'course', alt: 'The CSI247 Data Structures course overview with a study sequence', caption: 'A course overview', w: 1440, h: 900 },
-      { file: 'semester', alt: 'The Semester III overview listing core courses and an elective', caption: 'Semester overview', w: 1440, h: 900 },
-      { file: 'focus-timer', alt: 'The Pomodoro focus timer page', caption: 'Focus timer', w: 1440, h: 900 },
-    ],
   },
   {
     slug: 'glasshid',
@@ -186,12 +170,6 @@ export const projects: Project[] = [
     frame: 'phone',
     theme: { from: '#051c25', to: '#0c7d96', glow: '#22d3ee' },
     mark: 'GH',
-    shots: [
-      { file: 'gamepad', alt: 'GlassHID’s gamepad layout on a phone in landscape', caption: 'Gamepad', w: 1600, h: 720 },
-      { file: 'keyboard', alt: 'GlassHID’s full keyboard layout', caption: 'Keyboard', w: 1600, h: 720 },
-      { file: 'trackpad', alt: 'GlassHID’s trackpad, docked on the left of the keyboard', caption: 'Trackpad', w: 1600, h: 720 },
-      { file: 'system-controls', alt: 'The system controls panel with volume and brightness', caption: 'System controls', w: 1600, h: 720 },
-    ],
   },
 ];
 
