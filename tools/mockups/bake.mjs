@@ -21,37 +21,7 @@ const image = (file) => pathToFileURL(path.resolve(here, '../../public/images', 
 // Every job: the content, its width in CSS pixels, the room around it for the
 // shadow, and the pixel density. `html` is what is drawn inside the padding.
 const JOBS = [
-  {
-    name: 'stocklink-store-order-dark',
-    dpr: 1,
-    width: 1280,
-    pad: { t: 40, r: 70, b: 120, l: 70 },
-    html: mac({ src: image('stocklink/store-order-dark.png'), alt: 'StockLink retail store view: an order in transit', title: 'StockLink — Order', theme: 'dark' }),
-  },
-  {
-    name: 'stocklink-driver-phones-dark',
-    dpr: 2,
-    width: 720,
-    pad: { t: 30, r: 50, b: 100, l: 50 },
-    html: `<div style="display:flex;gap:60px;align-items:flex-start">
-      <div style="width:330px">${iphone({ src: image('stocklink/driver-pickup-screen-dark.png'), alt: 'StockLink driver app: collecting with the pickup code', statusBg: '#161617' })}</div>
-      <div style="width:330px">${iphone({ src: image('stocklink/driver-road-screen-dark.png'), alt: 'StockLink driver app: on the road', statusBg: '#161617' })}</div>
-    </div>`,
-  },
-  {
-    name: 'stocklink-public-tracking-dark',
-    dpr: 1,
-    width: 620,
-    pad: { t: 30, r: 70, b: 100, l: 70 },
-    html: mac({ src: image('stocklink/public-tracking-dark.png'), alt: 'StockLink public tracking page', title: 'Track a parcel', theme: 'dark' }),
-  },
-  {
-    name: 'tsela-rider-routes',
-    dpr: 1,
-    width: 1280,
-    pad: { t: 40, r: 70, b: 120, l: 70 },
-    html: mac({ src: image('tsela/rider-routes.jpg'), alt: 'Tsela rider app: every mapped route in Gaborone, with search', title: 'Tsela — Explore every route', theme: 'light' }),
-  },
+  // No jobs right now: the StockLink and Tsela jobs were removed when those projects went private.
 ];
 
 const only = process.argv.slice(3);

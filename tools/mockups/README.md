@@ -15,7 +15,7 @@ markup and styles in headless Edge or Chrome and saves transparent PNGs:
 
 ```bash
 node tools/mockups/bake.mjs <out-dir>                 # every job
-node tools/mockups/bake.mjs <out-dir> tsela-rider-routes   # just one
+node tools/mockups/bake.mjs <out-dir> <job-name>   # just one
 ```
 
 To add an image, add a job to `JOBS` in `bake.mjs` (the source picture lives in

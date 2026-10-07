@@ -30,8 +30,8 @@ export const principles: Principle[] = [
     title: 'Listen before building.',
     body: 'The best technical decision starts with understanding what someone is actually trying to get done.',
     example: {
-      slug: 'tsela',
-      note: 'Getting around Gaborone shouldn’t require insider knowledge, so Tsela starts from how people actually move.',
+      slug: 'zenith',
+      note: 'Zenith starts from how focused work actually goes: pick one thing, put time into it, and write down what happened.',
     },
   },
   {
@@ -39,8 +39,8 @@ export const principles: Principle[] = [
     body: 'Clear ownership for data, services, permissions, and failures keeps a growing system understandable.',
     points: ['Data', 'Services', 'Permissions', 'Failures'],
     example: {
-      slug: 'stocklink',
-      note: 'Four services, each owning its own database, behind one gateway.',
+      slug: 'orb-view',
+      note: 'The concept data is validated JSON with its own link and path checks, kept separate from the app that shows it.',
     },
   },
   {

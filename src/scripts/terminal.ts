@@ -109,7 +109,7 @@ export function initTerminal(): void {
         row({ t: `total ${projects.length}`, c: 't-dim' });
         projects.forEach((p) => row({ t: pad(p.filename, 30), c: 't-accent' }, { t: p.kind, c: 't-dim' }));
         blank();
-        row({ t: 'Try: ', c: 't-dim' }, 'cat tsela', { t: '  or  ', c: 't-dim' }, 'open tsela');
+        row({ t: 'Try: ', c: 't-dim' }, 'cat zenith', { t: '  or  ', c: 't-dim' }, 'open zenith');
       },
     },
     cat: {
