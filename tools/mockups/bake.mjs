@@ -21,7 +21,48 @@ const image = (file) => pathToFileURL(path.resolve(here, '../../public/images', 
 // Every job: the content, its width in CSS pixels, the room around it for the
 // shadow, and the pixel density. `html` is what is drawn inside the padding.
 const JOBS = [
-  // No jobs right now: the StockLink and Tsela jobs were removed when those projects went private.
+  {
+    name: 'zenith-decks',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('zenith/decks.png'), alt: 'Zenith decks view: three timed cards in a deck called Academics', title: 'Zenith — Decks', theme: 'dark' }),
+  },
+  {
+    name: 'zenith-journal',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('zenith/journal.png'), alt: 'Zenith markdown journal, one document per card or deck', title: 'Zenith — Journal', theme: 'dark' }),
+  },
+  {
+    name: 'zenith-history',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('zenith/history.png'), alt: 'Zenith history of past focus sessions', title: 'Zenith — History', theme: 'dark' }),
+  },
+  {
+    name: 'zenith-zen',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('zenith/zen.png'), alt: 'Zenith full-screen Zen mode', title: 'Zenith — Zen', theme: 'dark' }),
+  },
+  {
+    name: 'orb-view-library',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('orb-view/library.png'), alt: 'The Orb View library, by subject', title: 'Orb View — Library', theme: 'light' }),
+  },
+  {
+    name: 'orb-view-map',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('orb-view/map.png'), alt: 'The Orb View concept map', title: 'Orb View — Map', theme: 'light' }),
+  },
 ];
 
 const only = process.argv.slice(3);
