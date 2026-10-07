@@ -155,6 +155,24 @@ export const projects: Project[] = [
     mark: 'Tw',
   },
   {
+    slug: 'kori',
+    name: 'Kori',
+    filename: 'Kori.app',
+    kind: 'Safari and wildlife app',
+    kicker: 'Offline-first wildlife sightings for Botswana',
+    summary:
+      'An offline-first safari and wildlife app for Botswana, being built around reviewed sightings, offline park maps, and guidance to a sighting along existing roads and tracks.',
+    story:
+      'Kori is being built now, so this page says what it is aiming at, not what it already does. It is named after the kori bustard, kgori in Setswana, Botswana’s national bird. The aim is a safari app that keeps working without signal. Wildlife sightings would be reviewed in a queue, and a public API would need a key. Parks would have maps that work offline, and a track map would be built from GPS traces that people choose to share. Sightings could be passed on by QR code when there is no signal, and the app would guide you to a sighting along existing roads and tracks.',
+    evidence: 'Nothing to show yet. The repository has only just been started.',
+    status: 'In development',
+    stack: [],
+    tags: ['mobile'],
+    // No `repository` while it is private. `stack` stays empty until the repository settles it.
+    featured: true,
+    theme: { from: '#2b140a', to: '#a5471c', glow: '#ffb98a' },
+  },
+  {
     slug: 'university-cs-docs',
     name: 'University CS Docs',
     filename: 'University CS Docs.webloc',
