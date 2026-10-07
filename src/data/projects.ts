@@ -91,6 +91,10 @@ export function frameAspect(frame: Frame, shot: Shot): number {
 }
 
 // Order is the order they are shown in: Zenith leads. (Tsela and StockLink are company assets and are no longer shown here.)
+//
+// Adding a project is a data change: add an entry here and the Finder, Quick Look, Spotlight and the
+// Terminal all pick it up. Leave out `repository` while a repository is private and `shots` until there
+// are screenshots; use `stack: []` while the stack is not settled; set `status` for unfinished work.
 export const projects: Project[] = [
   {
     slug: 'zenith',
@@ -130,6 +134,25 @@ export const projects: Project[] = [
     frame: 'bare',
     theme: { from: '#0a1a33', to: '#1f5fbf', glow: '#8fd3ff' },
     mark: 'OV',
+  },
+  {
+    slug: 'tagwise',
+    name: 'Tagwise',
+    filename: 'Tagwise.app',
+    kind: 'Asset and stock register',
+    kicker: 'One shared register for assets and stock',
+    summary:
+      'A shared register for an organisation’s assets and stock, being built to scan QR codes and barcodes in the browser, import and export Excel and CSV, and let several people run a stock-take together.',
+    story:
+      'Tagwise is being built now, so this page says what it is aiming at, not what it already does. The aim is one shared register of an organisation’s assets and stock. People would scan QR codes and barcodes in the browser, bring in and send out Excel and CSV files, and run a stock-take with several people at once. Sites would show on a map, and a shared workspace, like Notion, would hold the notes.',
+    evidence: 'Nothing to show yet. It is being built now and is not ready to try.',
+    status: 'In development',
+    stack: ['React', 'TypeScript', 'Vite'],
+    tags: ['web'],
+    // No `repository` while it is private: the Finder and Quick Look then show no link.
+    featured: true,
+    theme: { from: '#1a1033', to: '#5b3fd0', glow: '#c4b5fd' },
+    mark: 'Tw',
   },
   {
     slug: 'university-cs-docs',
