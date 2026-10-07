@@ -1,5 +1,5 @@
 ---
-import { coverThumbUrl, type Project } from '@/data/projects';
+import { coverMark, coverThumbUrl, type Project } from '@/data/projects';
 
 interface Props {
   project: Project;
@@ -8,9 +8,20 @@ interface Props {
 
 const { project, class: className } = Astro.props;
 const { from, to, glow } = project.theme;
+const thumb = coverThumbUrl(project);
+const mark = coverMark(project);
 ---
 
-<!-- A project's first screenshot on its own colours: the small "product shot" used in thumbnails. -->
-<span class:list={['cover', className]} style={`--g1:${from};--g2:${to};--glow:${glow}`}>
-  <img src={coverThumbUrl(project)} alt="" loading="lazy" decoding="async" draggable="false" />
+<!--
+  A project's small cover on its own colours, used in thumbnails. With screenshots it is the first one;
+  without, it is a typographic cover: the project's mark in the same soft glass as the rest of the desktop.
+-->
+<span class:list={['cover', thumb ? 'cover--shot' : 'cover--type', className]} style={`--g1:${from};--g2:${to};--glow:${glow}`}>
+  {
+    thumb ? (
+      <img src={thumb} alt="" loading="lazy" decoding="async" draggable="false" />
+    ) : (
+      <b class="cover__mark" data-len={Math.min(mark.length, 3)} aria-hidden="true">{mark}</b>
+    )
+  }
 </span>

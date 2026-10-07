@@ -3,8 +3,9 @@ import Window from '@/components/Window.astro';
 import Icon from '@/components/Icon.astro';
 import AppIcon from '@/components/AppIcon.astro';
 import Cover from '@/components/Cover.astro';
+import Poster from '@/components/Poster.astro';
 import ShotFrame from '@/components/ShotFrame.astro';
-import { projects, featuredProjects, tagLabels, type Project, type ProjectTag } from '@/data/projects';
+import { hasShots, projects, featuredProjects, shotsOf, tagLabels, type Project, type ProjectTag } from '@/data/projects';
 import { profile } from '@/data/site';
 
 const tags = Object.keys(tagLabels) as ProjectTag[];
@@ -16,7 +17,7 @@ const views = [
   { id: 'gallery', label: 'as Gallery', icon: 'gallery' },
 ];
 
-/** The colours behind a project's screenshots, as CSS custom properties. */
+/** The colours behind a project's screenshots or cover, as CSS custom properties. */
 const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`;
 ---
 
@@ -82,26 +83,31 @@ const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${proje
       </div>
 
       <div class="finder__body">
-        <!-- Gallery: a big preview of real screenshots, a filmstrip, and an inspector -->
+        <!-- Gallery: a big preview (screenshots, or a typographic cover when there are none), a filmstrip, and an inspector -->
         <section class="view view--gallery" data-view-panel="gallery" aria-label="Gallery view">
           <div class="gallery__stage">
             {
               projects.map((project) => (
                 <div class="preview" data-preview={project.slug} style={themeVars(project)} hidden={project.slug !== firstSlug}>
-                  <div class="preview__frames">
-                    {project.shots.map((shot, index) => (
-                      <ShotFrame project={project} shot={shot} index={index} tilt eager={index === 0} hidden={index !== 0} />
-                    ))}
-                  </div>
+                  <Poster project={project} />
                   {
-                    project.shots.length > 1 && (
+                    hasShots(project) && (
+                      <div class="preview__frames">
+                        {shotsOf(project).map((shot, index) => (
+                          <ShotFrame project={project} shot={shot} index={index} tilt eager={index === 0} hidden={index !== 0} />
+                        ))}
+                      </div>
+                    )
+                  }
+                  {
+                    shotsOf(project).length > 1 && (
                       <div class="pager" role="group" aria-label={`${project.name} screenshots`} data-nodrag>
                         <button type="button" class="pager__btn" data-shot-step="-1" aria-label="Previous screenshot" title="Previous screenshot (↑)">
                           <Icon name="chevron-left" size={14} />
                         </button>
                         <span class="pager__label" aria-live="polite">
-                          <b data-shot-caption>{project.shots[0].caption}</b>
-                          <em data-shot-count>1 / {project.shots.length}</em>
+                          <b data-shot-caption>{shotsOf(project)[0]?.caption}</b>
+                          <em data-shot-count>1 / {shotsOf(project).length}</em>
                         </span>
                         <button type="button" class="pager__btn" data-shot-step="1" aria-label="Next screenshot" title="Next screenshot (↓)">
                           <Icon name="chevron-right" size={14} />
@@ -132,10 +138,14 @@ const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${proje
                     <p>{project.kicker}</p>
                   </header>
                   <div class="inspector__actions">
-                    <a class="btn btn--primary" href={project.repository} target="_blank" rel="noopener noreferrer">
-                      Open on GitHub <Icon name="external" size={13} />
-                    </a>
-                    <button class="btn" type="button" data-quicklook={project.slug}>
+                    {
+                      project.repository && (
+                        <a class="btn btn--primary" href={project.repository} target="_blank" rel="noopener noreferrer">
+                          Open on GitHub <Icon name="external" size={13} />
+                        </a>
+                      )
+                    }
+                    <button class={project.repository ? 'btn' : 'btn btn--primary'} type="button" data-quicklook={project.slug}>
                       <Icon name="eye" size={14} /> Quick Look
                     </button>
                   </div>
@@ -145,10 +155,30 @@ const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${proje
                       <dt>Kind</dt>
                       <dd>{project.kind}</dd>
                     </div>
-                    <div>
-                      <dt>Built with</dt>
-                      <dd class="pills">{project.stack.map((item) => <span>{item}</span>)}</dd>
-                    </div>
+                    {
+                      project.status && (
+                        <div>
+                          <dt>Status</dt>
+                          <dd>{project.status}</dd>
+                        </div>
+                      )
+                    }
+                    {
+                      project.stack.length > 0 && (
+                        <div>
+                          <dt>Built with</dt>
+                          <dd class="pills">{project.stack.map((item) => <span>{item}</span>)}</dd>
+                        </div>
+                      )
+                    }
+                    {
+                      !project.repository && (
+                        <div>
+                          <dt>Source</dt>
+                          <dd>The repository is private for now.</dd>
+                        </div>
+                      )
+                    }
                     <div>
                       <dt>Evidence</dt>
                       <dd>{project.evidence}</dd>
@@ -204,7 +234,7 @@ const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${proje
                       {project.filename}
                     </td>
                     <td>{project.kind}</td>
-                    <td class="list__stack">{project.stack.join(' · ')}</td>
+                    <td class="list__stack">{project.stack.length ? project.stack.join(' · ') : '—'}</td>
                     <td class="list__tags">
                       {project.tags.map((tag) => <i class={`tag-dot tag-dot--${tag}`} title={tagLabels[tag]}></i>)}
                     </td>

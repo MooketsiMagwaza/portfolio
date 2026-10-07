@@ -1,4 +1,4 @@
-import { projects, tagLabels, type Project, type ProjectTag } from '@/data/projects';
+import { hasShots, projects, shotsOf, tagLabels, type Project, type ProjectTag } from '@/data/projects';
 import { $, $$, must, openExternal, prefersReducedMotion } from './lib';
 import { openQuickLook } from './quicklook';
 import { openApp } from './windows';
@@ -34,17 +34,19 @@ const visibleSlugs = (): string[] => projects.filter(matches).map((project) => p
 
 export const currentShot = (slug: string): number => state.shots[slug] ?? 0;
 
-/** Show one screenshot per project and keep each pager's caption and counter in step. */
+/** Show one screenshot per project and keep each pager's caption and counter in step. Projects without screenshots have nothing to page. */
 function renderShots(): void {
   projects.forEach((project) => {
+    const shots = shotsOf(project);
+    if (!shots.length) return;
     const preview = $(`[data-preview="${project.slug}"]`, root);
     if (!preview) return;
     const index = currentShot(project.slug);
     $$('[data-shot]', preview).forEach((frame) => (frame.hidden = Number(frame.dataset.shot) !== index));
     const caption = $('[data-shot-caption]', preview);
     const count = $('[data-shot-count]', preview);
-    if (caption) caption.textContent = project.shots[index]?.caption ?? '';
-    if (count) count.textContent = `${index + 1} / ${project.shots.length}`;
+    if (caption) caption.textContent = shots[index]?.caption ?? '';
+    if (count) count.textContent = `${index + 1} / ${shots.length}`;
   });
 }
 
@@ -52,7 +54,8 @@ function renderShots(): void {
 export function stepShot(slug: string, delta: number): void {
   const project = bySlug(slug);
   if (!project) return;
-  const total = project.shots.length;
+  const total = shotsOf(project).length;
+  if (!total) return;
   state.shots[slug] = (currentShot(slug) + delta + total) % total;
   renderShots();
 }
@@ -157,8 +160,12 @@ function move(delta: number, vertical: boolean): void {
     step = delta * columns;
   } else if (vertical && state.view === 'gallery') {
     // In the gallery, up and down page through the current project's screenshots.
-    if (state.selected) stepShot(state.selected, delta);
-    return;
+    // A project without screenshots has nothing to page, so up and down move between projects instead.
+    const selected = bySlug(state.selected);
+    if (selected && hasShots(selected)) {
+      stepShot(selected.slug, delta);
+      return;
+    }
   }
   const next = items[Math.min(items.length - 1, Math.max(0, index + step))];
   if (next?.dataset.project) selectProject(next.dataset.project, { focus: true });
@@ -261,7 +268,7 @@ export function initFinder(): void {
         return;
       case 'Enter': {
         const project = bySlug(state.selected);
-        if (project && target.closest('[data-project]')) {
+        if (project?.repository && target.closest('[data-project]')) {
           event.preventDefault();
           openExternal(project.repository);
         }

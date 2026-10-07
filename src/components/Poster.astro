@@ -1,0 +1,27 @@
+---
+import { coverMark, hasShots, type Project } from '@/data/projects';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const mark = coverMark(project);
+---
+
+<!--
+  What a project shows in place of its screenshots: a big glass tile with its mark, the way Quick Look
+  shows a file that has no preview, and a quiet line saying screenshots are not here yet.
+  Not rendered at all for a project that has screenshots.
+-->
+{
+  !hasShots(project) && (
+    <div class="poster">
+      <span class="poster__tile" aria-hidden="true"><b class="poster__mark" data-len={Math.min(mark.length, 3)}>{mark}</b></span>
+      <strong class="poster__name">{project.filename}</strong>
+      <span class="poster__kind">{project.kind}</span>
+      {project.status && <span class="poster__status">{project.status}</span>}
+      <p class="poster__note">Screenshots coming soon</p>
+    </div>
+  )
+}

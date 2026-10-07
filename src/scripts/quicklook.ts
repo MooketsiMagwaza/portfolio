@@ -1,4 +1,4 @@
-import { projects } from '@/data/projects';
+import { projects, shotsOf } from '@/data/projects';
 import { $, $$, must } from './lib';
 
 let root: HTMLElement;
@@ -7,18 +7,20 @@ let previousFocus: HTMLElement | null = null;
 
 export const isQuickLookOpen = (): boolean => !root.hidden;
 
-/** Show one screenshot of a project inside its Quick Look page. */
+/** Show one screenshot of a project inside its Quick Look page. A project without screenshots has none to show. */
 function showShot(slug: string, index: number): void {
   const project = projects.find((entry) => entry.slug === slug);
   const page = $(`[data-ql="${slug}"]`, root);
   if (!project || !page) return;
-  const total = project.shots.length;
+  const shots = shotsOf(project);
+  const total = shots.length;
+  if (!total) return;
   const next = (index + total) % total;
   page.dataset.current = String(next);
   $$('[data-shot]', page).forEach((frame) => (frame.hidden = Number(frame.dataset.shot) !== next));
   const caption = $('[data-ql-caption]', page);
   const count = $('[data-ql-count]', page);
-  if (caption) caption.textContent = project.shots[next]?.caption ?? '';
+  if (caption) caption.textContent = shots[next]?.caption ?? '';
   if (count) count.textContent = `${next + 1} / ${total}`;
 }
 
@@ -41,7 +43,11 @@ export function openQuickLook(slug: string, shot = 0): void {
   });
   showShot(slug, shot);
   must('[data-ql-title]', root).textContent = project.filename;
-  must<HTMLAnchorElement>('[data-ql-open]', root).href = project.repository;
+  // The repository link only appears for a project whose repository is public.
+  const open = must<HTMLAnchorElement>('[data-ql-open]', root);
+  open.hidden = !project.repository;
+  if (project.repository) open.href = project.repository;
+  else open.removeAttribute('href');
 
   if (root.hidden) previousFocus = document.activeElement as HTMLElement | null;
   root.hidden = false;

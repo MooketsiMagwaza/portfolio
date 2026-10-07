@@ -31,16 +31,25 @@ export type Project = {
   story: string;
   evidence: string;
   next?: string;
+  /** Where the project stands when it is not finished, for example "In development". Leave it out for shipped work. */
+  status?: string;
+  /** Leave the list empty when the stack is not settled yet. */
   stack: string[];
   tags: ProjectTag[];
-  repository: string;
+  /** The public repository. Leave it out while the repository is private: no link is shown. */
+  repository?: string;
   featured: boolean;
-  /** The default frame for this project's screenshots. */
-  frame: Frame;
-  /** Colours behind the screenshots: a gradient and a soft highlight. */
+  /** The default frame for this project's screenshots. Only used when the project has `shots`. */
+  frame?: Frame;
+  /** Colours behind the cover and the screenshots: a gradient and a soft highlight. */
   theme: { from: string; to: string; glow: string };
-  /** Real screenshots; the first one is the cover. */
-  shots: [Shot, ...Shot[]];
+  /** One to three characters drawn on the cover when there is no screenshot. Defaults to the first letter of the name. */
+  mark?: string;
+  /**
+   * Real screenshots; the first one is the cover. Optional: without them the project gets a typographic
+   * cover and a "Screenshots coming soon" line, and the gallery and its pager are left out.
+   */
+  shots?: [Shot, ...Shot[]];
 };
 
 export const tagLabels: Record<ProjectTag, string> = {
@@ -54,9 +63,20 @@ export const tagLabels: Record<ProjectTag, string> = {
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 export const asset = (path: string): string => `${base}/${path}`;
 
-export const shotFrame = (project: Project, shot: Shot): Frame => shot.frame ?? project.frame;
+/** The screenshots a project has (none is fine: it then shows a typographic cover). */
+export const shotsOf = (project: Project): Shot[] => project.shots ?? [];
+export const hasShots = (project: Project): boolean => shotsOf(project).length > 0;
+
+export const shotFrame = (project: Project, shot: Shot): Frame => shot.frame ?? project.frame ?? 'browser';
 export const shotUrl = (project: Project, shot: Shot): string => asset(`images/projects/${project.slug}/${shot.file}.webp`);
-export const coverThumbUrl = (project: Project): string => asset(`images/projects/${project.slug}/${project.shots[0].file}-sm.webp`);
+/** The small cover image, or null when the project has no screenshots. */
+export const coverThumbUrl = (project: Project): string | null => {
+  const first = project.shots?.[0];
+  return first ? asset(`images/projects/${project.slug}/${first.file}-sm.webp`) : null;
+};
+
+/** The characters drawn on a typographic cover. */
+export const coverMark = (project: Project): string => project.mark ?? project.name.trim().charAt(0).toUpperCase();
 
 /**
  * Aspect ratio of a framed screenshot (frame included), so layout is stable before the image loads.
@@ -115,6 +135,7 @@ export const projects: Project[] = [
     featured: true,
     frame: 'bare',
     theme: { from: '#0a1a33', to: '#1f5fbf', glow: '#8fd3ff' },
+    mark: 'OV',
     shots: [
       { file: 'library', alt: 'The Orb View library: a search field, subject filters, and cards for Me and Engineering and Technology with their topics', caption: 'The library, by subject', w: 1420, h: 999 },
       { file: 'map', alt: 'The Orb View concept map: Entropy at the centre with eight connected ideas around it', caption: 'The concept map', w: 1420, h: 999 },
@@ -138,6 +159,7 @@ export const projects: Project[] = [
     featured: false,
     frame: 'browser',
     theme: { from: '#06241c', to: '#0f7a55', glow: '#5eead4' },
+    mark: 'CS',
     shots: [
       { file: 'home', alt: 'The University CS Docs home page with course cards for data structures, discrete maths, functional programming and calculus', caption: 'Home', w: 1440, h: 900 },
       { file: 'course', alt: 'The CSI247 Data Structures course overview with a study sequence', caption: 'A course overview', w: 1440, h: 900 },
@@ -163,6 +185,7 @@ export const projects: Project[] = [
     featured: false,
     frame: 'phone',
     theme: { from: '#051c25', to: '#0c7d96', glow: '#22d3ee' },
+    mark: 'GH',
     shots: [
       { file: 'gamepad', alt: 'GlassHID’s gamepad layout on a phone in landscape', caption: 'Gamepad', w: 1600, h: 720 },
       { file: 'keyboard', alt: 'GlassHID’s full keyboard layout', caption: 'Keyboard', w: 1600, h: 720 },

@@ -1,5 +1,5 @@
 import { apps } from '@/data/apps';
-import { coverThumbUrl, projects, type Project } from '@/data/projects';
+import { coverMark, coverThumbUrl, projects, type Project } from '@/data/projects';
 import * as actions from './actions';
 import { $$, appIcon, glyph, isTypingTarget, must } from './lib';
 
@@ -25,16 +25,28 @@ let shown: Entry[] = [];
 let selected = 0;
 let previousFocus: HTMLElement | null = null;
 
-/** A small cover screenshot on the project's own colours, matching the gallery thumbnails. */
+/** A small cover on the project's own colours, matching the gallery thumbnails: its first screenshot, or its mark when it has none. */
 function coverBadge(project: Project): HTMLElement {
   const badge = document.createElement('span');
-  badge.className = 'cover';
   badge.style.cssText = `--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`;
-  const img = document.createElement('img');
-  img.src = coverThumbUrl(project);
-  img.alt = '';
-  img.decoding = 'async';
-  badge.append(img);
+  const thumb = coverThumbUrl(project);
+  if (thumb) {
+    badge.className = 'cover cover--shot';
+    const img = document.createElement('img');
+    img.src = thumb;
+    img.alt = '';
+    img.decoding = 'async';
+    badge.append(img);
+  } else {
+    badge.className = 'cover cover--type';
+    const mark = document.createElement('b');
+    const text = coverMark(project);
+    mark.className = 'cover__mark';
+    mark.dataset.len = String(Math.min(text.length, 3));
+    mark.setAttribute('aria-hidden', 'true');
+    mark.textContent = text;
+    badge.append(mark);
+  }
   return badge;
 }
 
@@ -42,8 +54,8 @@ function buildIndex(): Entry[] {
   const projectEntries: Entry[] = projects.map((project) => ({
     group: 'Projects',
     title: project.name,
-    subtitle: `${project.kind} · ${project.stack.slice(0, 3).join(', ')}`,
-    keywords: [project.filename, project.kicker, ...project.stack].join(' '),
+    subtitle: [project.kind, project.status ?? project.stack.slice(0, 3).join(', ')].filter(Boolean).join(' · '),
+    keywords: [project.filename, project.kicker, project.status ?? '', ...project.stack].join(' '),
     icon: () => coverBadge(project),
     run: () => actions.openProject(project.slug),
     suggested: project.featured,
