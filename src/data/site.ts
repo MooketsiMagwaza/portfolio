@@ -48,8 +48,8 @@ export const principles: Principle[] = [
     body: 'Tests, traces, screenshots, and runbooks make the work easier to trust—and easier for the next person to continue.',
     points: ['Tests', 'Traces', 'Screenshots', 'Runbooks'],
     example: {
-      slug: 'obsidian-sync',
-      note: 'Physical-device tests, simulator tests, CI, and security guidance sit next to the code.',
+      slug: 'university-cs-docs',
+      note: 'CI, CodeQL analysis, and dependency review run on every change, and a documented contributor path sits next to the code.',
     },
   },
 ];
