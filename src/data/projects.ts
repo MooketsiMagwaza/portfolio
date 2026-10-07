@@ -88,13 +88,13 @@ export const projects: Project[] = [
     tags: ['web'],
     repository: 'https://github.com/MooketsiMagwaza/Zenith',
     featured: true,
-    frame: 'browser',
+    frame: 'bare',
     theme: { from: '#0a0a0a', to: '#3a2f12', glow: '#c9a84c' },
     shots: [
-      { file: 'decks', alt: 'Zenith’s decks view: a deck called Academics with three timed cards for a study session, a lab, and practice', caption: 'Decks and cards, each with its own timer', w: 1536, h: 864 },
-      { file: 'journal', alt: 'Zenith’s markdown journal, one document per card or deck', caption: 'One journal per card or deck', w: 1536, h: 864 },
-      { file: 'history', alt: 'Zenith’s history view of past focus sessions', caption: 'History of what you put time into', w: 1536, h: 864 },
-      { file: 'zen', alt: 'Zenith’s full-screen Zen mode, with almost nothing on screen', caption: 'Zen mode removes everything else', w: 1536, h: 864 },
+      { file: 'decks', alt: 'Zenith’s decks view: a deck called Academics with three timed cards for a study session, a lab, and practice', caption: 'Decks and cards, each with its own timer', w: 1420, h: 919 },
+      { file: 'journal', alt: 'Zenith’s markdown journal, one document per card or deck', caption: 'One journal per card or deck', w: 1420, h: 919 },
+      { file: 'history', alt: 'Zenith’s history view of past focus sessions', caption: 'History of what you put time into', w: 1420, h: 919 },
+      { file: 'zen', alt: 'Zenith’s full-screen Zen mode, with almost nothing on screen', caption: 'Zen mode removes everything else', w: 1420, h: 919 },
     ],
   },
   {
@@ -113,11 +113,11 @@ export const projects: Project[] = [
     tags: ['web', 'docs'],
     repository: 'https://github.com/MooketsiMagwaza/orb-view',
     featured: true,
-    frame: 'browser',
+    frame: 'bare',
     theme: { from: '#0a1a33', to: '#1f5fbf', glow: '#8fd3ff' },
     shots: [
-      { file: 'library', alt: 'The Orb View library: a search field, subject filters, and cards for Me and Engineering and Technology with their topics', caption: 'The library, by subject', w: 1440, h: 900 },
-      { file: 'map', alt: 'The Orb View concept map: Entropy at the centre with eight connected ideas around it', caption: 'The concept map', w: 1440, h: 900 },
+      { file: 'library', alt: 'The Orb View library: a search field, subject filters, and cards for Me and Engineering and Technology with their topics', caption: 'The library, by subject', w: 1420, h: 999 },
+      { file: 'map', alt: 'The Orb View concept map: Entropy at the centre with eight connected ideas around it', caption: 'The concept map', w: 1420, h: 999 },
     ],
   },
   {
