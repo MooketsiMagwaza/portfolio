@@ -1,5 +1,5 @@
 import { appById, type AppId } from '@/data/apps';
-import { projects, type Project } from '@/data/projects';
+import { hasShots, projects, shotsOf, type Project } from '@/data/projects';
 import { principles, profile, stackGroups } from '@/data/site';
 import * as actions from './actions';
 import { must } from './lib';
@@ -124,11 +124,13 @@ export function initTerminal(): void {
         blank();
         row(project.story);
         blank();
-        row({ t: 'built with  ', c: 't-dim' }, project.stack.join(' · '));
+        if (project.status) row({ t: 'status      ', c: 't-dim' }, project.status);
+        if (project.stack.length) row({ t: 'built with  ', c: 't-dim' }, project.stack.join(' · '));
         row({ t: 'evidence    ', c: 't-dim' }, project.evidence);
         if (project.next) row({ t: 'next        ', c: 't-dim' }, project.next);
-        row({ t: 'screens     ', c: 't-dim' }, `${project.shots.length} (open ${project.slug} to browse them)`);
-        row({ t: 'source      ', c: 't-dim' }, { t: project.repository, href: project.repository });
+        if (hasShots(project)) row({ t: 'screens     ', c: 't-dim' }, `${shotsOf(project).length} (open ${project.slug} to browse them)`);
+        if (project.repository) row({ t: 'source      ', c: 't-dim' }, { t: project.repository, href: project.repository });
+        else row({ t: 'source      ', c: 't-dim' }, 'private for now');
       },
     },
     open: {

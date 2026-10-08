@@ -777,6 +777,14 @@
   container-type: size;
 }
 
+/* No screenshots: a shorter stage that holds the typographic poster, with room under it for its note. */
+.quicklook__stage--poster {
+  --pad-top: 20px;
+  --pad-bottom: 44px;
+  aspect-ratio: auto;
+  height: clamp(220px, 38vh, 290px);
+}
+
 .quicklook__nav {
   position: absolute;
   top: 50%;
@@ -830,6 +838,12 @@
 
 .quicklook__kicker {
   color: var(--accent-text);
+  font-weight: 600;
+}
+
+.quicklook__status {
+  color: var(--fg-2);
+  font-size: 12px;
   font-weight: 600;
 }
 

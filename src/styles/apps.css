@@ -260,6 +260,133 @@
   transform: translate(-50%, -50%);
 }
 
+/* A typographic cover, for a project with no screenshot: its mark on its own colours, with a soft sheen.
+   The mark scales with the cover (container units), so the same markup fits a 30px badge and a 116px thumbnail.
+   (Two classes, so it beats the display: block that the thumbnail, icon and list classes set on the same element.) */
+.cover.cover--type {
+  display: grid;
+  place-items: center;
+  container-type: inline-size;
+}
+
+.cover--type::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 48%);
+  box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.24);
+}
+
+.cover__mark {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 30cqw;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cover__mark[data-len='2'] { font-size: 25cqw; }
+.cover__mark[data-len='3'] { font-size: 20cqw; }
+
+/* What the gallery shows in place of screenshots: a glass tile with the project's mark, the way Quick Look
+   shows a file that has no preview, and a quiet line where the pager would be. */
+.poster {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  max-width: 100%;
+  color: #fff;
+  text-align: center;
+}
+
+.poster__tile {
+  display: grid;
+  place-items: center;
+  width: clamp(52px, 26cqh, 112px);
+  aspect-ratio: 1;
+  margin-bottom: 4px;
+  border-radius: 24%;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 0 0 0.5px rgba(255, 255, 255, 0.3),
+    0 22px 44px -14px rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  container-type: inline-size;
+}
+
+/* The mark sits inside the tile because container units resolve against an ancestor, never the element itself. */
+.poster__mark {
+  font-family: var(--font-display);
+  font-size: 42cqw;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.3);
+}
+
+.poster__mark[data-len='2'] { font-size: 33cqw; }
+.poster__mark[data-len='3'] { font-size: 26cqw; }
+
+.poster__name {
+  max-width: 100%;
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+
+.poster__kind {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 12.5px;
+}
+
+.poster__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.3);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.poster__status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffd166;
+}
+
+.poster__note {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  max-width: calc(100% - 24px);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  text-align: center;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  user-select: none;
+}
+
 .gallery__strip {
   display: flex;
   gap: 14px;

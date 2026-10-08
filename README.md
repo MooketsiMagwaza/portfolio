@@ -10,7 +10,7 @@ Live at <https://mooketsimagwaza.github.io/portfolio/>.
 
 | Piece | What it does |
 | --- | --- |
-| **Finder** | The projects, as a gallery of real screenshots. Switch between Gallery, Icons, and List views; filter by tag; search; page through screenshots (buttons, or ↑/↓); press **Space** for Quick Look. |
+| **Finder** | The projects, as a gallery. Switch between Gallery, Icons, and List views; filter by tag; search; press **Space** for Quick Look. A project with screenshots can be paged through (buttons, or ↑/↓); one without shows a typographic cover. |
 | **Contacts** | About me, with quick actions. |
 | **Notes** | How I work: the principles, each tied to a project that shows it. |
 | **Terminal** | `help`, `ls`, `cat <project>`, `open <project>`, `stack`, `neofetch`, and a few surprises. Tab completes, ↑ recalls history. |
@@ -46,30 +46,55 @@ GitHub Pages through the official Astro and GitHub Pages actions.
 
 - **Projects** live in `src/data/projects.ts`. Each one separates what is
   verified today (`evidence`) from what comes next (`next`), so the copy never
-  overstates production readiness. Each project also lists its screenshots
-  (with alt text and a caption), a frame style, and the colours behind them.
+  overstates production readiness. Work that is not finished carries a `status`
+  such as "In development" and says what it is aiming at, not what it does.
+  Each project also has the colours behind its cover and, optionally, its
+  screenshots.
 - **Profile, principles, toolkit, and credits** live in `src/data/site.ts`.
 - **Apps** (what appears in the Dock and Spotlight) live in `src/data/apps.ts`.
 
+### Adding a project
+
+Adding a project is a data change: add an entry to the `projects` list in
+`src/data/projects.ts`, and the Finder, Quick Look, Spotlight, and the
+Terminal pick it up. The required fields are `slug`, `name`, `filename`, `kind`,
+`kicker`, `summary`, `story`, `evidence`, `stack`, `tags`, `featured`, and `theme`.
+
+- Leave out `repository` while the repository is private. No GitHub link is shown,
+  and the project says its source is private for now.
+- Use `stack: []` while the stack is not settled.
+- Set `status: 'In development'` for work in progress.
+- Set `mark` (one to three characters) for the typographic cover; it defaults to
+  the first letter of the name.
+- Leave out `shots` until there are screenshots.
+
 ### Project images
 
-Screenshots live in `public/images/projects/<slug>/` as WebP, with a small
-`-sm` thumbnail for each cover. They come from:
+There are no project images for now. Every project shows a typographic cover (its
+mark on its own colours) in place of a screenshot, and the gallery says
+"Screenshots coming soon" where the screenshots used to be.
 
-- the images chosen for the [GitHub profile README](https://github.com/MooketsiMagwaza)
-  (when it used baked Mac-window and iPhone mockups), which use the `bare` frame;
-- real captures of each project's own running app or deployed site (Zenith's tutorial screens, Orb View's live site);
-- each project's own repository docs (GlassHID);
-- captures of the live [University CS Docs](https://university-cs-docs.vercel.app) site.
+The idea is kept, not deleted. `shots` is optional on each project, and the
+frames, the pager, and Quick Look's previous and next buttons are still in the
+code. They appear for any project that has a `shots` list:
 
-To add or replace one, export it as WebP (about 1,400px wide is plenty), drop it
-in the project's folder, and update its `shots` entry. `w` and `h` are the
-image's pixel size; they reserve space so the layout doesn't jump.
+1. Export each screenshot as WebP (about 1,400px wide is plenty) to
+   `public/images/projects/<slug>/`, plus a small `<file>-sm.webp` thumbnail for
+   the first one, which is the cover.
+2. Add a `shots` list to the project: `file` (without the extension), `alt`,
+   `caption`, and `w` and `h`, the image's pixel size, which reserve space so the
+   layout doesn't jump. Set the project's `frame` (`browser`, `tablet`, `phone`,
+   or `bare` for images that already include their own Mac window or iPhone).
 
-`tools/mockups/` is the script that bakes those Mac-window and iPhone mockups
-from raw screens (there are none at the moment; the StockLink and Tsela screens were removed)
-(see its README). The site itself doesn't use those raw screens or
-`src/styles/mockups.css` any more, but the tool reads them, so they are kept.
+The previous images and `shots` entries are in git history, for example
+`git show 7e6482c:src/data/projects.ts` and
+`git checkout 7e6482c -- public/images`.
+
+`tools/mockups/` is the script that bakes Mac-window and iPhone mockups from raw
+screens (see its README). The site itself doesn't use `src/styles/mockups.css`
+or those components, but the tool does, so they are kept. The raw screens it
+reads were removed from `public/images/` with the rest of the images; restore
+them from history or add new captures before baking.
 
 ## Credit
 

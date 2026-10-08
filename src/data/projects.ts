@@ -31,16 +31,25 @@ export type Project = {
   story: string;
   evidence: string;
   next?: string;
+  /** Where the project stands when it is not finished, for example "In development". Leave it out for shipped work. */
+  status?: string;
+  /** Leave the list empty when the stack is not settled yet. */
   stack: string[];
   tags: ProjectTag[];
-  repository: string;
+  /** The public repository. Leave it out while the repository is private: no link is shown. */
+  repository?: string;
   featured: boolean;
-  /** The default frame for this project's screenshots. */
-  frame: Frame;
-  /** Colours behind the screenshots: a gradient and a soft highlight. */
+  /** The default frame for this project's screenshots. Only used when the project has `shots`. */
+  frame?: Frame;
+  /** Colours behind the cover and the screenshots: a gradient and a soft highlight. */
   theme: { from: string; to: string; glow: string };
-  /** Real screenshots; the first one is the cover. */
-  shots: [Shot, ...Shot[]];
+  /** One to three characters drawn on the cover when there is no screenshot. Defaults to the first letter of the name. */
+  mark?: string;
+  /**
+   * Real screenshots; the first one is the cover. Optional: without them the project gets a typographic
+   * cover and a "Screenshots coming soon" line, and the gallery and its pager are left out.
+   */
+  shots?: [Shot, ...Shot[]];
 };
 
 export const tagLabels: Record<ProjectTag, string> = {
@@ -54,9 +63,20 @@ export const tagLabels: Record<ProjectTag, string> = {
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 export const asset = (path: string): string => `${base}/${path}`;
 
-export const shotFrame = (project: Project, shot: Shot): Frame => shot.frame ?? project.frame;
+/** The screenshots a project has (none is fine: it then shows a typographic cover). */
+export const shotsOf = (project: Project): Shot[] => project.shots ?? [];
+export const hasShots = (project: Project): boolean => shotsOf(project).length > 0;
+
+export const shotFrame = (project: Project, shot: Shot): Frame => shot.frame ?? project.frame ?? 'browser';
 export const shotUrl = (project: Project, shot: Shot): string => asset(`images/projects/${project.slug}/${shot.file}.webp`);
-export const coverThumbUrl = (project: Project): string => asset(`images/projects/${project.slug}/${project.shots[0].file}-sm.webp`);
+/** The small cover image, or null when the project has no screenshots. */
+export const coverThumbUrl = (project: Project): string | null => {
+  const first = project.shots?.[0];
+  return first ? asset(`images/projects/${project.slug}/${first.file}-sm.webp`) : null;
+};
+
+/** The characters drawn on a typographic cover. */
+export const coverMark = (project: Project): string => project.mark ?? project.name.trim().charAt(0).toUpperCase();
 
 /**
  * Aspect ratio of a framed screenshot (frame included), so layout is stable before the image loads.
@@ -71,6 +91,10 @@ export function frameAspect(frame: Frame, shot: Shot): number {
 }
 
 // Order is the order they are shown in: Zenith leads. (Tsela and StockLink are company assets and are no longer shown here.)
+//
+// Adding a project is a data change: add an entry here and the Finder, Quick Look, Spotlight and the
+// Terminal all pick it up. Leave out `repository` while a repository is private and `shots` until there
+// are screenshots; use `stack: []` while the stack is not settled; set `status` for unfinished work.
 export const projects: Project[] = [
   {
     slug: 'zenith',
@@ -90,12 +114,6 @@ export const projects: Project[] = [
     featured: true,
     frame: 'bare',
     theme: { from: '#0a0a0a', to: '#3a2f12', glow: '#c9a84c' },
-    shots: [
-      { file: 'decks', alt: 'Zenith’s decks view: a deck called Academics with three timed cards for a study session, a lab, and practice', caption: 'Decks and cards, each with its own timer', w: 1420, h: 919 },
-      { file: 'journal', alt: 'Zenith’s markdown journal, one document per card or deck', caption: 'One journal per card or deck', w: 1420, h: 919 },
-      { file: 'history', alt: 'Zenith’s history view of past focus sessions', caption: 'History of what you put time into', w: 1420, h: 919 },
-      { file: 'zen', alt: 'Zenith’s full-screen Zen mode, with almost nothing on screen', caption: 'Zen mode removes everything else', w: 1420, h: 919 },
-    ],
   },
   {
     slug: 'orb-view',
@@ -115,10 +133,44 @@ export const projects: Project[] = [
     featured: true,
     frame: 'bare',
     theme: { from: '#0a1a33', to: '#1f5fbf', glow: '#8fd3ff' },
-    shots: [
-      { file: 'library', alt: 'The Orb View library: a search field, subject filters, and cards for Me and Engineering and Technology with their topics', caption: 'The library, by subject', w: 1420, h: 999 },
-      { file: 'map', alt: 'The Orb View concept map: Entropy at the centre with eight connected ideas around it', caption: 'The concept map', w: 1420, h: 999 },
-    ],
+    mark: 'OV',
+  },
+  {
+    slug: 'tagwise',
+    name: 'Tagwise',
+    filename: 'Tagwise.app',
+    kind: 'Asset and stock register',
+    kicker: 'One shared register for assets and stock',
+    summary:
+      'A shared register for an organisation’s assets and stock, being built to scan QR codes and barcodes in the browser, import and export Excel and CSV, and let several people run a stock-take together.',
+    story:
+      'Tagwise is being built now, so this page says what it is aiming at, not what it already does. The aim is one shared register of an organisation’s assets and stock. People would scan QR codes and barcodes in the browser, bring in and send out Excel and CSV files, and run a stock-take with several people at once. Sites would show on a map, and a shared workspace, like Notion, would hold the notes.',
+    evidence: 'Nothing to show yet. It is being built now and is not ready to try.',
+    status: 'In development',
+    stack: ['React', 'TypeScript', 'Vite'],
+    tags: ['web'],
+    // No `repository` while it is private: the Finder and Quick Look then show no link.
+    featured: true,
+    theme: { from: '#1a1033', to: '#5b3fd0', glow: '#c4b5fd' },
+    mark: 'Tw',
+  },
+  {
+    slug: 'kori',
+    name: 'Kori',
+    filename: 'Kori.app',
+    kind: 'Safari and wildlife app',
+    kicker: 'Offline-first wildlife sightings for Botswana',
+    summary:
+      'An offline-first safari and wildlife app for Botswana, being built around reviewed sightings, offline park maps, and guidance to a sighting along existing roads and tracks.',
+    story:
+      'Kori is being built now, so this page says what it is aiming at, not what it already does. It is named after the kori bustard, kgori in Setswana, Botswana’s national bird. The aim is a safari app that keeps working without signal. Wildlife sightings would be reviewed in a queue, and a public API would need a key. Parks would have maps that work offline, and a track map would be built from GPS traces that people choose to share. Sightings could be passed on by QR code when there is no signal, and the app would guide you to a sighting along existing roads and tracks.',
+    evidence: 'Nothing to show yet. The repository has only just been started.',
+    status: 'In development',
+    stack: [],
+    tags: ['mobile'],
+    // No `repository` while it is private. `stack` stays empty until the repository settles it.
+    featured: true,
+    theme: { from: '#2b140a', to: '#a5471c', glow: '#ffb98a' },
   },
   {
     slug: 'university-cs-docs',
@@ -138,12 +190,7 @@ export const projects: Project[] = [
     featured: false,
     frame: 'browser',
     theme: { from: '#06241c', to: '#0f7a55', glow: '#5eead4' },
-    shots: [
-      { file: 'home', alt: 'The University CS Docs home page with course cards for data structures, discrete maths, functional programming and calculus', caption: 'Home', w: 1440, h: 900 },
-      { file: 'course', alt: 'The CSI247 Data Structures course overview with a study sequence', caption: 'A course overview', w: 1440, h: 900 },
-      { file: 'semester', alt: 'The Semester III overview listing core courses and an elective', caption: 'Semester overview', w: 1440, h: 900 },
-      { file: 'focus-timer', alt: 'The Pomodoro focus timer page', caption: 'Focus timer', w: 1440, h: 900 },
-    ],
+    mark: 'CS',
   },
   {
     slug: 'glasshid',
@@ -163,12 +210,7 @@ export const projects: Project[] = [
     featured: false,
     frame: 'phone',
     theme: { from: '#051c25', to: '#0c7d96', glow: '#22d3ee' },
-    shots: [
-      { file: 'gamepad', alt: 'GlassHID’s gamepad layout on a phone in landscape', caption: 'Gamepad', w: 1600, h: 720 },
-      { file: 'keyboard', alt: 'GlassHID’s full keyboard layout', caption: 'Keyboard', w: 1600, h: 720 },
-      { file: 'trackpad', alt: 'GlassHID’s trackpad, docked on the left of the keyboard', caption: 'Trackpad', w: 1600, h: 720 },
-      { file: 'system-controls', alt: 'The system controls panel with volume and brightness', caption: 'System controls', w: 1600, h: 720 },
-    ],
+    mark: 'GH',
   },
 ];
 

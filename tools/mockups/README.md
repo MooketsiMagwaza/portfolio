@@ -31,3 +31,9 @@ tab bar back underneath, as a real viewport would show. The status bar colour
 (`statusBg`) should match the app's top bar.
 
 Set `BROWSER_PATH` if Edge or Chrome isn't in a standard location.
+
+**The site's images are off for now.** The raw screens the current jobs read
+(`public/images/zenith/` and `public/images/orb-view/`) were removed from the working
+tree along with every other project image. Restore them from history before running
+those jobs (`git checkout 7e6482c -- public/images/zenith public/images/orb-view`), or
+add new jobs that read new captures.

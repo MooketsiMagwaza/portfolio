@@ -1,7 +1,8 @@
 ---
 import Icon from '@/components/Icon.astro';
+import Poster from '@/components/Poster.astro';
 import ShotFrame from '@/components/ShotFrame.astro';
-import { projects, tagLabels } from '@/data/projects';
+import { hasShots, projects, shotsOf, tagLabels } from '@/data/projects';
 ---
 
 <div class="quicklook" data-ql-root hidden>
@@ -12,17 +13,21 @@ import { projects, tagLabels } from '@/data/projects';
         <Icon name="close" size={12} />
       </button>
       <strong data-ql-title></strong>
-      <a class="btn" data-ql-open target="_blank" rel="noopener noreferrer">Open on GitHub <Icon name="external" size={12} /></a>
+      <a class="btn" data-ql-open target="_blank" rel="noopener noreferrer" hidden>Open on GitHub <Icon name="external" size={12} /></a>
     </header>
     {
       projects.map((project) => (
         <div class="quicklook__page" data-ql={project.slug} hidden>
-          <div class="quicklook__stage" style={`--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`}>
-            {project.shots.map((shot, index) => (
+          <div
+            class:list={['quicklook__stage', { 'quicklook__stage--poster': !hasShots(project) }]}
+            style={`--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`}
+          >
+            <Poster project={project} />
+            {shotsOf(project).map((shot, index) => (
               <ShotFrame project={project} shot={shot} index={index} hidden={index !== 0} />
             ))}
             {
-              project.shots.length > 1 && (
+              shotsOf(project).length > 1 && (
                 <>
                   <button type="button" class="quicklook__nav quicklook__nav--prev" data-ql-step="-1" aria-label="Previous screenshot">
                     <Icon name="chevron-left" size={18} />
@@ -35,14 +40,19 @@ import { projects, tagLabels } from '@/data/projects';
             }
           </div>
           <div class="quicklook__body">
-            <p class="quicklook__count" aria-live="polite">
-              <b data-ql-caption>{project.shots[0].caption}</b>
-              {project.shots.length > 1 && <span data-ql-count>1 / {project.shots.length}</span>}
-            </p>
+            {
+              hasShots(project) && (
+                <p class="quicklook__count" aria-live="polite">
+                  <b data-ql-caption>{shotsOf(project)[0]?.caption}</b>
+                  {shotsOf(project).length > 1 && <span data-ql-count>1 / {shotsOf(project).length}</span>}
+                </p>
+              )
+            }
             <h2>{project.name}</h2>
             <p class="quicklook__kicker">{project.kicker}</p>
+            {hasShots(project) && project.status && <p class="quicklook__status">{project.status}</p>}
             <p>{project.summary}</p>
-            <p class="pills">{project.stack.map((item) => <span>{item}</span>)}</p>
+            {project.stack.length > 0 && <p class="pills">{project.stack.map((item) => <span>{item}</span>)}</p>}
             <p class="quicklook__tags">
               {project.tags.map((tag) => <span><i class={`tag-dot tag-dot--${tag}`}></i>{tagLabels[tag]}</span>)}
             </p>
