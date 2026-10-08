@@ -116,26 +116,6 @@ export const projects: Project[] = [
     theme: { from: '#0a0a0a', to: '#3a2f12', glow: '#c9a84c' },
   },
   {
-    slug: 'orb-view',
-    name: 'Orb View',
-    filename: 'Orb View.app',
-    kind: 'Learning app',
-    kicker: 'Explore how ideas connect',
-    summary:
-      'A visual learning library and concept map: browse ideas by subject, follow guided learning paths, or move through an open graph of connected concepts.',
-    story:
-      'I wanted to see how ideas connect instead of reading them as a list. Orb View lets you browse a library, open a concept to see its layers and prerequisites, or wander the map one connection at a time.',
-    evidence:
-      'The library holds hundreds of concepts as validated JSON, with checks for data, links, and learning paths. A separate documentation site publishes the whole library, and the app also builds as a Tauri 2 desktop app. It is deployed on the web.',
-    stack: ['React', 'TypeScript', 'Vite', 'Tauri 2'],
-    tags: ['web', 'docs'],
-    repository: 'https://github.com/MooketsiMagwaza/orb-view',
-    featured: true,
-    frame: 'bare',
-    theme: { from: '#0a1a33', to: '#1f5fbf', glow: '#8fd3ff' },
-    mark: 'OV',
-  },
-  {
     slug: 'tagwise',
     name: 'Tagwise',
     filename: 'Tagwise.app',
@@ -191,26 +171,6 @@ export const projects: Project[] = [
     frame: 'browser',
     theme: { from: '#06241c', to: '#0f7a55', glow: '#5eead4' },
     mark: 'CS',
-  },
-  {
-    slug: 'glasshid',
-    name: 'GlassHID',
-    filename: 'GlassHID.apk',
-    kind: 'Android utility',
-    kicker: 'A phone that is a keyboard, trackpad, remote, and gamepad',
-    summary:
-      'Turns an Android phone into a local-only Bluetooth keyboard, trackpad, media remote, and gamepad using native HID APIs.',
-    story:
-      'A small, local-only Android utility that turns a phone into the input devices you need, over Bluetooth HID or USB/ADB. It is presented honestly: the CI and compatibility evidence is still being expanded.',
-    evidence: 'An offline Android utility covering Bluetooth HID and USB/ADB.',
-    next: 'Expand CI and device-compatibility evidence.',
-    stack: ['Android', 'Bluetooth HID', 'USB/ADB'],
-    tags: ['mobile'],
-    repository: 'https://github.com/MooketsiMagwaza/GlassHID',
-    featured: false,
-    frame: 'phone',
-    theme: { from: '#051c25', to: '#0c7d96', glow: '#22d3ee' },
-    mark: 'GH',
   },
 ];
 

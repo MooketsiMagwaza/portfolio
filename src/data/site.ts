@@ -39,8 +39,8 @@ export const principles: Principle[] = [
     body: 'Clear ownership for data, services, permissions, and failures keeps a growing system understandable.',
     points: ['Data', 'Services', 'Permissions', 'Failures'],
     example: {
-      slug: 'orb-view',
-      note: 'The concept data is validated JSON with its own link and path checks, kept separate from the app that shows it.',
+      slug: 'zenith',
+      note: 'The data layer owns the rules, not the screens: each card and deck has exactly one journal, and every delete returns an undo handle.',
     },
   },
   {

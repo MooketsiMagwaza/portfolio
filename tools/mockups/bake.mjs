@@ -49,20 +49,6 @@ const JOBS = [
     pad: { t: 40, r: 70, b: 120, l: 70 },
     html: mac({ src: image('zenith/zen.png'), alt: 'Zenith full-screen Zen mode', title: 'Zenith — Zen', theme: 'dark' }),
   },
-  {
-    name: 'orb-view-library',
-    dpr: 1,
-    width: 1280,
-    pad: { t: 40, r: 70, b: 120, l: 70 },
-    html: mac({ src: image('orb-view/library.png'), alt: 'The Orb View library, by subject', title: 'Orb View — Library', theme: 'light' }),
-  },
-  {
-    name: 'orb-view-map',
-    dpr: 1,
-    width: 1280,
-    pad: { t: 40, r: 70, b: 120, l: 70 },
-    html: mac({ src: image('orb-view/map.png'), alt: 'The Orb View concept map', title: 'Orb View — Map', theme: 'light' }),
-  },
 ];
 
 const only = process.argv.slice(3);
