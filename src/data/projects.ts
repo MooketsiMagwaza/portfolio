@@ -107,7 +107,7 @@ export const projects: Project[] = [
     story:
       'Most productivity apps are built to capture tasks or to bill time. Zenith is built for attention: pick one thing, put time into it, and write down what happened. There are no streaks, no XP bars, and no nags.',
     evidence:
-      'It is local-first: data lives in the browser, every delete can be undone, and each card and deck has exactly one journal. There is no server and no account: everything stays in the browser. The README is the full specification, down to every key and storage name.',
+      'It is local-first: data lives in the browser, every delete can be undone, and each card and deck has exactly one journal. There is no server and no account: everything stays in the browser. The README is the full specification, down to every key and storage name. It is open source under the MIT licence.',
     stack: ['React', 'TypeScript', 'TanStack', 'Tailwind CSS'],
     tags: ['web'],
     repository: 'https://github.com/MooketsiMagwaza/Zenith',
