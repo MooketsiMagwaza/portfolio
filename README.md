@@ -10,7 +10,7 @@ Live at <https://mooketsimagwaza.github.io/portfolio/>.
 
 | Piece | What it does |
 | --- | --- |
-| **Finder** | The projects, as a gallery. Switch between Gallery, Icons, and List views; filter by tag; search; press **Space** for Quick Look. A project with screenshots can be paged through (buttons, or ↑/↓); one without shows a typographic cover. |
+| **Finder** | The projects, as a gallery. Switch between Gallery, Icons, and List views; filter by tag; search; press **Space** for Quick Look. A project with screenshots can be paged through (buttons, or ↑/↓), and Quick Look also shows a grid of every screenshot, where a thumbnail opens that one; a project without screenshots shows a typographic cover. |
 | **Contacts** | About me, with quick actions. |
 | **Notes** | How I work: the principles, each tied to a project that shows it. |
 | **Terminal** | `help`, `ls`, `cat <project>`, `open <project>`, `stack`, `neofetch`, and a few surprises. Tab completes, ↑ recalls history. |
@@ -68,6 +68,9 @@ Terminal pick it up. The required fields are `slug`, `name`, `filename`, `kind`,
   the first letter of the name.
 - Leave out `shots` until there are screenshots.
 - Say "sample data" in a caption when the picture shows invented data.
+- To show a project's architecture, give it `stackGroups` (labelled groups such as Frontend,
+  Backend, Data and Observability) and set `stack` from them with `stackOf(...)`. The Finder
+  and Quick Look then show grouped chips; without `stackGroups` the flat `stack` is one row.
 
 ### Project images
 
@@ -77,7 +80,7 @@ thumbnail:
 | Project | Images | Where they come from |
 | --- | --- | --- |
 | Zenith | Four Mac-window shots | Captures of the app, baked with `tools/mockups` (raw screens in `public/images/zenith/`) |
-| Kori | The landing page and the review console in Mac windows, and the three phone screens (home, the offline map, logging a sighting) side by side in iPhone frames | Captured from the running web apps on their fictional sample reserve (raw screens in `public/images/kori/`) |
+| Kori | The landing page and the review console in Mac windows, and the three phone screens (home, the offline map, logging a sighting) side by side in iPhone frames | Captured from the running web apps on their fictional sample reserve by `tools/mockups/capture-kori.mjs` (raw screens in `public/images/kori/`; the commands to re-take them are in the tools README) |
 | Tagwise | Five Mac-window shots and one iPhone shot | Captures of the browser prototype's sample workspace, copied from its own screenshots (raw screens in `public/images/tagwise/`) |
 | University CS Docs | Four plain screenshots | The site draws the browser window around them |
 
