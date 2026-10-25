@@ -1,0 +1,30 @@
+---
+import type { Project } from '@/data/projects';
+
+interface Props {
+  project: Project;
+  /** A label column beside the chips, for when there is room (Quick Look). */
+  wide?: boolean;
+}
+
+const { project, wide = false } = Astro.props;
+---
+
+<!--
+  The stack as chips. A project with `stackGroups` shows them grouped under Frontend, Backend, Data and so on;
+  one without shows its flat `stack` as a single row.
+-->
+{
+  project.stackGroups ? (
+    <div class:list={['stack-groups', 'stack-groups--project', { 'stack-groups--wide': wide }]}>
+      {project.stackGroups.map((group) => (
+        <div class="stack-group">
+          <h3>{group.label}</h3>
+          <ul class="pills">{group.items.map((item) => <li>{item}</li>)}</ul>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <ul class="pills">{project.stack.map((item) => <li>{item}</li>)}</ul>
+  )
+}
