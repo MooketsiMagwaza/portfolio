@@ -67,34 +67,44 @@ Terminal pick it up. The required fields are `slug`, `name`, `filename`, `kind`,
 - Set `mark` (one to three characters) for the typographic cover; it defaults to
   the first letter of the name.
 - Leave out `shots` until there are screenshots.
+- Say "sample data" in a caption when the picture shows invented data.
 
 ### Project images
 
-There are no project images for now. Every project shows a typographic cover (its
-mark on its own colours) in place of a screenshot, and the gallery says
-"Screenshots coming soon" where the screenshots used to be.
+Every project has its images, in the gallery, in Quick Look and as the small cover
+thumbnail:
 
-The idea is kept, not deleted. `shots` is optional on each project, and the
-frames, the pager, and Quick Look's previous and next buttons are still in the
-code. They appear for any project that has a `shots` list:
+| Project | Images | Where they come from |
+| --- | --- | --- |
+| Zenith | Four Mac-window shots | Captures of the app, baked with `tools/mockups` (raw screens in `public/images/zenith/`) |
+| Kori | The landing page and the review console in Mac windows, and the three phone screens (home, the offline map, logging a sighting) side by side in iPhone frames | Captured from the running web apps on their fictional sample reserve (raw screens in `public/images/kori/`) |
+| Tagwise | Five Mac-window shots and one iPhone shot | Captures of the browser prototype's sample workspace, copied from its own screenshots (raw screens in `public/images/tagwise/`) |
+| University CS Docs | Four plain screenshots | The site draws the browser window around them |
 
-1. Export each screenshot as WebP (about 1,400px wide is plenty) to
-   `public/images/projects/<slug>/`, plus a small `<file>-sm.webp` thumbnail for
-   the first one, which is the cover.
-2. Add a `shots` list to the project: `file` (without the extension), `alt`,
-   `caption`, and `w` and `h`, the image's pixel size, which reserve space so the
-   layout doesn't jump. Set the project's `frame` (`browser`, `tablet`, `phone`,
-   or `bare` for images that already include their own Mac window or iPhone).
+The baked images are WebP, with transparency, in `public/images/projects/<slug>/`.
+The first one of each project also has a `<file>-sm.webp` thumbnail, which is its
+cover. A project without `shots` still works: it shows a typographic cover (its mark
+on its own colours) and the gallery says "Screenshots coming soon".
 
-The previous images and `shots` entries are in git history, for example
-`git show 7e6482c:src/data/projects.ts` and
-`git checkout 7e6482c -- public/images`.
+To add or replace images:
 
-`tools/mockups/` is the script that bakes Mac-window and iPhone mockups from raw
-screens (see its README). The site itself doesn't use `src/styles/mockups.css`
-or those components, but the tool does, so they are kept. The raw screens it
-reads were removed from `public/images/` with the rest of the images; restore
-them from history or add new captures before baking.
+1. Put the raw captures in `public/images/<slug>/`: 1440 × 900 for a desktop screen,
+   390 × 844 at 2x (780 × 1688 px) for a phone.
+2. Add a job per image to `tools/mockups/bake.mjs` and bake it to a folder outside the
+   repository: `node tools/mockups/bake.mjs <out-dir> <job>`.
+3. Convert the baked PNG to WebP, which also prints the `w` and `h` to use:
+   `node tools/mockups/webp.mjs <out-dir>/<job>.png public/images/projects/<slug> --name <file>`.
+   Add `--thumb 640` for the project's first image, and `--width N` to scale a large one down.
+4. Add it to the project's `shots` in `src/data/projects.ts`: `file` (without the
+   extension), `alt`, `caption`, and `w` and `h`, the image's pixel size, which reserve
+   space so the layout doesn't jump. Set the project's `frame` (`browser`, `tablet`,
+   `phone`, or `bare` for images that already include their own Mac window or iPhone).
+
+Check each image by looking at it before it goes in. The tool is described in
+[tools/mockups/README.md](tools/mockups/README.md). The Zenith and University CS Docs
+images were taken out on 8 October 2026 and brought back from git history
+(`git checkout 7e6482c -- public/images/projects/zenith
+public/images/projects/university-cs-docs public/images/zenith`).
 
 ## Credit
 
