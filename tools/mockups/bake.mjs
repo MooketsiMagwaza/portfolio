@@ -49,6 +49,50 @@ const JOBS = [
     pad: { t: 40, r: 70, b: 120, l: 70 },
     html: mac({ src: image('zenith/zen.png'), alt: 'Zenith full-screen Zen mode', title: 'Zenith — Zen', theme: 'dark' }),
   },
+  // Tagwise: captures of its browser prototype's sample workspace (1440 x 900, dark).
+  {
+    name: 'tagwise-home',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/dashboard-dark.jpg'), alt: 'Tagwise home: what needs attention, a stock-take in progress and recent activity', title: 'Tagwise — Home', theme: 'dark' }),
+  },
+  {
+    name: 'tagwise-register',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/register-dark.jpg'), alt: 'Tagwise register: a table of assets with saved views, filters and columns', title: 'Tagwise — Assets', theme: 'dark' }),
+  },
+  {
+    name: 'tagwise-asset',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/asset-dark.jpg'), alt: 'Tagwise asset page: details, custody and a QR label', title: 'Tagwise — Asset', theme: 'dark' }),
+  },
+  {
+    name: 'tagwise-import',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/import-dark.jpg'), alt: 'Tagwise spreadsheet import: rows checked, with problems marked', title: 'Tagwise — Import', theme: 'dark' }),
+  },
+  {
+    name: 'tagwise-sites',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/sites-dark.jpg'), alt: 'Tagwise sites: six places on a map of Botswana, with a list beside it', title: 'Tagwise — Sites', theme: 'dark' }),
+  },
+  // A phone screen is 390 CSS pixels wide, captured at 2x (780 px), so bake at 2x as well.
+  {
+    name: 'tagwise-phone',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('tagwise/phone-home-dark.jpg'), alt: 'Tagwise home on a phone: what needs attention', statusBg: '#0f171f' }),
+  },
 ];
 
 const only = process.argv.slice(3);

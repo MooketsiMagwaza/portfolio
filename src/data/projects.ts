@@ -137,8 +137,17 @@ export const projects: Project[] = [
     tags: ['web'],
     // No `repository` while it is private: the Finder and Quick Look then show no link.
     featured: true,
+    frame: 'bare',
     theme: { from: '#1a1033', to: '#5b3fd0', glow: '#c4b5fd' },
     mark: 'Tw',
+    shots: [
+      { file: 'home', alt: 'Tagwise’s home page in its sample workspace: what needs attention, a stock-take in progress and recent activity', caption: 'Home: what needs attention (sample workspace)', w: 1420, h: 999 },
+      { file: 'register', alt: 'Tagwise’s register: a table of assets with saved views, filters and columns', caption: 'The register, with saved views and filters (sample data)', w: 1420, h: 999 },
+      { file: 'asset', alt: 'A Tagwise asset page with its details, who has it, and a QR label ready to print', caption: 'An asset with its QR label (sample data)', w: 1420, h: 999 },
+      { file: 'import', alt: 'Tagwise’s spreadsheet import, with the rows that have problems marked before anything is written', caption: 'Importing a spreadsheet: problems shown before anything is saved (sample data)', w: 1420, h: 999 },
+      { file: 'sites', alt: 'Tagwise’s sites page: six places on a map of Botswana, with a list beside it', caption: 'Sites on a map (sample data)', w: 1420, h: 999 },
+      { file: 'phone', alt: 'Tagwise’s home page on a phone, in an iPhone frame', caption: 'The same app on a phone (sample workspace)', w: 600, h: 1293 },
+    ],
   },
   {
     slug: 'kori',
