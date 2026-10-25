@@ -138,7 +138,7 @@
   height: calc(54 * var(--u));
   padding: 0 calc(34 * var(--u)) calc(11 * var(--u)) calc(44 * var(--u));
   background: var(--status-bg);
-  color: #fff;
+  color: var(--status-ink, #fff);
   font: 600 calc(16.5 * var(--u)) / 1 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Inter, sans-serif;
   letter-spacing: -0.01em;
 }
@@ -177,7 +177,7 @@
 .iphone__safe {
   position: relative;
   height: calc(26 * var(--u));
-  background: var(--status-bg);
+  background: var(--safe-bg, var(--status-bg));
 }
 
 .iphone__home {
@@ -187,6 +187,6 @@
   width: calc(138 * var(--u));
   height: calc(5 * var(--u));
   border-radius: calc(3 * var(--u));
-  background: rgb(255 255 255 / 0.86);
+  background: var(--home-ink, rgb(255 255 255 / 0.86));
   transform: translateX(-50%);
 }

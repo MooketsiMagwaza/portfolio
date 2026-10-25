@@ -93,6 +93,56 @@ const JOBS = [
     pad: { t: 30, r: 60, b: 110, l: 60 },
     html: iphone({ src: image('tagwise/phone-home-dark.jpg'), alt: 'Tagwise home on a phone: what needs attention', statusBg: '#0f171f' }),
   },
+  // Kori: captures of its web apps' sample reserve (the desktop ones 1440 x 900, the phone ones 390 x 844 at 2x, Day colours).
+  {
+    name: 'kori-landing',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('kori/landing.png'), alt: 'The Kori landing page: wildlife sightings that keep working where the signal ends', title: 'Kori', theme: 'light' }),
+  },
+  {
+    name: 'kori-review',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('kori/review.png'), alt: 'The Kori review console: a queue of sightings waiting for review, with one open on a map', title: 'Kori — Review', theme: 'light' }),
+  },
+  {
+    name: 'kori-phone-home',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('kori/phone-home.png'), alt: 'The Kori field app home screen on a phone', statusBg: '#f6f0e4', safeBg: '#fffdf8', tone: 'light' }),
+  },
+  {
+    name: 'kori-phone-map',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('kori/phone-map.png'), alt: 'The Kori field app map on a phone, drawn from a downloaded park pack', statusBg: '#f6f0e4', safeBg: '#fffdf8', tone: 'light' }),
+  },
+  {
+    name: 'kori-phone-log',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('kori/phone-log.png'), alt: 'The Kori field app log-a-sighting form on a phone', statusBg: '#f6f0e4', safeBg: '#fffdf8', tone: 'light' }),
+  },
+  // The three phone screens side by side, which fits the gallery's wide stage better than three tall images.
+  {
+    name: 'kori-phones',
+    dpr: 2,
+    width: 1040,
+    pad: { t: 20, r: 40, b: 80, l: 40 },
+    html: `<div style="display:flex;gap:70px;align-items:flex-start">${[
+      ['kori/phone-home.png', 'The Kori field app home screen on a phone'],
+      ['kori/phone-map.png', 'The Kori field app map on a phone, drawn from a downloaded park pack'],
+      ['kori/phone-log.png', 'The Kori field app log-a-sighting form on a phone'],
+    ]
+      .map(([file, alt]) => `<div style="width:300px">${iphone({ src: image(file), alt, statusBg: '#f6f0e4', safeBg: '#fffdf8', tone: 'light' })}</div>`)
+      .join('')}</div>`,
+  },
 ];
 
 const only = process.argv.slice(3);

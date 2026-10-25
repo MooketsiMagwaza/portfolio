@@ -16,9 +16,14 @@ export function mac({ src, alt, title = '', theme = 'light' }) {
 </figure></div>`;
 }
 
-/** An iPhone with a Dynamic Island. The screenshot is a 390-wide phone screen; `statusBg` is the app's top-bar colour. */
-export function iphone({ src, alt, statusBg = '#000', time = '9:41' }) {
-  return `<div class="iphone-wrap"><figure class="iphone" style="--status-bg:${esc(statusBg)}">
+/**
+ * An iPhone with a Dynamic Island. The screenshot is a 390-wide phone screen; `statusBg` is the app's top-bar
+ * colour and `safeBg` the colour of its bottom bar (the strip under it, where the home indicator sits).
+ * `tone` is 'dark' for a dark app (light status text) or 'light' for a light one (dark status text).
+ */
+export function iphone({ src, alt, statusBg = '#000', safeBg = statusBg, tone = 'dark', time = '9:41' }) {
+  const ink = tone === 'light' ? '--status-ink:#1b1712;--home-ink:rgb(0 0 0 / 0.8);' : '';
+  return `<div class="iphone-wrap"><figure class="iphone" style="--status-bg:${esc(statusBg)};--safe-bg:${esc(safeBg)};${ink}">
   <div class="iphone__screen">
     <div class="iphone__status"><span>${esc(time)}</span><span class="iphone__island"></span><span class="iphone__icons">${STATUS_ICONS}</span></div>
     <img class="iphone__screenshot" src="${esc(src)}" alt="${esc(alt)}">
