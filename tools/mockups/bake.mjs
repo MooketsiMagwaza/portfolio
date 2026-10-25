@@ -18,6 +18,18 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const css = readFileSync(path.join(here, '../../src/styles/mockups.css'), 'utf8');
 const image = (file) => pathToFileURL(path.resolve(here, '../../public/images', file)).href;
 
+// The look of the Kori phone screens (top-bar colour, bottom-bar colour, light or dark), written next to the
+// captures by capture-kori.mjs, which reads it from the screenshots. A restyle of Kori then needs a re-capture
+// and no edit here. The fallback is the look of the first captures (Day colours).
+const koriLook = (() => {
+  try {
+    return JSON.parse(readFileSync(path.join(here, '../../public/images/kori/phone-colours.json'), 'utf8'));
+  } catch {
+    return { statusBg: '#f6f0e4', safeBg: '#fffdf8', tone: 'light' };
+  }
+})();
+const koriPhone = { statusBg: koriLook.statusBg, safeBg: koriLook.safeBg, tone: koriLook.tone };
+
 // Every job: the content, its width in CSS pixels, the room around it for the
 // shadow, and the pixel density. `html` is what is drawn inside the padding.
 const JOBS = [
@@ -48,6 +60,101 @@ const JOBS = [
     width: 1280,
     pad: { t: 40, r: 70, b: 120, l: 70 },
     html: mac({ src: image('zenith/zen.png'), alt: 'Zenith full-screen Zen mode', title: 'Zenith — Zen', theme: 'dark' }),
+  },
+  // Tagwise: captures of its browser prototype's sample workspace (1440 x 900, dark).
+  {
+    name: 'tagwise-home',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/dashboard-dark.jpg'), alt: 'Tagwise home: what needs attention, a stock-take in progress and recent activity', title: 'Tagwise — Home', theme: 'dark' }),
+  },
+  {
+    name: 'tagwise-register',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/register-dark.jpg'), alt: 'Tagwise register: a table of assets with saved views, filters and columns', title: 'Tagwise — Assets', theme: 'dark' }),
+  },
+  {
+    name: 'tagwise-asset',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/asset-dark.jpg'), alt: 'Tagwise asset page: details, custody and a QR label', title: 'Tagwise — Asset', theme: 'dark' }),
+  },
+  {
+    name: 'tagwise-import',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/import-dark.jpg'), alt: 'Tagwise spreadsheet import: rows checked, with problems marked', title: 'Tagwise — Import', theme: 'dark' }),
+  },
+  {
+    name: 'tagwise-sites',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('tagwise/sites-dark.jpg'), alt: 'Tagwise sites: six places on a map of Botswana, with a list beside it', title: 'Tagwise — Sites', theme: 'dark' }),
+  },
+  // A phone screen is 390 CSS pixels wide, captured at 2x (780 px), so bake at 2x as well.
+  {
+    name: 'tagwise-phone',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('tagwise/phone-home-dark.jpg'), alt: 'Tagwise home on a phone: what needs attention', statusBg: '#0f171f' }),
+  },
+  // Kori: captures of its web apps' sample reserve (the desktop ones 1440 x 900, the phone ones 390 x 844 at 2x), taken by
+  // capture-kori.mjs. To re-take and re-bake them after a restyle, see tools/mockups/README.md.
+  {
+    name: 'kori-landing',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('kori/landing.png'), alt: 'The Kori landing page: wildlife sightings that keep working where the signal ends', title: 'Kori', theme: koriLook.tone }),
+  },
+  {
+    name: 'kori-review',
+    dpr: 1,
+    width: 1280,
+    pad: { t: 40, r: 70, b: 120, l: 70 },
+    html: mac({ src: image('kori/review.png'), alt: 'The Kori review console: a queue of sightings waiting for review, with one open on a map', title: 'Kori — Review', theme: koriLook.tone }),
+  },
+  {
+    name: 'kori-phone-home',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('kori/phone-home.png'), alt: 'The Kori field app home screen on a phone', ...koriPhone }),
+  },
+  {
+    name: 'kori-phone-map',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('kori/phone-map.png'), alt: 'The Kori field app map on a phone, drawn from a downloaded park pack', ...koriPhone }),
+  },
+  {
+    name: 'kori-phone-log',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('kori/phone-log.png'), alt: 'The Kori field app log-a-sighting form on a phone', ...koriPhone }),
+  },
+  // The three phone screens side by side, which fits the gallery's wide stage better than three tall images.
+  {
+    name: 'kori-phones',
+    dpr: 2,
+    width: 1040,
+    pad: { t: 20, r: 40, b: 80, l: 40 },
+    html: `<div style="display:flex;gap:70px;align-items:flex-start">${[
+      ['kori/phone-home.png', 'The Kori field app home screen on a phone'],
+      ['kori/phone-map.png', 'The Kori field app map on a phone, drawn from a downloaded park pack'],
+      ['kori/phone-log.png', 'The Kori field app log-a-sighting form on a phone'],
+    ]
+      .map(([file, alt]) => `<div style="width:300px">${iphone({ src: image(file), alt, ...koriPhone })}</div>`)
+      .join('')}</div>`,
   },
 ];
 

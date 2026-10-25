@@ -1328,6 +1328,38 @@
   text-transform: uppercase;
 }
 
+/* A project's stack, grouped, in the inspector (stacked) and in Quick Look (label column beside the chips). */
+.stack-groups--project {
+  gap: 8px;
+}
+
+.stack-groups--project .stack-group h3 {
+  margin-bottom: 3px;
+  font-size: 10.5px;
+}
+
+.stack-groups--wide .stack-group {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 8px;
+}
+
+.stack-groups--wide .stack-group h3 {
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .stack-groups--wide .stack-group {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .stack-groups--wide .stack-group h3 {
+    margin-bottom: 3px;
+  }
+}
+
 .credit-card {
   display: grid;
   gap: 8px;

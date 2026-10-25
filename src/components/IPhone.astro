@@ -1,12 +1,15 @@
 ---
 // A phone screenshot in an iPhone: bezel, Dynamic Island, status bar and home
 // indicator. `src` is a 390-wide phone screen; `statusBg` is the app's top-bar
-// colour, so the status bar looks like part of the app. Sized from its wrapper's
-// width; the CSS is src/styles/mockups.css.
+// colour, so the status bar looks like part of the app, and `safeBg` the colour of its
+// bottom bar (the strip under it). `tone` is 'light' for a light app, so the status text
+// and home indicator are dark. Sized from its wrapper's width; the CSS is src/styles/mockups.css.
 interface Props {
   src: string;
   alt: string;
   statusBg?: string;
+  safeBg?: string;
+  tone?: 'dark' | 'light';
   time?: string;
   class?: string;
   width?: number;
@@ -14,11 +17,12 @@ interface Props {
   loading?: 'lazy' | 'eager';
 }
 
-const { src, alt, statusBg = '#000', time = '9:41', class: className, width, height, loading = 'lazy' } = Astro.props;
+const { src, alt, statusBg = '#000', safeBg = statusBg, tone = 'dark', time = '9:41', class: className, width, height, loading = 'lazy' } = Astro.props;
+const ink = tone === 'light' ? '--status-ink:#1b1712;--home-ink:rgb(0 0 0 / 0.8);' : '';
 ---
 
 <div class:list={['iphone-wrap', className]}>
-  <figure class="iphone" style={`--status-bg:${statusBg}`}>
+  <figure class="iphone" style={`--status-bg:${statusBg};--safe-bg:${safeBg};${ink}`}>
     <div class="iphone__screen">
       <div class="iphone__status">
         <span>{time}</span>

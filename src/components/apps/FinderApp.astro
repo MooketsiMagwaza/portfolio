@@ -5,6 +5,7 @@ import AppIcon from '@/components/AppIcon.astro';
 import Cover from '@/components/Cover.astro';
 import Poster from '@/components/Poster.astro';
 import ShotFrame from '@/components/ShotFrame.astro';
+import StackList from '@/components/StackList.astro';
 import { hasShots, projects, featuredProjects, shotsOf, tagLabels, type Project, type ProjectTag } from '@/data/projects';
 import { profile } from '@/data/site';
 
@@ -167,7 +168,7 @@ const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${proje
                       project.stack.length > 0 && (
                         <div>
                           <dt>Built with</dt>
-                          <dd class="pills">{project.stack.map((item) => <span>{item}</span>)}</dd>
+                          <dd><StackList project={project} /></dd>
                         </div>
                       )
                     }

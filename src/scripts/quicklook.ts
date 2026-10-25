@@ -22,6 +22,8 @@ function showShot(slug: string, index: number): void {
   const count = $('[data-ql-count]', page);
   if (caption) caption.textContent = shots[next]?.caption ?? '';
   if (count) count.textContent = `${next + 1} / ${total}`;
+  // The grid of thumbnails marks the one on show.
+  $$('[data-ql-pick]', page).forEach((tile) => tile.setAttribute('aria-pressed', String(Number(tile.dataset.qlPick) === next)));
 }
 
 const activePage = (): HTMLElement | null => $<HTMLElement>('[data-ql]:not([hidden])', root);
@@ -68,6 +70,13 @@ export function initQuickLook(): void {
   $$('[data-quicklook-close]', root).forEach((el) => el.addEventListener('click', closeQuickLook));
   $$('[data-ql-step]', root).forEach((button) => {
     button.addEventListener('click', () => stepActive(Number(button.dataset.qlStep)));
+  });
+  // A thumbnail in the grid opens that screenshot on the stage.
+  $$('[data-ql-pick]', root).forEach((tile) => {
+    tile.addEventListener('click', () => {
+      const slug = tile.closest<HTMLElement>('[data-ql]')?.dataset.ql;
+      if (slug) showShot(slug, Number(tile.dataset.qlPick));
+    });
   });
 
   // Space or Escape dismisses, like the real Quick Look. Capture so nothing underneath reacts.

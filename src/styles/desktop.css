@@ -821,7 +821,60 @@
 }
 
 .quicklook__count span {
+  flex: none;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* A grid of every screenshot, under the stage: a tile opens that one on the stage. */
+.quicklook__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 8px;
+  margin: 0 0 4px;
+  padding: 0;
+  list-style: none;
+}
+
+.quicklook__tile {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 8px;
+  background:
+    radial-gradient(90% 120% at 85% -10%, color-mix(in srgb, var(--glow) 36%, transparent), transparent 62%),
+    linear-gradient(135deg, var(--g1), var(--g2));
+  box-shadow: 0 0 0 1px var(--hairline);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.15s, box-shadow 0.15s;
+}
+
+.quicklook__tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.quicklook__tile:hover {
+  opacity: 1;
+}
+
+.quicklook__tile:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.quicklook__tile[aria-pressed='true'] {
+  opacity: 1;
+  box-shadow: 0 0 0 2px var(--accent);
 }
 
 .quicklook__body {

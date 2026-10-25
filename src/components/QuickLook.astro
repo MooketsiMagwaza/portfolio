@@ -2,7 +2,11 @@
 import Icon from '@/components/Icon.astro';
 import Poster from '@/components/Poster.astro';
 import ShotFrame from '@/components/ShotFrame.astro';
-import { hasShots, projects, shotsOf, tagLabels } from '@/data/projects';
+import StackList from '@/components/StackList.astro';
+import { hasShots, projects, shotUrl, shotsOf, tagLabels, type Project } from '@/data/projects';
+
+/** The colours behind a project's screenshots, as CSS custom properties. */
+const themeVars = (project: Project) => `--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`;
 ---
 
 <div class="quicklook" data-ql-root hidden>
@@ -20,7 +24,7 @@ import { hasShots, projects, shotsOf, tagLabels } from '@/data/projects';
         <div class="quicklook__page" data-ql={project.slug} hidden>
           <div
             class:list={['quicklook__stage', { 'quicklook__stage--poster': !hasShots(project) }]}
-            style={`--g1:${project.theme.from};--g2:${project.theme.to};--glow:${project.theme.glow}`}
+            style={themeVars(project)}
           >
             <Poster project={project} />
             {shotsOf(project).map((shot, index) => (
@@ -48,11 +52,31 @@ import { hasShots, projects, shotsOf, tagLabels } from '@/data/projects';
                 </p>
               )
             }
+            {
+              shotsOf(project).length > 1 && (
+                <ul class="quicklook__grid" aria-label={`All ${project.name} screenshots`} style={themeVars(project)}>
+                  {shotsOf(project).map((shot, index) => (
+                    <li>
+                      <button
+                        type="button"
+                        class="quicklook__tile"
+                        data-ql-pick={index}
+                        aria-pressed={index === 0 ? 'true' : 'false'}
+                        aria-label={`Show: ${shot.caption}`}
+                        title={shot.caption}
+                      >
+                        <img src={shotUrl(project, shot)} alt="" width={shot.w} height={shot.h} loading="lazy" decoding="async" draggable="false" />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )
+            }
             <h2>{project.name}</h2>
             <p class="quicklook__kicker">{project.kicker}</p>
             {hasShots(project) && project.status && <p class="quicklook__status">{project.status}</p>}
             <p>{project.summary}</p>
-            {project.stack.length > 0 && <p class="pills">{project.stack.map((item) => <span>{item}</span>)}</p>}
+            {project.stack.length > 0 && <StackList project={project} wide />}
             <p class="quicklook__tags">
               {project.tags.map((tag) => <span><i class={`tag-dot tag-dot--${tag}`}></i>{tagLabels[tag]}</span>)}
             </p>
