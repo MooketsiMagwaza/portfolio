@@ -51,7 +51,7 @@ const SHOTS = [
   { ...DESKTOP, steps: [{ goto: `${REVIEW}/` }, { wait: 2500 }, { eval: HIDE_SKIP_LINK }, { shot: 'review' }] },
   { ...PHONE, steps: [{ goto: `${FIELD}/` }, { wait: 2500 }, { eval: HIDE_SKIP_LINK }, { shot: 'phone-home' }] },
   // The map starts empty; the pack download fills it.
-  { ...PHONE, steps: [{ goto: `${FIELD}/map` }, { wait: 2000 }, { click: 'Download the sample pack' }, { wait: 6000 }, { eval: HIDE_SKIP_LINK }, { shot: 'phone-map' }] },
+  { ...PHONE, steps: [{ goto: `${FIELD}/map` }, { wait: 7000 }, { click: 'Download the sample pack' }, { wait: 9000 }, { eval: HIDE_SKIP_LINK }, { shot: 'phone-map' }] },
   // Search for a species and pick it, so the rest of the form (how many, when, where) fits on the screen.
   {
     ...PHONE,

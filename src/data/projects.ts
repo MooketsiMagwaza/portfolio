@@ -142,9 +142,9 @@ export const projects: Project[] = [
     frame: 'bare',
     theme: { from: '#0b3a52', to: '#146c2e', glow: '#9fe3c4' },
     shots: [
-      { file: 'landing', alt: 'The Kori landing page: wildlife sightings that keep working where the signal ends, with a phone showing the offline map and a note that the reserve is invented', caption: 'The landing page (sample reserve)', w: 1420, h: 999 },
+      { file: 'landing', alt: 'The Kori landing page: wildlife sightings that keep working where the signal ends, with a phone showing a route along tracks to a sighting', caption: 'The landing page', w: 1420, h: 999 },
       { file: 'review', alt: 'The Kori review console: a queue of four sightings waiting for a reviewer, with an African elephant sighting open on a map as a one kilometre square', caption: 'The review queue: nothing is public until approved (sample data)', w: 1420, h: 999 },
-      { file: 'phones', alt: 'Three phone screens of the Kori field app in iPhone frames: the home screen, the map drawn from a downloaded park pack, and the form for logging a sighting', caption: 'Field app: home, offline map, logging a sighting (sample reserve)', w: 1400, h: 1041 },
+      { file: 'phones', alt: 'Three phone screens of the Kori field app in iPhone frames: the home screen, the map drawn from a downloaded park pack with a Demo data chip, and the form for logging a sighting', caption: 'Field app: home, offline map, logging a sighting (demo data)', w: 1400, h: 1041 },
     ],
   },
   {
