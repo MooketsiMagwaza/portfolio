@@ -103,7 +103,7 @@ const JOBS = [
     dpr: 2,
     width: 414,
     pad: { t: 30, r: 60, b: 110, l: 60 },
-    html: iphone({ src: image('tagwise/phone-home-dark.jpg'), alt: 'Tagwise home on a phone: what needs attention', statusBg: '#0f171f' }),
+    html: iphone({ src: image('tagwise/phone-home-dark.jpg'), alt: 'Tagwise home on a phone: what needs attention', statusBg: '#131313', safeBg: '#151515', tone: 'dark' }),
   },
   // Kori: captures of its web apps' sample reserve (the desktop ones 1440 x 900, the phone ones 390 x 844 at 2x), taken by
   // capture-kori.mjs. To re-take and re-bake them after a restyle, see tools/mockups/README.md.
