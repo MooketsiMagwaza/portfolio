@@ -137,10 +137,10 @@ export const projects: Project[] = [
     stack: stackOf(koriStack),
     stackGroups: koriStack,
     tags: ['mobile'],
-    // No `repository` while it is private: the Finder and Quick Look then show no link.
+    repository: 'https://github.com/MooketsiMagwaza/kori',
     featured: true,
     frame: 'bare',
-    theme: { from: '#2b140a', to: '#a5471c', glow: '#ffb98a' },
+    theme: { from: '#0b3a52', to: '#146c2e', glow: '#9fe3c4' },
     shots: [
       { file: 'landing', alt: 'The Kori landing page: wildlife sightings that keep working where the signal ends, with a phone showing the offline map and a note that the reserve is invented', caption: 'The landing page (sample reserve)', w: 1420, h: 999 },
       { file: 'review', alt: 'The Kori review console: a queue of four sightings waiting for a reviewer, with an African elephant sighting open on a map as a one kilometre square', caption: 'The review queue: nothing is public until approved (sample data)', w: 1420, h: 999 },
@@ -158,11 +158,11 @@ export const projects: Project[] = [
     story:
       'Tagwise is a shared register for the assets and stock that schools, clinics, offices and stores often keep in a spreadsheet. Each thing gets a QR label that opens its page when a phone scans it, with who has it, where it is and what has happened to it. The spreadsheet you already have comes in through an Excel and CSV import that checks every row before anything is saved. A stock-take can be run by several people at once, and every site shows on a map.',
     evidence:
-      'The app is a React and TypeScript single-page app built with Vite. It has a register table with saved views, filters and columns; asset and stock pages with comments and history; QR labels, as A4 sheets or one at a time; scanning by typed code, handheld scanner or camera; the import wizard; live stock-takes; and a sites map drawn with MapLibre. The backend is a Rust workspace of five services, identity, register, notifications, media and ops, built on Axum and sitting behind an nginx gateway, each with its own PostgreSQL database, plus Redis. Prometheus, Grafana, Tempo and an OpenTelemetry collector make up the monitoring stack, and a Fumadocs site publishes the docs and the API reference. The whole stack is defined in Docker Compose files, and GitHub Actions runs the tests, including the register service’s against PostgreSQL. The backend is built and tested, but the app does not call it yet. The data in the app is a fictional sample workspace, a trust with invented people and figures, and the app says so on screen.',
+      'The app is a React and TypeScript single-page app built with Vite. It has a register table with saved views, filters and columns; asset and stock pages with comments and history; QR labels, as A4 sheets or one at a time; scanning by typed code, handheld scanner or camera; the import wizard; live stock-takes; and a sites map drawn with MapLibre. The backend is a Rust workspace of five services, identity, register, notifications, media and ops, built on Axum and sitting behind an nginx gateway, each with its own PostgreSQL database, plus Redis. Prometheus, Grafana, Tempo and an OpenTelemetry collector make up the monitoring stack, and a Fumadocs site publishes the docs and the API reference. The whole stack is defined in Docker Compose files and has been started: the database, Redis, the five services with their migrations, the docs site, the web container and the gateway all reported healthy. GitHub Actions runs the tests, including the register service’s against PostgreSQL. The backend is built and tested, but the app does not call it yet. The data in the app is a fictional sample workspace, a trust with invented people and figures, and the app says so on screen.',
     stack: stackOf(tagwiseStack),
     stackGroups: tagwiseStack,
     tags: ['web'],
-    // No `repository` while it is private: the Finder and Quick Look then show no link.
+    repository: 'https://github.com/MooketsiMagwaza/tagwise',
     featured: true,
     frame: 'bare',
     theme: { from: '#1a1033', to: '#5b3fd0', glow: '#c4b5fd' },
