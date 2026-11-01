@@ -1,5 +1,6 @@
 /** Things more than one surface can do (menus, Spotlight, Terminal). */
 import { profile } from '@/data/site';
+import { asset } from '@/data/projects';
 import { openProject } from './finder';
 import { copyText, openExternal } from './lib';
 import { notify } from './notify';
@@ -25,6 +26,9 @@ export const emailMe = (): void => {
 };
 export const openGitHub = (): void => openExternal(profile.github);
 export const openSource = (): void => openExternal(profile.sourceRepo);
+export const openCV = (): void => {
+  window.location.href = asset('Mooketsi-Magwaza-CV.pdf');
+};
 
 export function showCredits(): void {
   openApp('about');

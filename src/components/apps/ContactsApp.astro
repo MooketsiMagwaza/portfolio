@@ -2,6 +2,9 @@
 import Window from '@/components/Window.astro';
 import Icon from '@/components/Icon.astro';
 import { profile } from '@/data/site';
+import { asset } from '@/data/projects';
+
+const cvUrl = asset('Mooketsi-Magwaza-CV.pdf');
 ---
 
 <Window id="contacts" label="About Mooketsi Magwaza, in Contacts" w={360} h={540} minW={300} minH={380} fit>
@@ -33,6 +36,7 @@ import { profile } from '@/data/site';
         <div><dt>location</dt><dd><Icon name="pin" size={14} /> {profile.location}</dd></div>
         <div><dt>email</dt><dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd></div>
         <div><dt>github</dt><dd><a href={profile.github} target="_blank" rel="noopener noreferrer">@{profile.githubHandle}</a></dd></div>
+        <div><dt>cv</dt><dd><a href={cvUrl} target="_blank" rel="noopener noreferrer"><Icon name="note" size={14} /> View project CV (PDF)</a></dd></div>
         <div><dt>focus</dt><dd class="pills">{profile.focus.map((item) => <span>{item}</span>)}</dd></div>
       </dl>
 
