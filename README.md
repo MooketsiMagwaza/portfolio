@@ -12,10 +12,10 @@ Live at <https://mooketsimagwaza.github.io/portfolio/>.
 | --- | --- |
 | **Finder** | The projects, as a gallery. Switch between Gallery, Icons, and List views; filter by tag; search; press **Space** for Quick Look. A project with screenshots can be paged through (buttons, or ↑/↓), and Quick Look also shows a grid of every screenshot, where a thumbnail opens that one; a project without screenshots shows a typographic cover. |
 | **Contacts** | About me, with quick actions. |
-| **Notes** | How I work: the principles, each tied to a project that shows it. |
+| **Notes** | A tucked-away set of project principles, available through search rather than the Dock. |
 | **Terminal** | `help`, `ls`, `cat <project>`, `open <project>`, `stack`, `neofetch`, and a few surprises. Tab completes, ↑ recalls history. |
 | **Mail** | A compose window. Sending hands the draft to your own mail app; nothing is sent from the page. |
-| **About This Mac** | Overview, technical toolkit, and credits. |
+| **Profile and CV** | The recruiter-first opening window: overview, CV actions, technical toolkit, and credits. |
 | **Spotlight** | <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>K</kbd> (or `/`) searches projects, apps, and actions. |
 | **Control Center** | Light/dark appearance and a reduce-motion switch. |
 
@@ -92,9 +92,9 @@ thumbnail:
 | Project | Images | Where they come from |
 | --- | --- | --- |
 | Opaline | Four full-screen captures | Synthetic-data captures maintained in Opaline's own `docs/images/` folder |
-| Kori | A Maun/Okavango satellite-map visual and two field-app screens | The map visual uses real satellite and OpenStreetMap context without live wildlife locations; the field screens come from the running app |
-| Tagwise | Five Mac-window shots and one iPhone shot | Captures of the browser prototype's sample workspace, copied from its own screenshots (raw screens in `public/images/tagwise/`) |
-| University CS Docs | Four plain screenshots | The site draws the browser window around them |
+| Kori | Three phone screens in iPhone frames, plus individual phone captures | Current captures of the home, log-a-sighting and sightings flow from the running field app |
+| Tagwise | Five Mac-window shots and two iPhone shots | Captures of the browser app's sample workspace, copied from its own screenshots (raw screens in `public/images/tagwise/`) |
+| University CS Docs | Four CSI243 Functional Programming screenshots | The site draws the browser window around the course overview, lesson, Haskell playground and review page |
 
 The baked images are WebP, with transparency, in `public/images/projects/<slug>/`.
 The first one of each project also has a `<file>-sm.webp` thumbnail, which is its

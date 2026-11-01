@@ -133,7 +133,7 @@ export const projects: Project[] = [
     story:
       'Kori began with two Botswana-specific constraints that ordinary map and social apps do not solve well: safari routes often lose mobile coverage, and publishing an animal’s exact live location can be unsafe. Named after the kori bustard, kgori in Setswana, it lets a visitor log a sighting on the phone, keep it there until a connection returns, and pass it to another phone with a QR code. Downloaded maps keep the basemap, position and routing available offline, while guidance follows mapped roads and tracks only. Every shared sighting is reviewed and delayed, normal species appear as a 1 km area, and sensitive species such as rhino and pangolin appear only as a 10 km area after 7 days and are never guided to.',
     evidence:
-      'Four web apps make up the front end: a phone-first field app, a landing site, a review console and API docs, written in Next.js and TypeScript. In the field app a sighting is saved in IndexedDB, photos are redrawn on the phone to strip hidden location data, and downloaded PMTiles packs are drawn locally with MapLibre. A private Savuti pack combines an OpenStreetMap vector basemap and routing graph with Sentinel-2 imagery; its satellite-first view, attribution, local storage, OSM-track routing and offline reload passed 16 of 16 automated checks. The published map preview uses real Sentinel-2 and OpenStreetMap context over Maun at the Okavango Delta gateway and contains no live wildlife locations. The private park pack and its screenshots remain off the web pending wildlife-authority guidance. The backend is a FastAPI and PostGIS service with Alembic migrations and scheduled lifecycle jobs. Authentication, object storage, Prometheus, Grafana, Tempo, OpenTelemetry, backups, recovery tooling, Docker Compose and GitHub Actions form the operating foundation. The backend is built and tested, but the apps do not call it yet.',
+      'Four web apps make up the front end: a phone-first field app, a landing site, a review console and API docs, written in Next.js and TypeScript. In the field app a sighting is saved in IndexedDB, photos are redrawn on the phone to strip hidden location data, and downloaded PMTiles packs are drawn locally with MapLibre. A private Savuti pack combines an OpenStreetMap vector basemap and routing graph with Sentinel-2 imagery; its satellite-first view, attribution, local storage, OSM-track routing and offline reload passed 16 of 16 automated checks. The private park pack and its screenshots remain off the web pending wildlife-authority guidance. The backend is a FastAPI and PostGIS service with Alembic migrations and scheduled lifecycle jobs. Authentication, object storage, Prometheus, Grafana, Tempo, OpenTelemetry, backups, recovery tooling, Docker Compose and GitHub Actions form the operating foundation. The backend is built and tested, but the apps do not call it yet.',
     stack: stackOf(koriStack),
     stackGroups: koriStack,
     tags: ['mobile'],
@@ -142,9 +142,10 @@ export const projects: Project[] = [
     frame: 'bare',
     theme: { from: '#0b3a52', to: '#146c2e', glow: '#9fe3c4' },
     shots: [
-      { file: 'map', alt: 'Kori map preview showing real Sentinel-2 imagery and OpenStreetMap labels over Maun at the Okavango Delta gateway, with a highlighted route, offline packs, track-based guidance and location privacy', caption: 'Maun and the Okavango Delta gateway: satellite imagery, OSM labels and track-based routing', w: 1400, h: 1041 },
-      { file: 'home', alt: 'The Kori field app home screen on a wide display, with shortcuts to log a sighting, open the map, scan a shared sighting and see what is stored on the phone', caption: 'Field app: offline status and the sighting workflow', w: 1000, h: 625 },
-      { file: 'log', alt: 'The Kori phone form for logging a sighting, beginning with a searchable grid of Botswana wildlife species', caption: 'Logging a sighting on the phone, saved locally first', w: 585, h: 1266 },
+      { file: 'flow', alt: 'Three iPhone frames showing Kori home, log-a-sighting and sightings-list screens', caption: 'The offline field flow: start, log, and review sightings', w: 1400, h: 1041 },
+      { file: 'home-phone', alt: 'Kori home screen in an iPhone frame, with offline status and actions to log, open the map or scan a code', caption: 'Home: the field workflow starts on the phone', w: 600, h: 1293 },
+      { file: 'log-phone', alt: 'Kori log-a-sighting screen in an iPhone frame with a searchable species list', caption: 'Log a sighting, saved locally first', w: 600, h: 1293 },
+      { file: 'sightings-phone', alt: 'Kori sightings screen in an iPhone frame showing reviewed sightings as areas rather than exact points', caption: 'Reviewed sightings are shown as areas, never exact points', w: 600, h: 1293 },
     ],
   },
   {
@@ -174,6 +175,7 @@ export const projects: Project[] = [
       { file: 'import', alt: 'Tagwise’s spreadsheet import, with the rows that have problems marked before anything is written', caption: 'Importing a spreadsheet, problems shown first (sample data)', w: 1420, h: 999 },
       { file: 'sites', alt: 'Tagwise’s sites page: six places on a map of Botswana, with a list beside it', caption: 'Sites on a map (sample data)', w: 1420, h: 999 },
       { file: 'phone', alt: 'Tagwise’s home page on a phone, in an iPhone frame', caption: 'The same app on a phone (sample workspace)', w: 600, h: 1293 },
+      { file: 'phone-register', alt: 'Tagwise’s asset register on a phone, in an iPhone frame', caption: 'The register on a phone (sample workspace)', w: 600, h: 1293 },
     ],
   },
   {
@@ -222,10 +224,10 @@ export const projects: Project[] = [
     theme: { from: '#06241c', to: '#0f7a55', glow: '#5eead4' },
     mark: 'CS',
     shots: [
-      { file: 'home', alt: 'The University CS Docs home page with course cards for data structures, discrete maths, functional programming and calculus', caption: 'Home', w: 1440, h: 900 },
-      { file: 'course', alt: 'The CSI247 Data Structures course overview with a study sequence', caption: 'A course overview', w: 1440, h: 900 },
-      { file: 'semester', alt: 'The Semester III overview listing core courses and an elective', caption: 'Semester overview', w: 1440, h: 900 },
-      { file: 'focus-timer', alt: 'The Pomodoro focus timer page', caption: 'Focus timer', w: 1440, h: 900 },
+      { file: 'functional-overview', alt: 'The CSI243 Functional Programming course overview with its chapter sequence and study tools', caption: 'CSI243 Functional Programming course overview', w: 1440, h: 900 },
+      { file: 'functional-thinking', alt: 'A Functional Thinking lesson with navigation, explanation and a Haskell code example', caption: 'Structured notes with worked Haskell examples', w: 1440, h: 900 },
+      { file: 'haskell-playground', alt: 'The browser-based Haskell playground with editable code and an output panel', caption: 'Haskell runs directly in the browser', w: 1440, h: 900 },
+      { file: 'functional-review', alt: 'The Functional Programming review page with flashcards and a chapter assessment', caption: 'Review with flashcards and assessment', w: 1440, h: 900 },
     ],
   },
 ];

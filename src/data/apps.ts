@@ -39,7 +39,7 @@ export const apps: App[] = [
     blurb: 'The principles behind the projects',
     icon: 'notes',
     keywords: ['approach', 'principles', 'process', 'philosophy'],
-    dock: true,
+    dock: false,
   },
   {
     id: 'terminal',
@@ -61,11 +61,11 @@ export const apps: App[] = [
   },
   {
     id: 'about',
-    name: 'System Information',
-    title: 'About This Mac',
-    blurb: 'Stack, specs, and credits',
+    name: 'Profile',
+    title: 'Profile and CV',
+    blurb: 'Experience, technical toolkit, and CV',
     icon: 'logo',
-    keywords: ['stack', 'skills', 'tech', 'credits', 'inspiration', 'specs'],
+    keywords: ['profile', 'cv', 'resume', 'stack', 'skills', 'experience', 'hire'],
     dock: false,
   },
 ];
