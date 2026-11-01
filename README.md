@@ -39,6 +39,18 @@ npm run check
 npm run build
 ```
 
+## Project CV
+
+The portfolio publishes a project-led PDF CV at `public/Mooketsi-Magwaza-CV.pdf`. Regenerate it
+from the repository evidence with:
+
+```bash
+python tools/cv/generate.py output/pdf/Mooketsi-Magwaza-CV.pdf
+```
+
+Copy the verified result into `public/` before building the site. The desktop icon, Contacts card
+and Spotlight action all point to that public file.
+
 The production site is generated in `dist/`. Pushes to `main` deploy it to
 GitHub Pages through the official Astro and GitHub Pages actions.
 

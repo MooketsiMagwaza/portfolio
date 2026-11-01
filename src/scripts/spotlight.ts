@@ -76,6 +76,7 @@ function buildIndex(): Entry[] {
     { title: 'Copy email address', subtitle: 'Put it on your clipboard', keywords: 'contact mail', icon: 'copy', run: () => void actions.copyEmail() },
     { title: 'Send an email', subtitle: 'Opens your email app', keywords: 'contact hire message', icon: 'mail', run: actions.emailMe },
     { title: 'Open GitHub profile', subtitle: 'github.com/MooketsiMagwaza', keywords: 'code repos source', icon: 'code', run: actions.openGitHub },
+    { title: 'Open project CV', subtitle: 'A printable PDF based on the projects in this portfolio', keywords: 'cv resume pdf download hire', icon: 'note', run: actions.openCV },
     { title: 'Credits & inspiration', subtitle: 'Where the desktop idea came from', keywords: 'about loago moremi windows xp thanks', icon: 'note', run: actions.showCredits },
     { title: 'View this site’s source', subtitle: 'The portfolio repository on GitHub', keywords: 'code github repo', icon: 'code', run: actions.openSource },
   ].map((action) => ({

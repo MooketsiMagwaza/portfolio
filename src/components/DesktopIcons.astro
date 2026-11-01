@@ -1,10 +1,12 @@
 ---
 import AppIcon from '@/components/AppIcon.astro';
+import { asset } from '@/data/projects';
 
 const icons = [
-  { icon: 'drive', label: 'Macintosh HD', app: 'about' },
-  { icon: 'folder', label: 'Projects', app: 'finder' },
-  { icon: 'doc', label: 'About Me.txt', app: 'contacts' },
+  { icon: 'drive', label: 'Macintosh HD', app: 'about', href: null },
+  { icon: 'folder', label: 'Projects', app: 'finder', href: null },
+  { icon: 'doc', label: 'About Me.txt', app: 'contacts', href: null },
+  { icon: 'doc', label: 'Mooketsi CV.pdf', app: null, href: asset('Mooketsi-Magwaza-CV.pdf') },
 ];
 ---
 
@@ -12,10 +14,19 @@ const icons = [
   {
     icons.map((item) => (
       <li>
-        <button class="desktop-icon" type="button" data-desktop-icon data-open-app={item.app}>
-          <AppIcon name={item.icon} size={64} />
-          <span>{item.label}</span>
-        </button>
+        {
+          item.href ? (
+            <a class="desktop-icon" href={item.href} target="_blank" rel="noopener noreferrer" data-desktop-icon>
+              <AppIcon name={item.icon} size={64} />
+              <span>{item.label}</span>
+            </a>
+          ) : (
+            <button class="desktop-icon" type="button" data-desktop-icon data-open-app={item.app}>
+              <AppIcon name={item.icon} size={64} />
+              <span>{item.label}</span>
+            </button>
+          )
+        }
       </li>
     ))
   }
