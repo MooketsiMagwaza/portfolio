@@ -112,7 +112,7 @@ def build(output: Path) -> None:
     story.extend(section("Selected Project Experience"))
     story.append(
         entry(
-            "Kori — Offline-First Wildlife Platform",
+            "Kori - Offline-First Wildlife Platform",
             "https://github.com/MooketsiMagwaza/kori",
             "2026",
             "Product design, full-stack engineering, geospatial data, privacy, and operations",
@@ -126,7 +126,7 @@ def build(output: Path) -> None:
     )
     story.append(
         entry(
-            "Tagwise — Browser-Based Asset, Stock & Expiry Register",
+            "Tagwise - Browser-Based Asset, Stock & Expiry Register",
             "https://github.com/MooketsiMagwaza/tagwise",
             "2026",
             "Product strategy, React application, spreadsheet workflows, Rust services, and data integrity",
@@ -140,24 +140,24 @@ def build(output: Path) -> None:
     )
     story.append(
         entry(
-            "Opaline — Windows Desktop Launcher",
+            "Opaline - Local-First Windows Productivity Workspace",
             "https://github.com/MooketsiMagwaza/opaline",
             "2026",
             "Tauri 2, Rust, TypeScript, CSS, WebView2, and Windows APIs",
             [
-                "Built a full-screen acrylic launcher that organises existing Desktop items into virtual panes and adds installed-app search, custom home screens, a taskbar mirror, local screen-time totals, and focus tools.",
+                "Built a full-screen acrylic productivity workspace combining organised Desktop panes, custom home screens, installed-app search, a taskbar mirror, local screen-time history, Pomodoro focus, Zen prompts, and a calm screen saver.",
                 "Defined a strict safety boundary: Opaline reads Desktop files but never moves, renames, or deletes them and makes no network requests; shipped v0.2.1 as NSIS, MSI, and portable Windows builds.",
             ],
         )
     )
     story.append(
         entry(
-            "University CS Docs — Open Learning Platform",
+            "University CS Docs - Guided Computer-Science Learning Platform",
             "https://github.com/MooketsiMagwaza/university-cs-docs",
             "2026",
             "Next.js, MDX, reusable learning components, CI, CodeQL, and contributor documentation",
             [
-                "Built and deployed a contribution-friendly study hub for University of Botswana computer-science courses, with course notes, code, quizzes, semester views, and a focus timer.",
+                "Built and deployed a course-from-scratch learning platform for University of Botswana computer science, with sequenced lessons, worked examples, browser code playgrounds, cheat sheets, flashcards, quizzes, chapter assessments, resources, progress, and focus tools.",
             ],
         )
     )

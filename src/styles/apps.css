@@ -719,12 +719,17 @@
 
 .contact__scroll {
   display: grid;
+  grid-auto-rows: max-content;
   gap: 14px;
   align-content: start;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   padding: 0 20px 20px;
+}
+
+.contact__scroll > * {
+  min-height: max-content;
 }
 
 .contact__hero {
@@ -1265,6 +1270,19 @@
   display: none;
 }
 
+.about__section {
+  display: grid;
+  gap: 8px;
+}
+
+.about__section > h3 {
+  color: var(--fg-3);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .about__hero {
   display: flex;
   align-items: center;
@@ -1290,7 +1308,7 @@
 }
 
 .about__summary {
-  margin: -2px 0 0;
+  margin: 0;
   color: var(--fg-2);
   font-size: 14px;
   line-height: 1.55;
@@ -1309,7 +1327,7 @@
 
 .specs > div {
   display: grid;
-  grid-template-columns: 92px 1fr;
+  grid-template-columns: 112px 1fr;
   gap: 12px;
 }
 
@@ -1321,6 +1339,16 @@
 .specs dd {
   font-weight: 500;
   overflow-wrap: anywhere;
+}
+
+.about__selected {
+  color: var(--fg-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.about__selected strong {
+  color: var(--fg);
 }
 
 .about__lede {
