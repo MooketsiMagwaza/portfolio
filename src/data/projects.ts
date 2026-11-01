@@ -116,7 +116,7 @@ const tagwiseStack: StackGroup[] = [
   { label: 'Tooling', items: ['Docker', 'Fumadocs', 'GitHub Actions'] },
 ];
 
-// Order is the order they are shown in: Kori, Tagwise, Zenith, then University CS Docs; the first is selected when the desktop opens. (Tsela and StockLink are company assets and are not shown here.)
+// Order is the order they are shown in: Kori, Tagwise, Opaline, then University CS Docs; the first is selected when the desktop opens. (Tsela and StockLink are company assets and are not shown here.)
 //
 // Adding a project is a data change: add an entry here and the Finder, Quick Look, Spotlight and the
 // Terminal all pick it up. Leave out `repository` while a repository is private and `shots` until there
@@ -129,11 +129,11 @@ export const projects: Project[] = [
     kind: 'Safari and wildlife app',
     kicker: 'Offline-first wildlife sightings for Botswana',
     summary:
-      'An offline-first safari and wildlife app for Botswana. Log a sighting with no signal, download a park map before the trip, and have every sighting reviewed before anyone else sees it.',
+      'An offline-first safari and wildlife platform for Botswana: real downloadable maps, track-only guidance, private-by-design sightings, and a review workflow that keeps working beyond mobile coverage.',
     story:
-      'Kori is named after the kori bustard, kgori in Setswana, Botswana’s national bird. It is a safari app that keeps working without signal. You log a sighting on your phone and it waits there until a connection returns, and a reviewer approves it before anyone else sees it. Park maps are downloaded before the trip, so the map and your position work with no mobile signal, and guidance to a sighting follows known roads and tracks only. A sighting can be passed from phone to phone with a QR code. Kori never shows a live animal location: other people see a sighting only after review, at least an hour later, and only as a 1 km area. Sensitive species, such as rhino and pangolin, are shown as a 10 km area after 7 days and are never guided to or shared.',
+      'Kori began with two Botswana-specific constraints that ordinary map and social apps do not solve well: safari routes often lose mobile coverage, and publishing an animal’s exact live location can be unsafe. Named after the kori bustard, kgori in Setswana, it lets a visitor log a sighting on the phone, keep it there until a connection returns, and pass it to another phone with a QR code. Downloaded maps keep the basemap, position and routing available offline, while guidance follows mapped roads and tracks only. Every shared sighting is reviewed and delayed, normal species appear as a 1 km area, and sensitive species such as rhino and pangolin appear only as a 10 km area after 7 days and are never guided to.',
     evidence:
-      'Four web apps make up the front end: a phone-first field app, a landing site, a review console and API docs, written in Next.js and TypeScript. In the field app a sighting is saved in the phone’s own storage (IndexedDB), photos are redrawn on the phone to strip hidden location data, and downloaded PMTiles packs are drawn locally with MapLibre. A private Savuti pack combines OpenStreetMap vector data and tracks with Sentinel-2 imagery; its satellite-first view, routing, attribution and offline behavior passed 16 of 16 automated checks. That pack and its screenshots stay private until the relevant wildlife authority has been consulted, so the public build and images use the labelled fictional sample reserve. The backend is a Python service on FastAPI and PostGIS, with Alembic migrations and a scheduler for lifecycle jobs such as expiring shared trips and clearing uploads. An auth service and S3-style object storage sit beside it. Monitoring is set up with Prometheus, Grafana, Tempo and OpenTelemetry, and the backup and recovery scripts include a restore drill. All of it is defined in one Docker Compose stack, and GitHub Actions runs the checks. The backend is built and tested, but the apps do not call it yet.',
+      'Four web apps make up the front end: a phone-first field app, a landing site, a review console and API docs, written in Next.js and TypeScript. In the field app a sighting is saved in IndexedDB, photos are redrawn on the phone to strip hidden location data, and downloaded PMTiles packs are drawn locally with MapLibre. A private Savuti pack combines an OpenStreetMap vector basemap and routing graph with Sentinel-2 imagery; its satellite-first view, attribution, local storage, OSM-track routing and offline reload passed 16 of 16 automated checks. The published map preview uses real Sentinel-2 and OpenStreetMap context over Maun at the Okavango Delta gateway and contains no live wildlife locations. The private park pack and its screenshots remain off the web pending wildlife-authority guidance. The backend is a FastAPI and PostGIS service with Alembic migrations and scheduled lifecycle jobs. Authentication, object storage, Prometheus, Grafana, Tempo, OpenTelemetry, backups, recovery tooling, Docker Compose and GitHub Actions form the operating foundation. The backend is built and tested, but the apps do not call it yet.',
     stack: stackOf(koriStack),
     stackGroups: koriStack,
     tags: ['mobile'],
@@ -142,9 +142,9 @@ export const projects: Project[] = [
     frame: 'bare',
     theme: { from: '#0b3a52', to: '#146c2e', glow: '#9fe3c4' },
     shots: [
-      { file: 'landing', alt: 'The Kori landing page: wildlife sightings that keep working where the signal ends, with a phone showing a route along tracks to a sighting', caption: 'The landing page', w: 1420, h: 999 },
-      { file: 'review', alt: 'The Kori review console: a queue of four sightings waiting for a reviewer, with an African elephant sighting open on a map as a one kilometre square', caption: 'The review queue: nothing is public until approved (sample data)', w: 1420, h: 999 },
-      { file: 'phones', alt: 'Three phone screens of the Kori field app in iPhone frames: the home screen, the map drawn from a downloaded park pack with a Demo data chip, and the form for logging a sighting', caption: 'Field app: home, offline map, logging a sighting (demo data)', w: 1400, h: 1041 },
+      { file: 'map', alt: 'Kori map preview showing real Sentinel-2 imagery and OpenStreetMap labels over Maun at the Okavango Delta gateway, with a highlighted route, offline packs, track-based guidance and location privacy', caption: 'Maun and the Okavango Delta gateway: satellite imagery, OSM labels and track-based routing', w: 1400, h: 1041 },
+      { file: 'home', alt: 'The Kori field app home screen on a wide display, with shortcuts to log a sighting, open the map, scan a shared sighting and see what is stored on the phone', caption: 'Field app: offline status and the sighting workflow', w: 1000, h: 625 },
+      { file: 'log', alt: 'The Kori phone form for logging a sighting, beginning with a searchable grid of Botswana wildlife species', caption: 'Logging a sighting on the phone, saved locally first', w: 585, h: 1266 },
     ],
   },
   {
@@ -154,11 +154,11 @@ export const projects: Project[] = [
     kind: 'Asset and stock register',
     kicker: 'One shared register for assets and stock',
     summary:
-      'A shared register for an organisation’s assets and stock. Put a QR label on each thing, import the spreadsheet you already have, count a site with several people at once, and see every site on a map.',
+      'A browser-based asset, stock, batch and expiry register for retailers and organisations that need more than a spreadsheet without buying a desktop POS subscription and add-ons.',
     story:
-      'Tagwise is a shared register for the assets and stock that schools, clinics, offices and stores often keep in a spreadsheet. Each thing gets a QR label that opens its page when a phone scans it, with who has it, where it is and what has happened to it. The spreadsheet you already have comes in through an Excel and CSV import that checks every row before anything is saved. A stock-take can be run by several people at once, and every site shows on a map.',
+      'Tagwise started with a pharmacy problem in my own family: my sister needed a practical way to track batches, bulk stock and expiry dates, but the usual answer was a paid point-of-sale subscription plus separate extensions and a dedicated desktop setup. Tagwise turns that workflow into a browser-based register that feels familiar to spreadsheet users. It keeps the table view, Excel and CSV import, and bulk editing people already understand, then adds expiry warnings, QR and barcode scanning, printable labels, stock movement history, multi-person stock-takes, roles and site maps. The aim is a lower-friction alternative for pharmacies, retailers, schools, clinics and offices that should work on the devices they already have.',
     evidence:
-      'The app is a React and TypeScript single-page app built with Vite, with a flat Apple-style interface: system-like surfaces, hairline borders, one accent and no decorative gradients. It has a register table with saved views, filters and columns; asset and stock pages with comments and history; QR labels, as A4 sheets or one at a time; scanning by typed code, handheld scanner or camera; the import wizard; live stock-takes; and a sites map drawn with MapLibre. The backend is a Rust workspace of five services, identity, register, notifications, media and ops, built on Axum and sitting behind an nginx gateway, each with its own PostgreSQL database, plus Redis. Prometheus, Grafana, Tempo and an OpenTelemetry collector make up the monitoring stack, and a Fumadocs site publishes the docs and the API reference. The whole stack is defined in Docker Compose files and has been started: the database, Redis, the five services with their migrations, the docs site, the web container and the gateway all reported healthy. GitHub Actions runs the tests, including the register service’s against PostgreSQL. The backend is built and tested, but the app does not call it yet. The data in the app is a fictional sample workspace, a trust with invented people and figures, and the app says so on screen.',
+      'The app is a React and TypeScript single-page app built with Vite, with a flat Apple-style interface: system-like surfaces, hairline borders, one accent and no decorative gradients. The spreadsheet-like register supports saved views, filters and columns; stock lines carry batches and expiry dates, the dashboard calls out batches expiring within 60 days, and a saved view isolates expiring stock. It also includes asset and stock history, QR labels, typed, handheld or camera scanning, Excel and CSV import with row-level validation, multi-person stock-takes, roles, stale-edit conflict handling and a MapLibre sites map. The backend is a Rust workspace of five Axum services, identity, register, notifications, media and ops, behind an nginx gateway, with PostgreSQL and Redis. Prometheus, Grafana, Tempo, OpenTelemetry, Fumadocs, Docker Compose and GitHub Actions form the operating foundation. The development stack has been started and all ten containers reported healthy. The browser build works with a labelled local sample workspace and does not need a dedicated desktop app, but it is not yet connected to the backend services. The repository is public but currently all rights reserved; an open-source licence still needs to be chosen before calling it open source.',
     stack: stackOf(tagwiseStack),
     stackGroups: tagwiseStack,
     tags: ['web'],
@@ -177,28 +177,29 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'zenith',
-    name: 'Zenith',
-    filename: 'Zenith.app',
-    kind: 'Focus workspace',
-    kicker: 'Time tracking with intention',
+    slug: 'opaline',
+    name: 'Opaline',
+    filename: 'Opaline.app',
+    kind: 'Windows desktop launcher',
+    kicker: 'Acrylic launcher for the Windows desktop',
     summary:
-      'A deliberate-practice timer, a deck and card workspace, a markdown journal, and a full-screen Zen mode, all running in your browser.',
+      'A Windows 11 launcher that organises desktop files and installed apps without moving the user’s files or sending data to a server.',
     story:
-      'Most productivity apps are built to capture tasks or to bill time. Zenith is built for attention: pick one thing, put time into it, and write down what happened. There are no streaks, no XP bars, and no nags.',
+      'Opaline was built to make a busy Windows desktop easier to use without replacing the shell or taking control of the files on it. A global hotkey opens a full-screen acrylic layer over the current desktop. It groups existing desktop items into virtual panes, adds searchable installed apps and custom home screens, mirrors pinned and running apps, and includes local screen-time and focus tools. The boundary is explicit: Opaline reads the Desktop, but never moves, renames or deletes its files and makes no network requests.',
     evidence:
-      'It is local-first: data lives in the browser, every delete can be undone, and each card and deck has exactly one journal. There is no server and no account: everything stays in the browser. The README is the full specification, down to every key and storage name. It is open source under the MIT licence.',
-    stack: ['React', 'TypeScript', 'TanStack', 'Tailwind CSS'],
-    tags: ['web'],
-    repository: 'https://github.com/MooketsiMagwaza/Zenith',
+      'The shipped Windows application uses Tauri 2 with a Rust backend and a framework-free TypeScript and CSS interface. Its settings cover blur, tint, layout, hotkey and opt-in login startup; local JSON stores pane metadata, workspaces, screen time and shell preferences. Window previews stay in memory, screen-time data stays local, and Windows-key routing is optional and preserves system shortcuts. Release v0.2.1 is available as NSIS, MSI and portable builds. TypeScript and Rust tests cover the data and layout rules; remaining real-device checks are listed openly in the project work order.',
+    stack: ['Tauri 2', 'Rust', 'TypeScript', 'CSS', 'WebView2', 'Windows APIs'],
+    tags: ['systems'],
+    repository: 'https://github.com/MooketsiMagwaza/opaline',
     featured: true,
     frame: 'bare',
-    theme: { from: '#0a0a0a', to: '#3a2f12', glow: '#c9a84c' },
+    theme: { from: '#0c1830', to: '#315a80', glow: '#b9ddff' },
+    mark: 'Op',
     shots: [
-      { file: 'decks', alt: 'Zenith’s decks view: a deck called Academics with three timed cards for a study session, a lab, and practice', caption: 'Decks and cards, each with its own timer', w: 1420, h: 919 },
-      { file: 'journal', alt: 'Zenith’s markdown journal, one document per card or deck', caption: 'One journal per card or deck', w: 1420, h: 919 },
-      { file: 'history', alt: 'Zenith’s history view of past focus sessions', caption: 'History of what you put time into', w: 1420, h: 919 },
-      { file: 'zen', alt: 'Zenith’s full-screen Zen mode, with almost nothing on screen', caption: 'Zen mode removes everything else', w: 1420, h: 919 },
+      { file: 'home', alt: 'Opaline Home showing organised desktop panes over a softened Windows desktop and a bottom taskbar mirror', caption: 'Desktop items organised into virtual panes', w: 1280, h: 800 },
+      { file: 'apps', alt: 'Opaline All apps page with a searchable catalogue of installed Windows applications', caption: 'Searchable installed-app catalogue', w: 1280, h: 800 },
+      { file: 'screen-time', alt: 'Opaline screen-time page with local app usage totals and a daily chart', caption: 'Local screen-time totals', w: 1280, h: 800 },
+      { file: 'focus', alt: 'Opaline Focus page with a timer, daily progress and Zen controls', caption: 'Focus timer and local progress', w: 1280, h: 800 },
     ],
   },
   {
@@ -216,7 +217,7 @@ export const projects: Project[] = [
     stack: ['Next.js', 'MDX', 'CI', 'CodeQL'],
     tags: ['docs', 'web'],
     repository: 'https://github.com/MooketsiMagwaza/university-cs-docs',
-    featured: false,
+    featured: true,
     frame: 'browser',
     theme: { from: '#06241c', to: '#0f7a55', glow: '#5eead4' },
     mark: 'CS',

@@ -4,247 +4,73 @@ import sys
 from pathlib import Path
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_LEFT, TA_RIGHT
+from reportlab.lib.enums import TA_CENTER, TA_RIGHT
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
-from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
-from reportlab.platypus import (
-    HRFlowable,
-    KeepTogether,
-    PageBreak,
-    Paragraph,
-    SimpleDocTemplate,
-    Spacer,
-    Table,
-    TableStyle,
-)
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.platypus import HRFlowable, KeepTogether, Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 
 
-NAVY = colors.HexColor("#102A43")
-INK = colors.HexColor("#243B53")
-MUTED = colors.HexColor("#627D98")
-TEAL = colors.HexColor("#0F766E")
-PALE_TEAL = colors.HexColor("#E8F5F2")
-PALE_BLUE = colors.HexColor("#F2F6FA")
-LINE = colors.HexColor("#D9E2EC")
-WHITE = colors.white
+INK = colors.HexColor("#111111")
+MUTED = colors.HexColor("#444444")
+RULE = colors.HexColor("#333333")
 
 
-def register_fonts() -> tuple[str, str]:
-    windows_fonts = Path("C:/Windows/Fonts")
-    regular = windows_fonts / "segoeui.ttf"
-    semibold = windows_fonts / "seguisb.ttf"
-    if regular.exists() and semibold.exists():
-        pdfmetrics.registerFont(TTFont("CVSans", regular))
-        pdfmetrics.registerFont(TTFont("CVSans-Semibold", semibold))
-        return "CVSans", "CVSans-Semibold"
-    return "Helvetica", "Helvetica-Bold"
+def register_fonts() -> tuple[str, str, str]:
+    fonts = Path("C:/Windows/Fonts")
+    regular, bold, italic = fonts / "times.ttf", fonts / "timesbd.ttf", fonts / "timesi.ttf"
+    if regular.exists() and bold.exists() and italic.exists():
+        pdfmetrics.registerFont(TTFont("CVSerif", regular))
+        pdfmetrics.registerFont(TTFont("CVSerif-Bold", bold))
+        pdfmetrics.registerFont(TTFont("CVSerif-Italic", italic))
+        return "CVSerif", "CVSerif-Bold", "CVSerif-Italic"
+    return "Times-Roman", "Times-Bold", "Times-Italic"
 
 
-FONT, FONT_BOLD = register_fonts()
+FONT, BOLD, ITALIC = register_fonts()
+BASE = getSampleStyleSheet()
+S = {
+    "name": ParagraphStyle("Name", parent=BASE["Title"], fontName=BOLD, fontSize=20, leading=22, alignment=TA_CENTER, textColor=INK, spaceAfter=2),
+    "role": ParagraphStyle("Role", parent=BASE["Normal"], fontName=FONT, fontSize=9.5, leading=11, alignment=TA_CENTER, textColor=INK, spaceAfter=2),
+    "contact": ParagraphStyle("Contact", parent=BASE["Normal"], fontName=FONT, fontSize=8.2, leading=10, alignment=TA_CENTER, textColor=INK),
+    "section": ParagraphStyle("Section", parent=BASE["Heading2"], fontName=FONT, fontSize=10.2, leading=11.5, textColor=INK, spaceBefore=2.5, spaceAfter=1.5),
+    "profile": ParagraphStyle("Profile", parent=BASE["BodyText"], fontName=FONT, fontSize=8.4, leading=10.4, textColor=INK, spaceAfter=2),
+    "project": ParagraphStyle("Project", parent=BASE["BodyText"], fontName=BOLD, fontSize=9, leading=10.5, textColor=INK),
+    "right": ParagraphStyle("Right", parent=BASE["BodyText"], fontName=FONT, fontSize=8.2, leading=10.5, alignment=TA_RIGHT, textColor=INK),
+    "meta": ParagraphStyle("Meta", parent=BASE["BodyText"], fontName=ITALIC, fontSize=8, leading=9.4, textColor=MUTED, spaceAfter=1.4),
+    "bullet": ParagraphStyle("Bullet", parent=BASE["BodyText"], fontName=FONT, fontSize=7.95, leading=9.65, leftIndent=10, firstLineIndent=-7, textColor=INK, spaceAfter=0.8),
+    "skills": ParagraphStyle("Skills", parent=BASE["BodyText"], fontName=FONT, fontSize=7.9, leading=9.6, textColor=INK, spaceAfter=1),
+}
 
 
-def styles() -> dict[str, ParagraphStyle]:
-    sample = getSampleStyleSheet()
-    return {
-        "name": ParagraphStyle(
-            "Name",
-            parent=sample["Title"],
-            fontName=FONT_BOLD,
-            fontSize=24,
-            leading=27,
-            textColor=WHITE,
-            spaceAfter=2,
-        ),
-        "role": ParagraphStyle(
-            "Role",
-            parent=sample["Normal"],
-            fontName=FONT,
-            fontSize=10.5,
-            leading=14,
-            textColor=colors.HexColor("#D9F3EE"),
-        ),
-        "contact": ParagraphStyle(
-            "Contact",
-            parent=sample["Normal"],
-            fontName=FONT,
-            fontSize=8.5,
-            leading=12,
-            textColor=WHITE,
-            alignment=TA_RIGHT,
-        ),
-        "section": ParagraphStyle(
-            "Section",
-            parent=sample["Heading2"],
-            fontName=FONT_BOLD,
-            fontSize=11,
-            leading=14,
-            textColor=TEAL,
-            spaceBefore=2,
-            spaceAfter=5,
-            uppercase=True,
-        ),
-        "summary": ParagraphStyle(
-            "Summary",
-            parent=sample["BodyText"],
-            fontName=FONT,
-            fontSize=9.1,
-            leading=13.1,
-            textColor=INK,
-            spaceAfter=5,
-        ),
-        "project": ParagraphStyle(
-            "Project",
-            parent=sample["Heading3"],
-            fontName=FONT_BOLD,
-            fontSize=11,
-            leading=14,
-            textColor=NAVY,
-            spaceAfter=1,
-        ),
-        "meta": ParagraphStyle(
-            "Meta",
-            parent=sample["BodyText"],
-            fontName=FONT,
-            fontSize=8.2,
-            leading=11,
-            textColor=MUTED,
-            spaceAfter=3,
-        ),
-        "body": ParagraphStyle(
-            "Body",
-            parent=sample["BodyText"],
-            fontName=FONT,
-            fontSize=8.7,
-            leading=12.2,
-            textColor=INK,
-            spaceAfter=2,
-        ),
-        "bullet": ParagraphStyle(
-            "Bullet",
-            parent=sample["BodyText"],
-            fontName=FONT,
-            fontSize=8.5,
-            leading=11.7,
-            leftIndent=10,
-            firstLineIndent=-7,
-            textColor=INK,
-            spaceAfter=1.5,
-        ),
-        "skill_label": ParagraphStyle(
-            "SkillLabel",
-            parent=sample["BodyText"],
-            fontName=FONT_BOLD,
-            fontSize=7.9,
-            leading=10,
-            textColor=NAVY,
-        ),
-        "skill_body": ParagraphStyle(
-            "SkillBody",
-            parent=sample["BodyText"],
-            fontName=FONT,
-            fontSize=7.8,
-            leading=10.2,
-            textColor=INK,
-        ),
-        "small": ParagraphStyle(
-            "Small",
-            parent=sample["BodyText"],
-            fontName=FONT,
-            fontSize=7.7,
-            leading=10.5,
-            textColor=MUTED,
-        ),
-    }
-
-
-S = styles()
-
-
-def header() -> Table:
-    left = [
-        Paragraph("Mooketsi Vincent Magwaza", S["name"]),
-        Paragraph("Full-stack engineer | Product systems, backend platforms, and operations", S["role"]),
-    ]
-    right = Paragraph(
-        "Gaborone, Botswana<br/>"
-        '<link href="mailto:mooketsimagwazajr@gmail.com" color="#FFFFFF">mooketsimagwazajr@gmail.com</link><br/>'
-        '<link href="https://github.com/MooketsiMagwaza" color="#FFFFFF">github.com/MooketsiMagwaza</link><br/>'
-        '<link href="https://mooketsimagwaza.github.io/portfolio/" color="#FFFFFF">mooketsimagwaza.github.io</link>',
-        S["contact"],
-    )
-    table = Table([[left, right]], colWidths=[118 * mm, 58 * mm], hAlign="LEFT")
-    table.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), NAVY),
-                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                ("LEFTPADDING", (0, 0), (0, 0), 8 * mm),
-                ("RIGHTPADDING", (-1, 0), (-1, 0), 8 * mm),
-                ("TOPPADDING", (0, 0), (-1, -1), 7 * mm),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 7 * mm),
-            ]
-        )
-    )
-    return table
-
-
-def section_title(text: str) -> list:
+def section(title: str) -> list:
     return [
-        Paragraph(text.upper(), S["section"]),
-        HRFlowable(width="100%", thickness=0.7, color=LINE, spaceAfter=5),
+        Paragraph(title.upper(), S["section"]),
+        HRFlowable(width="100%", thickness=0.65, color=RULE, spaceAfter=2.4),
     ]
 
 
-def skill_table() -> Table:
-    rows = [
-        ("Backend", "Rust, Axum, Python, FastAPI, Go, Java, REST APIs"),
-        ("Web", "TypeScript, React, Next.js, Vite, responsive and accessible UI"),
-        ("Data", "PostgreSQL, PostGIS, Redis, SQLAlchemy, sqlx, Alembic"),
-        ("Operations", "Docker, nginx, GitHub Actions, OpenTelemetry, Prometheus, Grafana, Tempo"),
-        ("Native", "Tauri, Rust, SwiftUI, Android platform APIs, Bluetooth HID"),
-    ]
-    data = [[Paragraph(label, S["skill_label"]), Paragraph(body, S["skill_body"])] for label, body in rows]
-    table = Table(data, colWidths=[24 * mm, 152 * mm], hAlign="LEFT")
-    table.setStyle(
-        TableStyle(
-            [
-                ("BACKGROUND", (0, 0), (-1, -1), PALE_BLUE),
-                ("BOX", (0, 0), (-1, -1), 0.6, LINE),
-                ("INNERGRID", (0, 0), (-1, -1), 0.35, LINE),
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 5),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-                ("TOPPADDING", (0, 0), (-1, -1), 3.5),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 3.5),
-            ]
-        )
+def entry(title: str, link: str, right: str, meta: str, bullets: list[str]) -> KeepTogether:
+    heading = Table(
+        [[Paragraph(f'<link href="{link}" color="#111111">{title}</link>', S["project"]), Paragraph(right, S["right"])]],
+        colWidths=[142 * mm, 32 * mm],
+        hAlign="LEFT",
     )
-    return table
-
-
-def project(title: str, link: str, scope: str, summary: str, bullets: list[str]) -> KeepTogether:
-    content = [
-        Paragraph(f'<link href="{link}" color="#102A43"><u>{title}</u></link>', S["project"]),
-        Paragraph(scope, S["meta"]),
-        Paragraph(summary, S["body"]),
-    ]
-    content.extend(Paragraph(f"- {bullet}", S["bullet"]) for bullet in bullets)
-    content.append(Spacer(1, 3.5 * mm))
-    return KeepTogether(content)
+    heading.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0), ("TOPPADDING", (0, 0), (-1, -1), 0), ("BOTTOMPADDING", (0, 0), (-1, -1), 0)]))
+    body = [heading, Paragraph(meta, S["meta"])]
+    body.extend(Paragraph(f"• {bullet}", S["bullet"]) for bullet in bullets)
+    body.append(Spacer(1, 1.4 * mm))
+    return KeepTogether(body)
 
 
 def footer(canvas, doc) -> None:
     canvas.saveState()
-    canvas.setStrokeColor(LINE)
-    canvas.setLineWidth(0.5)
-    canvas.line(18 * mm, 12 * mm, 192 * mm, 12 * mm)
-    canvas.setFont(FONT, 7.5)
+    canvas.setFont(FONT, 7)
     canvas.setFillColor(MUTED)
-    canvas.drawString(18 * mm, 7.5 * mm, "Project-led CV - claims are limited to repository evidence and recorded verification.")
-    canvas.drawRightString(192 * mm, 7.5 * mm, f"{doc.page}")
+    canvas.drawString(18 * mm, 8 * mm, "Project experience CV · Claims are limited to repository evidence and recorded verification.")
+    canvas.drawRightString(192 * mm, 8 * mm, "Mooketsi Vincent Magwaza")
     canvas.restoreState()
 
 
@@ -253,141 +79,101 @@ def build(output: Path) -> None:
     doc = SimpleDocTemplate(
         str(output),
         pagesize=A4,
-        rightMargin=17 * mm,
-        leftMargin=17 * mm,
-        topMargin=14 * mm,
-        bottomMargin=17 * mm,
-        title="Mooketsi Vincent Magwaza - Project CV",
+        rightMargin=18 * mm,
+        leftMargin=18 * mm,
+        topMargin=11 * mm,
+        bottomMargin=13 * mm,
+        title="Mooketsi Vincent Magwaza - Full-Stack Engineer CV",
         author="Mooketsi Vincent Magwaza",
-        subject="Full-stack engineering portfolio and selected project experience",
+        subject="ATS-friendly project experience, technical skills, and product engineering work",
+        keywords="full-stack engineer, backend engineer, platform engineer, TypeScript, React, Next.js, Rust, Axum, Python, FastAPI, Tauri, Windows APIs, PostgreSQL, PostGIS, Redis, Docker, GitHub Actions, OpenTelemetry, MapLibre, offline-first, inventory management, expiry tracking",
     )
 
-    story = [header(), Spacer(1, 6 * mm)]
-    story.extend(section_title("Profile"))
-    story.append(
+    story = [
+        Paragraph("Mooketsi Vincent Magwaza", S["name"]),
+        Paragraph("Full-Stack Engineer · Backend, Product Systems & Platform Engineering", S["role"]),
         Paragraph(
-            "Full-stack engineer who turns early product ideas into working systems: interface, API, data model, "
-            "authentication, documentation, deployment path, and operational tooling. Strongest in backend, "
-            "full-stack, and platform-focused work where product constraints and system boundaries matter.",
-            S["summary"],
-        )
-    )
-    story.extend(section_title("Core toolkit"))
-    story.extend([skill_table(), Spacer(1, 5 * mm)])
-    story.extend(section_title("Selected project experience"))
-    story.append(
-        project(
-            "Kori - offline-first wildlife sightings for Botswana",
-            "https://github.com/MooketsiMagwaza/kori",
-            "Next.js, TypeScript, MapLibre, IndexedDB | FastAPI, PostGIS, SQLAlchemy, Alembic | Docker and observability",
-            "Designed and built a four-app product for logging, reviewing, and sharing wildlife sightings in areas with unreliable connectivity.",
-            [
-                "Built an offline field workflow with IndexedDB outbox storage, downloaded PMTiles packs, device-side photo metadata stripping, QR sharing, and routing constrained to known tracks.",
-                "Produced a private Savuti pack from OpenStreetMap and Sentinel-2 data; verified satellite-first rendering, OSM-track guidance, attribution, and offline behavior in 16 of 16 automated checks.",
-                "Implemented a FastAPI and PostGIS backend covering accounts, API keys, uploads, review, trips, publication delays, spatial privacy rules, migrations, and scheduled lifecycle jobs.",
-                "Defined Docker Compose, OpenTelemetry, Prometheus, Grafana, Tempo, backup and recovery tooling, and CI checks. The backend is tested but not yet connected to the apps.",
-            ],
-        )
-    )
-    story.append(
-        project(
-            "Tagwise - shared asset and stock register",
-            "https://github.com/MooketsiMagwaza/tagwise",
-            "React, TypeScript, Vite, MapLibre | Rust, Axum, PostgreSQL, Redis | nginx, Docker, OpenTelemetry",
-            "Built a responsive asset and stock workspace for organisations moving from spreadsheets to a shared register.",
-            [
-                "Delivered register views, QR labels, browser scanning with manual fallback, Excel and CSV import validation, collaborative stock-takes, roles, conflict handling, and sites on a map.",
-                "Shaped the application into a flat Apple-style interface with no decorative gradients while keeping the marketing page a distinct product presentation.",
-                "Built five Rust services - identity, register, notifications, media, and ops - behind an nginx gateway with isolated PostgreSQL databases and Redis.",
-                "Added database concurrency and idempotency tests, API docs, observability, Docker Compose, and GitHub Actions. The browser app still uses a labelled sample workspace and does not yet call the services.",
-            ],
-        )
-    )
-
-    story.append(PageBreak())
-    story.extend(section_title("Selected project experience - continued"))
-    story.append(
-        project(
-            "Zenith - time tracking with intention",
-            "https://github.com/MooketsiMagwaza/Zenith",
-            "React, TypeScript, Vite, TanStack Router | Tauri 2 and Rust | SQLite, rustls, SPAKE2, Automerge",
-            "Created a local-first focus workspace built around one active card, one journal, and a clear record of deliberate work.",
-            [
-                "Built timers, decks and cards, markdown journals, history, Zen mode, optional goals, progress, Pomodoro, calendar, and open-format import and export.",
-                "Structured one repository for browser and Tauri desktop targets, an always-on-top pop-up, a static marketing site, and a Rust sync crate.",
-                "Implemented an account-free device pairing and sync foundation using SPAKE2, mutual TLS with pinned certificates, Automerge, mDNS, and 36 local tests. The sync crate is not yet wired into the app.",
-            ],
-        )
-    )
-    story.append(
-        project(
-            "University CS Docs - open learning platform",
-            "https://github.com/MooketsiMagwaza/university-cs-docs",
-            "Next.js, MDX, reusable interactive components | CI, CodeQL, dependency review",
-            "Built and deployed a contribution-friendly study hub for University of Botswana computer-science courses.",
-            [
-                "Organised course notes, code, quizzes, semester views, and a focus timer as reusable MDX-driven learning surfaces.",
-                "Backed the repository with CI, CodeQL, dependency review, project governance, and a documented contributor path.",
-            ],
-        )
-    )
-    story.extend(section_title("Engineering practice"))
-    practice = [
-        [
-            Paragraph("Product", S["skill_label"]),
-            Paragraph("Start from the user journey, then make system constraints visible in the interface and docs.", S["skill_body"]),
-        ],
-        [
-            Paragraph("Architecture", S["skill_label"]),
-            Paragraph("Give data, services, permissions, and failure modes explicit owners; keep boundaries understandable.", S["skill_body"]),
-        ],
-        [
-            Paragraph("Operations", S["skill_label"]),
-            Paragraph("Treat authentication, validation, rate limits, tracing, recovery, and deployment as product work.", S["skill_body"]),
-        ],
-        [
-            Paragraph("Evidence", S["skill_label"]),
-            Paragraph("Separate verified behavior from planned work and sample data; record tests, screenshots, runbooks, and limits.", S["skill_body"]),
-        ],
+            'Gaborone, Botswana &nbsp;|&nbsp; <link href="mailto:mooketsimagwazajr@gmail.com" color="#1F4E79">mooketsimagwazajr@gmail.com</link> &nbsp;|&nbsp; '
+            '<link href="https://github.com/MooketsiMagwaza" color="#1F4E79">github.com/MooketsiMagwaza</link> &nbsp;|&nbsp; '
+            '<link href="https://mooketsimagwaza.github.io/portfolio/" color="#1F4E79">Portfolio</link>',
+            S["contact"],
+        ),
+        Spacer(1, 2.2 * mm),
     ]
-    practice_table = Table(practice, colWidths=[26 * mm, 150 * mm], hAlign="LEFT")
-    practice_table.setStyle(
-        TableStyle(
+    story.extend(section("Professional Summary"))
+    story.append(
+        Paragraph(
+            "Product-minded full-stack engineer who turns real operational problems into working software across interface, API, data, security, documentation, deployment, and observability. Experience includes offline-first geospatial systems, browser-based inventory and expiry tracking, distributed Rust services, local-first desktop software, PostgreSQL/PostGIS, CI/CD, and Docker-based operations. Strongest where user workflow, data integrity, and system boundaries must be designed together.",
+            S["profile"],
+        )
+    )
+
+    story.extend(section("Selected Project Experience"))
+    story.append(
+        entry(
+            "Kori — Offline-First Wildlife Platform",
+            "https://github.com/MooketsiMagwaza/kori",
+            "2026",
+            "Product design, full-stack engineering, geospatial data, privacy, and operations",
             [
-                ("BACKGROUND", (0, 0), (-1, -1), PALE_TEAL),
-                ("BOX", (0, 0), (-1, -1), 0.6, colors.HexColor("#B9DDD6")),
-                ("INNERGRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#CBE6E1")),
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 6),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 6),
-                ("TOPPADDING", (0, 0), (-1, -1), 4),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
-            ]
+                "Built four Next.js/TypeScript apps for low-connectivity safari use: a phone field app, landing site, review console, and API reference; sightings queue in IndexedDB and sync when connectivity returns.",
+                "Implemented MapLibre and PMTiles offline maps, QR sharing, on-device photo metadata removal, review delays, coarse spatial cells, and track-only routing that excludes sensitive species.",
+                "Built and privately verified a Savuti pack from OpenStreetMap tracks and Sentinel-2 imagery; satellite-first rendering, attribution, local storage, routing, and offline reload passed 16/16 automated checks.",
+                "Developed a FastAPI/PostGIS backend with Alembic migrations, accounts, scoped API keys, uploads, reviews, trips, lifecycle jobs, Docker Compose, OpenTelemetry, Prometheus, Grafana, Tempo, backup tooling, and CI. The backend is tested but not yet connected to the apps.",
+            ],
         )
     )
-    story.extend([practice_table, Spacer(1, 5 * mm)])
-    story.extend(section_title("Additional technical work"))
     story.append(
-        Paragraph(
-            "Zenith Agent (Electron prototype), GlassHID (Android Bluetooth HID controller), and Obsidian "
-            "Excalidraw Low Latency (pen-input companion). More project detail and current repository links are available in the portfolio.",
-            S["body"],
+        entry(
+            "Tagwise — Browser-Based Asset, Stock & Expiry Register",
+            "https://github.com/MooketsiMagwaza/tagwise",
+            "2026",
+            "Product strategy, React application, spreadsheet workflows, Rust services, and data integrity",
+            [
+                "Started from a pharmacy problem: my sister needed a practical way to track batches, bulk stock, and expiry dates without buying a desktop POS subscription plus separate extensions.",
+                "Built a responsive React/TypeScript workspace with an Excel-like register, saved views, QR/barcode scanning, printable labels, batch and expiry fields, expiring-stock alerts, multi-person stock-takes, roles, history, and stale-edit conflict handling.",
+                "Implemented Excel/CSV import with column matching, date and duplicate validation, preview-before-write, problem reports, and formula-injection guards; the browser build works with a labelled local sample workspace and requires no dedicated desktop app.",
+                "Built five Axum services in Rust behind nginx with PostgreSQL, Redis, migrations, concurrency/idempotency tests, OpenAPI docs, Docker Compose, GitHub Actions, and OpenTelemetry/Prometheus/Grafana/Tempo. The web app is not yet connected to these services.",
+            ],
         )
     )
-    story.append(Spacer(1, 3 * mm))
     story.append(
-        Paragraph(
-            '<b>Contact:</b> <link href="mailto:mooketsimagwazajr@gmail.com" color="#0F766E">mooketsimagwazajr@gmail.com</link>  |  '
-            '<link href="https://github.com/MooketsiMagwaza" color="#0F766E">GitHub</link>  |  '
-            '<link href="https://mooketsimagwaza.github.io/portfolio/" color="#0F766E">Portfolio</link>',
-            S["small"],
+        entry(
+            "Opaline — Windows Desktop Launcher",
+            "https://github.com/MooketsiMagwaza/opaline",
+            "2026",
+            "Tauri 2, Rust, TypeScript, CSS, WebView2, and Windows APIs",
+            [
+                "Built a full-screen acrylic launcher that organises existing Desktop items into virtual panes and adds installed-app search, custom home screens, a taskbar mirror, local screen-time totals, and focus tools.",
+                "Defined a strict safety boundary: Opaline reads Desktop files but never moves, renames, or deletes them and makes no network requests; shipped v0.2.1 as NSIS, MSI, and portable Windows builds.",
+            ],
         )
     )
+    story.append(
+        entry(
+            "University CS Docs — Open Learning Platform",
+            "https://github.com/MooketsiMagwaza/university-cs-docs",
+            "2026",
+            "Next.js, MDX, reusable learning components, CI, CodeQL, and contributor documentation",
+            [
+                "Built and deployed a contribution-friendly study hub for University of Botswana computer-science courses, with course notes, code, quizzes, semester views, and a focus timer.",
+            ],
+        )
+    )
+
+    story.extend(section("Technical Skills"))
+    for label, value in [
+        ("Languages", "TypeScript, JavaScript, Rust, Python, SQL, Go, Java"),
+        ("Frontend & Product", "React, Next.js, Vite, responsive UI, accessibility, MapLibre, IndexedDB, QR/barcode workflows, spreadsheet import/export"),
+        ("Backend & Data", "Axum, FastAPI, REST APIs, PostgreSQL, PostGIS, Redis, SQLAlchemy, sqlx, Alembic, spatial privacy, concurrency and idempotency"),
+        ("Platform & Delivery", "Docker, nginx, GitHub Actions, OpenTelemetry, Prometheus, Grafana, Tempo, Trivy, backup and recovery documentation"),
+    ]:
+        story.append(Paragraph(f"<b>{label}:</b> {value}", S["skills"]))
 
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
 
 
 if __name__ == "__main__":
-    target = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("output/pdf/Mooketsi-Magwaza-CV.pdf")
+    target = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("public/Mooketsi-Magwaza-CV.pdf")
     build(target.resolve())
     print(target.resolve())
