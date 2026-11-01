@@ -14,7 +14,7 @@ const tabs = [
 const cvUrl = asset('Mooketsi-Magwaza-CV.pdf');
 ---
 
-<Window id="about" label="Mooketsi Magwaza profile and CV" w={620} h={540} fixed>
+<Window id="about" label="Mooketsi Magwaza profile and CV" w={680} h={640} fixed>
   <div class="about" data-about>
     <header class="titlebar" data-drag>
       <span class="titlebar__title">Mooketsi Magwaza</span>
@@ -38,18 +38,28 @@ const cvUrl = asset('Mooketsi-Magwaza-CV.pdf');
             <p>{profile.role} · {profile.location}</p>
           </div>
         </div>
-        <p class="about__summary">{profile.intro}</p>
+        <section class="about__section" aria-labelledby="about-summary-title">
+          <h3 id="about-summary-title">Quick summary</h3>
+          <p class="about__summary">{profile.intro}</p>
+        </section>
         <div class="about__actions">
           <a class="btn btn--primary" href={cvUrl} target="_blank" rel="noopener noreferrer"><Icon name="note" size={14} /> Open CV (PDF)</a>
           <button class="btn" type="button" data-open-app="finder"><Icon name="folder" size={14} /> View projects</button>
           <a class="btn" href={`mailto:${profile.email}`}><Icon name="mail" size={14} /> Email</a>
         </div>
-        <dl class="specs">
-          <div><dt>Specialisms</dt><dd>Full-stack · Backend · Platform</dd></div>
-          <div><dt>Core stack</dt><dd>TypeScript · Rust · Python · PostgreSQL</dd></div>
-          <div><dt>Delivery</dt><dd>Docker · GitHub Actions · OpenTelemetry</dd></div>
-          <div><dt>Selected work</dt><dd>{projects.length} documented projects</dd></div>
-        </dl>
+        <section class="about__section" aria-labelledby="about-toolkit-title">
+          <h3 id="about-toolkit-title">Toolkit at a glance</h3>
+          <dl class="specs">
+            <div><dt>Product UI</dt><dd>TypeScript · React · Next.js · Responsive UI</dd></div>
+            <div><dt>Backend & data</dt><dd>Rust · Python · PostgreSQL · PostGIS · Redis</dd></div>
+            <div><dt>Delivery</dt><dd>Docker · GitHub Actions · OpenTelemetry · Grafana</dd></div>
+            <div><dt>Native & maps</dt><dd>Tauri · Windows APIs · MapLibre · PMTiles</dd></div>
+          </dl>
+        </section>
+        <section class="about__section" aria-labelledby="about-work-title">
+          <h3 id="about-work-title">Selected work</h3>
+          <p class="about__selected"><strong>{projects.length} documented products:</strong> Kori, Tagwise, Opaline, and University CS Docs.</p>
+        </section>
       </section>
 
       <section class="about__panel" id="about-stack" role="tabpanel" aria-labelledby="about-tab-stack" data-about-panel="stack" hidden>

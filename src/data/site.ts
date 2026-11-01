@@ -9,9 +9,9 @@ export const profile = {
   github: 'https://github.com/MooketsiMagwaza',
   githubHandle: 'MooketsiMagwaza',
   sourceRepo: 'https://github.com/MooketsiMagwaza/portfolio',
-  headline: 'Full-stack engineering across product, backend, data, and delivery.',
+  headline: 'Full-stack engineer building complete products from interface to infrastructure.',
   intro:
-    'I build product interfaces, backend services, data systems, and deployment tooling, with recent work in offline geospatial software, inventory and expiry tracking, and Windows desktop applications.',
+    'I design and ship working software across product UI, backend APIs, databases, native integrations, CI/CD, and observability. Recent work includes offline geospatial software, pharmacy inventory and expiry workflows, Windows productivity tools, and interactive computer-science courses.',
   focus: ['Product systems', 'Backend engineering', 'Platform delivery'],
   invitation:
     'I’m always happy to talk about a thoughtful product, a stubborn systems problem, or work that genuinely helps people.',

@@ -94,7 +94,7 @@ thumbnail:
 | Opaline | Four full-screen captures | Synthetic-data captures maintained in Opaline's own `docs/images/` folder |
 | Kori | Three phone screens in iPhone frames, plus individual phone captures | Current captures of the home, log-a-sighting and sightings flow from the running field app |
 | Tagwise | Five Mac-window shots and two iPhone shots | Captures of the browser app's sample workspace, copied from its own screenshots (raw screens in `public/images/tagwise/`) |
-| University CS Docs | Four CSI243 Functional Programming screenshots | The site draws the browser window around the course overview, lesson, Haskell playground and review page |
+| University CS Docs | Four dark-mode CSI243 Functional Programming screenshots | The site draws the browser window around the course overview, lesson, Haskell playground and review page |
 
 The baked images are WebP, with transparency, in `public/images/projects/<slug>/`.
 The first one of each project also has a `<file>-sm.webp` thumbnail, which is its

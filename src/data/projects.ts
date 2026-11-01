@@ -182,12 +182,12 @@ export const projects: Project[] = [
     slug: 'opaline',
     name: 'Opaline',
     filename: 'Opaline.app',
-    kind: 'Windows desktop launcher',
-    kicker: 'Acrylic launcher for the Windows desktop',
+    kind: 'Local-first productivity workspace',
+    kicker: 'Apps, files, time and focus in one Windows workspace',
     summary:
-      'A Windows 11 launcher that organises desktop files and installed apps without moving the user’s files or sending data to a server.',
+      'A local-first Windows productivity workspace that combines desktop organisation, installed apps, screen-time insight, Pomodoro focus, Zen mode, and a calm screen saver.',
     story:
-      'Opaline was built to make a busy Windows desktop easier to use without replacing the shell or taking control of the files on it. A global hotkey opens a full-screen acrylic layer over the current desktop. It groups existing desktop items into virtual panes, adds searchable installed apps and custom home screens, mirrors pinned and running apps, and includes local screen-time and focus tools. The boundary is explicit: Opaline reads the Desktop, but never moves, renames or deletes its files and makes no network requests.',
+      'Opaline turns a busy Windows desktop into a purpose-built productivity space without replacing the shell or taking control of the user’s files. A global hotkey opens a full-screen acrylic workspace with organised Desktop panes, custom home screens, a searchable installed-app library, and a mirror of pinned and running apps. Screen-time history, a configurable Pomodoro timer, Zen prompts, and an optional screen saver bring organisation and attention management into the same interface. Opaline reads the Desktop, but never moves, renames or deletes its files and makes no network requests.',
     evidence:
       'The shipped Windows application uses Tauri 2 with a Rust backend and a framework-free TypeScript and CSS interface. Its settings cover blur, tint, layout, hotkey and opt-in login startup; local JSON stores pane metadata, workspaces, screen time and shell preferences. Window previews stay in memory, screen-time data stays local, and Windows-key routing is optional and preserves system shortcuts. Release v0.2.1 is available as NSIS, MSI and portable builds. TypeScript and Rust tests cover the data and layout rules; remaining real-device checks are listed openly in the project work order.',
     stack: ['Tauri 2', 'Rust', 'TypeScript', 'CSS', 'WebView2', 'Windows APIs'],
@@ -208,14 +208,14 @@ export const projects: Project[] = [
     slug: 'university-cs-docs',
     name: 'University CS Docs',
     filename: 'University CS Docs.webloc',
-    kind: 'Study hub',
-    kicker: 'Notes, code & quizzes for University of Botswana CS',
+    kind: 'Interactive learning platform',
+    kicker: 'Guided CS courses, code playgrounds and revision tools',
     summary:
-      'A deployed, open-source learning platform for University of Botswana computer-science courses.',
+      'A course-from-scratch learning platform for University of Botswana computer science, combining guided lessons, runnable playgrounds, flashcards, quizzes, and focused study tools.',
     story:
-      'Notes, code, and quizzes for computer science courses at the University of Botswana, with a focus timer for study sessions. It is open, and built to be contributed to.',
+      'University CS Docs is a guided teaching experience inspired by Debbie Stokes and Khan Academy. Each course starts with the foundations, develops ideas in sequence, and moves learners through explanations, worked examples, browser-based code practice, cheat sheets, flashcards, quizzes, chapter assessments, and further resources. CSI243 Functional Programming demonstrates the full model: a beginner-first Haskell course taught from core programming ideas through practical problem solving, with a built-in focus timer and study dashboard.',
     evidence:
-      'A live site backed by CI, CodeQL analysis, dependency review, project governance, a documented contributor path, and reusable interactive MDX components.',
+      'The live Next.js and MDX platform includes reusable course navigation, code playgrounds, review cards, assessments, progress and focus tools. It is backed by CI, CodeQL analysis, dependency review, project governance, and a documented contributor path so new courses and learning components can be added without rebuilding the platform.',
     stack: ['Next.js', 'MDX', 'CI', 'CodeQL'],
     tags: ['docs', 'web'],
     repository: 'https://github.com/MooketsiMagwaza/university-cs-docs',
