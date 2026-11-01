@@ -30,8 +30,8 @@ export const principles: Principle[] = [
     title: 'Listen before building.',
     body: 'The best technical decision starts with understanding what someone is actually trying to get done.',
     example: {
-      slug: 'zenith',
-      note: 'Zenith starts from how focused work actually goes: pick one thing, put time into it, and write down what happened.',
+      slug: 'tagwise',
+      note: 'Tagwise starts from a pharmacy workflow: track batches, bulk stock, and expiry dates without buying a desktop POS subscription and separate add-ons.',
     },
   },
   {
@@ -39,8 +39,8 @@ export const principles: Principle[] = [
     body: 'Clear ownership for data, services, permissions, and failures keeps a growing system understandable.',
     points: ['Data', 'Services', 'Permissions', 'Failures'],
     example: {
-      slug: 'zenith',
-      note: 'The data layer owns the rules, not the screens: each card and deck has exactly one journal, and every delete returns an undo handle.',
+      slug: 'opaline',
+      note: 'Opaline reads the Windows Desktop but never moves, renames, or deletes its files; its panes and preferences live in separate local metadata.',
     },
   },
   {
@@ -60,7 +60,7 @@ export const stackGroups: { label: string; items: string[] }[] = [
   { label: 'Web', items: ['TypeScript', 'React', 'Next.js', 'Vite', 'Accessible responsive UI'] },
   { label: 'Data', items: ['PostgreSQL', 'PostGIS', 'pgRouting', 'Redis', 'SQLAlchemy', 'sqlx', 'Alembic'] },
   { label: 'Operations', items: ['Docker', 'nginx', 'GitHub Actions', 'Prometheus', 'Grafana', 'Tempo', 'OpenTelemetry'] },
-  { label: 'Native', items: ['Swift', 'SwiftUI', 'Android platform APIs', 'Bluetooth HID'] },
+  { label: 'Native', items: ['Tauri 2', 'Rust', 'Windows APIs', 'WebView2'] },
 ];
 
 /** Where the desktop-in-a-browser idea comes from. */

@@ -91,8 +91,8 @@ thumbnail:
 
 | Project | Images | Where they come from |
 | --- | --- | --- |
-| Zenith | Four Mac-window shots | Captures of the app, baked with `tools/mockups` (raw screens in `public/images/zenith/`) |
-| Kori | The landing page and the review console in Mac windows, and the three phone screens (home, the offline map, logging a sighting) side by side in iPhone frames | Captured from the running web apps on their fictional sample reserve by `tools/mockups/capture-kori.mjs` (raw screens in `public/images/kori/`; the commands to re-take them are in the tools README) |
+| Opaline | Four full-screen captures | Synthetic-data captures maintained in Opaline's own `docs/images/` folder |
+| Kori | A Maun/Okavango satellite-map visual and two field-app screens | The map visual uses real satellite and OpenStreetMap context without live wildlife locations; the field screens come from the running app |
 | Tagwise | Five Mac-window shots and one iPhone shot | Captures of the browser prototype's sample workspace, copied from its own screenshots (raw screens in `public/images/tagwise/`) |
 | University CS Docs | Four plain screenshots | The site draws the browser window around them |
 
@@ -116,10 +116,7 @@ To add or replace images:
    `phone`, or `bare` for images that already include their own Mac window or iPhone).
 
 Check each image by looking at it before it goes in. The tool is described in
-[tools/mockups/README.md](tools/mockups/README.md). The Zenith and University CS Docs
-images were taken out on 8 October 2026 and brought back from git history
-(`git checkout 7e6482c -- public/images/projects/zenith
-public/images/projects/university-cs-docs public/images/zenith`).
+[tools/mockups/README.md](tools/mockups/README.md).
 
 ## Credit
 
