@@ -105,6 +105,13 @@ const JOBS = [
     pad: { t: 30, r: 60, b: 110, l: 60 },
     html: iphone({ src: image('tagwise/phone-home-dark.jpg'), alt: 'Tagwise home on a phone: what needs attention', statusBg: '#131313', safeBg: '#151515', tone: 'dark' }),
   },
+  {
+    name: 'tagwise-phone-register',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('tagwise/phone-register-dark.jpg'), alt: 'Tagwise register on a phone: assets, saved views and filters', statusBg: '#131313', safeBg: '#151515', tone: 'dark' }),
+  },
   // Kori: captures of its web apps' sample reserve (the desktop ones 1440 x 900, the phone ones 390 x 844 at 2x), taken by
   // capture-kori.mjs. To re-take and re-bake them after a restyle, see tools/mockups/README.md.
   {
@@ -129,20 +136,20 @@ const JOBS = [
     html: iphone({ src: image('kori/phone-home.png'), alt: 'The Kori field app home screen on a phone', ...koriPhone }),
   },
   {
-    name: 'kori-phone-map',
-    dpr: 2,
-    width: 414,
-    pad: { t: 30, r: 60, b: 110, l: 60 },
-    html: iphone({ src: image('kori/phone-map.png'), alt: 'The Kori field app map on a phone, drawn from a downloaded park pack', ...koriPhone }),
-  },
-  {
     name: 'kori-phone-log',
     dpr: 2,
     width: 414,
     pad: { t: 30, r: 60, b: 110, l: 60 },
     html: iphone({ src: image('kori/phone-log.png'), alt: 'The Kori field app log-a-sighting form on a phone', ...koriPhone }),
   },
-  // The three phone screens side by side, which fits the gallery's wide stage better than three tall images.
+  {
+    name: 'kori-phone-sightings',
+    dpr: 2,
+    width: 414,
+    pad: { t: 30, r: 60, b: 110, l: 60 },
+    html: iphone({ src: image('kori/phone-sightings.png'), alt: 'The Kori sightings list on a phone', ...koriPhone }),
+  },
+  // The field flow side by side, which fits the gallery's wide stage better than three tall images.
   {
     name: 'kori-phones',
     dpr: 2,
@@ -150,8 +157,8 @@ const JOBS = [
     pad: { t: 20, r: 40, b: 80, l: 40 },
     html: `<div style="display:flex;gap:70px;align-items:flex-start">${[
       ['kori/phone-home.png', 'The Kori field app home screen on a phone'],
-      ['kori/phone-map.png', 'The Kori field app map on a phone, drawn from a downloaded park pack'],
       ['kori/phone-log.png', 'The Kori field app log-a-sighting form on a phone'],
+      ['kori/phone-sightings.png', 'The Kori sightings list on a phone'],
     ]
       .map(([file, alt]) => `<div style="width:300px">${iphone({ src: image(file), alt, ...koriPhone })}</div>`)
       .join('')}</div>`,

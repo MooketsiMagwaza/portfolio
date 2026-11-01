@@ -41,7 +41,8 @@ S = {
     "right": ParagraphStyle("Right", parent=BASE["BodyText"], fontName=FONT, fontSize=8.2, leading=10.5, alignment=TA_RIGHT, textColor=INK),
     "meta": ParagraphStyle("Meta", parent=BASE["BodyText"], fontName=ITALIC, fontSize=8, leading=9.4, textColor=MUTED, spaceAfter=1.4),
     "bullet": ParagraphStyle("Bullet", parent=BASE["BodyText"], fontName=FONT, fontSize=7.95, leading=9.65, leftIndent=10, firstLineIndent=-7, textColor=INK, spaceAfter=0.8),
-    "skills": ParagraphStyle("Skills", parent=BASE["BodyText"], fontName=FONT, fontSize=7.9, leading=9.6, textColor=INK, spaceAfter=1),
+    "skills_label": ParagraphStyle("SkillsLabel", parent=BASE["BodyText"], fontName=BOLD, fontSize=7.6, leading=9.2, textColor=INK),
+    "skills_value": ParagraphStyle("SkillsValue", parent=BASE["BodyText"], fontName=FONT, fontSize=7.6, leading=9.2, textColor=INK),
 }
 
 
@@ -162,13 +163,35 @@ def build(output: Path) -> None:
     )
 
     story.extend(section("Technical Skills"))
-    for label, value in [
+    skill_rows = [
         ("Languages", "TypeScript, JavaScript, Rust, Python, SQL, Go, Java"),
-        ("Frontend & Product", "React, Next.js, Vite, responsive UI, accessibility, MapLibre, IndexedDB, QR/barcode workflows, spreadsheet import/export"),
-        ("Backend & Data", "Axum, FastAPI, REST APIs, PostgreSQL, PostGIS, Redis, SQLAlchemy, sqlx, Alembic, spatial privacy, concurrency and idempotency"),
-        ("Platform & Delivery", "Docker, nginx, GitHub Actions, OpenTelemetry, Prometheus, Grafana, Tempo, Trivy, backup and recovery documentation"),
-    ]:
-        story.append(Paragraph(f"<b>{label}:</b> {value}", S["skills"]))
+        ("Frontend", "React, Next.js, Vite, responsive UI, accessibility, IndexedDB"),
+        ("Backend", "Axum, FastAPI, REST APIs, authentication, background jobs"),
+        ("Data", "PostgreSQL, PostGIS, Redis, SQLAlchemy, sqlx, Alembic"),
+        ("DevOps & Observability", "Docker, nginx, GitHub Actions, OpenTelemetry, Prometheus, Grafana, Tempo, Trivy"),
+        ("Native & Geospatial", "Tauri 2, Windows APIs, WebView2, MapLibre, PMTiles"),
+    ]
+    skills_table = Table(
+        [[Paragraph(label, S["skills_label"]), Paragraph(value, S["skills_value"])] for label, value in skill_rows],
+        colWidths=[39 * mm, 135 * mm],
+        hAlign="LEFT",
+    )
+    skills_table.setStyle(
+        TableStyle(
+            [
+                ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#F1F1F1")),
+                ("LINEBELOW", (0, 0), (-1, -2), 0.25, colors.HexColor("#D7D7D7")),
+                ("BOX", (0, 0), (-1, -1), 0.35, colors.HexColor("#BDBDBD")),
+                ("INNERGRID", (0, 0), (-1, -1), 0.25, colors.HexColor("#D7D7D7")),
+                ("LEFTPADDING", (0, 0), (-1, -1), 5),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 5),
+                ("TOPPADDING", (0, 0), (-1, -1), 2.5),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 2.5),
+            ]
+        )
+    )
+    story.append(skills_table)
 
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
 

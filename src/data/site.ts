@@ -9,10 +9,10 @@ export const profile = {
   github: 'https://github.com/MooketsiMagwaza',
   githubHandle: 'MooketsiMagwaza',
   sourceRepo: 'https://github.com/MooketsiMagwaza/portfolio',
-  headline: 'I make complicated software feel simple.',
+  headline: 'Full-stack engineering across product, backend, data, and delivery.',
   intro:
-    'I’m Mooketsi. I turn messy, real-world problems into tools people can actually use—from the screen they tap to the systems working behind it.',
-  focus: ['Product thinking', 'Systems engineering', 'Operational clarity'],
+    'I build product interfaces, backend services, data systems, and deployment tooling, with recent work in offline geospatial software, inventory and expiry tracking, and Windows desktop applications.',
+  focus: ['Product systems', 'Backend engineering', 'Platform delivery'],
   invitation:
     'I’m always happy to talk about a thoughtful product, a stubborn systems problem, or work that genuinely helps people.',
 } as const;
@@ -56,11 +56,12 @@ export const principles: Principle[] = [
 
 /** The "Technical toolkit" from the GitHub profile README. */
 export const stackGroups: { label: string; items: string[] }[] = [
-  { label: 'Backend', items: ['Rust', 'Axum', 'Python', 'FastAPI', 'Go', 'Java', 'REST APIs'] },
-  { label: 'Web', items: ['TypeScript', 'React', 'Next.js', 'Vite', 'Accessible responsive UI'] },
+  { label: 'Languages', items: ['TypeScript', 'JavaScript', 'Rust', 'Python', 'SQL', 'Go', 'Java'] },
+  { label: 'Frontend', items: ['React', 'Next.js', 'Vite', 'Responsive UI', 'Accessibility', 'IndexedDB'] },
+  { label: 'Backend', items: ['Axum', 'FastAPI', 'REST APIs', 'Authentication', 'Background jobs'] },
   { label: 'Data', items: ['PostgreSQL', 'PostGIS', 'pgRouting', 'Redis', 'SQLAlchemy', 'sqlx', 'Alembic'] },
-  { label: 'Operations', items: ['Docker', 'nginx', 'GitHub Actions', 'Prometheus', 'Grafana', 'Tempo', 'OpenTelemetry'] },
-  { label: 'Native', items: ['Tauri 2', 'Rust', 'Windows APIs', 'WebView2'] },
+  { label: 'DevOps & observability', items: ['Docker', 'nginx', 'GitHub Actions', 'OpenTelemetry', 'Prometheus', 'Grafana', 'Tempo'] },
+  { label: 'Native & geospatial', items: ['Tauri 2', 'Windows APIs', 'WebView2', 'MapLibre', 'PMTiles'] },
 ];
 
 /** Where the desktop-in-a-browser idea comes from. */

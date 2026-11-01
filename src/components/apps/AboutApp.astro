@@ -2,20 +2,22 @@
 import Window from '@/components/Window.astro';
 import AppIcon from '@/components/AppIcon.astro';
 import Icon from '@/components/Icon.astro';
-import { projects } from '@/data/projects';
+import { asset, projects } from '@/data/projects';
 import { inspiration, profile, stackGroups } from '@/data/site';
 
 const tabs = [
   { id: 'overview', label: 'Overview' },
-  { id: 'stack', label: 'Stack' },
+  { id: 'stack', label: 'Technical toolkit' },
   { id: 'credits', label: 'Credits' },
 ];
+
+const cvUrl = asset('Mooketsi-Magwaza-CV.pdf');
 ---
 
-<Window id="about" label="About This Mac" w={540} h={470} fixed>
+<Window id="about" label="Mooketsi Magwaza profile and CV" w={620} h={540} fixed>
   <div class="about" data-about>
     <header class="titlebar" data-drag>
-      <span class="titlebar__title">About This Mac</span>
+      <span class="titlebar__title">Mooketsi Magwaza</span>
     </header>
     <div class="about__tabs segmented" role="tablist" aria-label="About sections" data-nodrag>
       {
@@ -32,22 +34,26 @@ const tabs = [
         <div class="about__hero">
           <AppIcon name="logo" size={92} class="about__logo" />
           <div>
-            <h2>mOS</h2>
-            <p>Portfolio edition · built with Astro</p>
+            <h2>{profile.shortName}</h2>
+            <p>{profile.role} · {profile.location}</p>
           </div>
         </div>
+        <p class="about__summary">{profile.intro}</p>
+        <div class="about__actions">
+          <a class="btn btn--primary" href={cvUrl} target="_blank" rel="noopener noreferrer"><Icon name="note" size={14} /> Open CV (PDF)</a>
+          <button class="btn" type="button" data-open-app="finder"><Icon name="folder" size={14} /> View projects</button>
+          <a class="btn" href={`mailto:${profile.email}`}><Icon name="mail" size={14} /> Email</a>
+        </div>
         <dl class="specs">
-          <div><dt>Name</dt><dd>{profile.name}</dd></div>
-          <div><dt>Role</dt><dd>{profile.role}</dd></div>
-          <div><dt>Location</dt><dd>{profile.location}</dd></div>
-          <div><dt>Focus</dt><dd>{profile.focus.join(' · ')}</dd></div>
-          <div><dt>Projects</dt><dd>{projects.length} in the gallery</dd></div>
-          <div><dt>Contact</dt><dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd></div>
+          <div><dt>Specialisms</dt><dd>Full-stack · Backend · Platform</dd></div>
+          <div><dt>Core stack</dt><dd>TypeScript · Rust · Python · PostgreSQL</dd></div>
+          <div><dt>Delivery</dt><dd>Docker · GitHub Actions · OpenTelemetry</dd></div>
+          <div><dt>Selected work</dt><dd>{projects.length} documented projects</dd></div>
         </dl>
       </section>
 
       <section class="about__panel" id="about-stack" role="tabpanel" aria-labelledby="about-tab-stack" data-about-panel="stack" hidden>
-        <p class="about__lede">My technical toolkit, as listed on my GitHub profile.</p>
+        <p class="about__lede">Grouped for quick scanning.</p>
         <div class="stack-groups">
           {
             stackGroups.map((group) => (

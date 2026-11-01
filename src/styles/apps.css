@@ -1289,6 +1289,19 @@
   color: var(--fg-2);
 }
 
+.about__summary {
+  margin: -2px 0 0;
+  color: var(--fg-2);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.about__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .specs {
   display: grid;
   gap: 8px;
