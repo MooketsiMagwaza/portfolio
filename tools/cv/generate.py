@@ -41,8 +41,8 @@ S = {
     "right": ParagraphStyle("Right", parent=BASE["BodyText"], fontName=FONT, fontSize=8.2, leading=10.5, alignment=TA_RIGHT, textColor=INK),
     "meta": ParagraphStyle("Meta", parent=BASE["BodyText"], fontName=ITALIC, fontSize=8, leading=9.4, textColor=MUTED, spaceAfter=1.4),
     "bullet": ParagraphStyle("Bullet", parent=BASE["BodyText"], fontName=FONT, fontSize=7.95, leading=9.65, leftIndent=10, firstLineIndent=-7, textColor=INK, spaceAfter=0.8),
-    "skills_label": ParagraphStyle("SkillsLabel", parent=BASE["BodyText"], fontName=BOLD, fontSize=7.6, leading=9.2, textColor=INK),
-    "skills_value": ParagraphStyle("SkillsValue", parent=BASE["BodyText"], fontName=FONT, fontSize=7.6, leading=9.2, textColor=INK),
+    "skills_label": ParagraphStyle("SkillsLabel", parent=BASE["BodyText"], fontName=BOLD, fontSize=8.15, leading=9.6, textColor=colors.HexColor("#1F4E79"), spaceAfter=1.2),
+    "skills_value": ParagraphStyle("SkillsValue", parent=BASE["BodyText"], fontName=FONT, fontSize=8, leading=9.7, textColor=INK),
 }
 
 
@@ -57,7 +57,7 @@ def entry(title: str, link: str, right: str, meta: str, bullets: list[str]) -> K
     heading_title = f'<link href="{link}" color="#111111">{title}</link>' if link else title
     heading = Table(
         [[Paragraph(heading_title, S["project"]), Paragraph(right, S["right"])]],
-        colWidths=[142 * mm, 32 * mm],
+        colWidths=[137 * mm, 37 * mm],
         hAlign="LEFT",
     )
     heading.setStyle(TableStyle([("VALIGN", (0, 0), (-1, -1), "TOP"), ("LEFTPADDING", (0, 0), (-1, -1), 0), ("RIGHTPADDING", (0, 0), (-1, -1), 0), ("TOPPADDING", (0, 0), (-1, -1), 0), ("BOTTOMPADDING", (0, 0), (-1, -1), 0)]))
@@ -126,7 +126,7 @@ def build(output: Path) -> None:
         entry(
             "HarvestFlow - Full-Stack Engineer",
             "",
-            "2026 - Present",
+            "May 2026 - October 2026",
             "Agricultural marketplace | React 19, TypeScript, Tauri 2, Rust/Axum, PostgreSQL, Redis",
             [
                 "Developed an offline-aware Botswana marketplace connecting farmers, buyers, input suppliers, and logistics providers through produce listings, server-priced orders, transport offers, trip milestones, and append-only settlement records.",
@@ -138,7 +138,7 @@ def build(output: Path) -> None:
         entry(
             "BioAmps Pty Ltd - Full-Stack Engineer",
             "",
-            "2025 - Present",
+            "November 2025 - March 2026",
             "Clean-energy software | React, TypeScript, Vite, Tailwind CSS, Supabase, IoT monitoring",
             [
                 "Developed the responsive BioAmps company platform covering its mission, clean-energy projects, gallery, contact, newsletter verification, and Energy Africa Conference content.",
@@ -176,31 +176,34 @@ def build(output: Path) -> None:
     )
 
     story.extend(section("Technical Skills"))
-    skill_rows = [
-        ("Languages", "TypeScript, JavaScript, Rust, Python, SQL, Go, Java"),
-        ("Frontend", "React, Next.js, Vite, responsive UI, accessibility, IndexedDB"),
-        ("Backend", "Axum, FastAPI, REST APIs, authentication, background jobs"),
-        ("Data", "PostgreSQL, PostGIS, Redis, SQLAlchemy, sqlx, Alembic"),
-        ("DevOps & Observability", "Docker, nginx, GitHub Actions, OpenTelemetry, Prometheus, Grafana, Tempo, Trivy"),
-        ("Native & Geospatial", "Tauri 2, Windows APIs, WebView2, MapLibre, PMTiles"),
+    skill_groups = [
+        ("Core languages", "TypeScript, Rust, Python, SQL, JavaScript, Go, Java"),
+        ("Product & frontend", "React, Next.js, Vite, responsive UI, accessibility, IndexedDB"),
+        ("Backend & APIs", "Axum, FastAPI, REST APIs, authentication, background jobs"),
+        ("Data systems", "PostgreSQL, PostGIS, Redis, SQLAlchemy, sqlx, Alembic"),
+        ("DevOps & observability", "Docker, nginx, GitHub Actions, Kubernetes, OpenTelemetry, Prometheus, Grafana, Tempo, Trivy"),
+        ("Native & geospatial", "Tauri 2, Windows APIs, WebView2, MapLibre, PMTiles"),
+    ]
+    skill_cells = [
+        [Paragraph(label, S["skills_label"]), Paragraph(value, S["skills_value"])]
+        for label, value in skill_groups
     ]
     skills_table = Table(
-        [[Paragraph(label, S["skills_label"]), Paragraph(value, S["skills_value"])] for label, value in skill_rows],
-        colWidths=[39 * mm, 135 * mm],
+        [[skill_cells[index], skill_cells[index + 1]] for index in range(0, len(skill_cells), 2)],
+        colWidths=[87 * mm, 87 * mm],
         hAlign="LEFT",
     )
     skills_table.setStyle(
         TableStyle(
             [
                 ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#F1F1F1")),
-                ("LINEBELOW", (0, 0), (-1, -2), 0.25, colors.HexColor("#D7D7D7")),
-                ("BOX", (0, 0), (-1, -1), 0.35, colors.HexColor("#BDBDBD")),
-                ("INNERGRID", (0, 0), (-1, -1), 0.25, colors.HexColor("#D7D7D7")),
-                ("LEFTPADDING", (0, 0), (-1, -1), 5),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 5),
-                ("TOPPADDING", (0, 0), (-1, -1), 2.5),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 2.5),
+                ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#F7F9FB")),
+                ("BOX", (0, 0), (-1, -1), 0.45, colors.HexColor("#B8C4CE")),
+                ("INNERGRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#D3DBE2")),
+                ("LEFTPADDING", (0, 0), (-1, -1), 7),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 7),
+                ("TOPPADDING", (0, 0), (-1, -1), 5),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
             ]
         )
     )
