@@ -36,7 +36,6 @@ S = {
     "role": ParagraphStyle("Role", parent=BASE["Normal"], fontName=FONT, fontSize=9.5, leading=11, alignment=TA_CENTER, textColor=INK, spaceAfter=2),
     "contact": ParagraphStyle("Contact", parent=BASE["Normal"], fontName=FONT, fontSize=8.2, leading=10, alignment=TA_CENTER, textColor=INK),
     "section": ParagraphStyle("Section", parent=BASE["Heading2"], fontName=FONT, fontSize=10.2, leading=11.5, textColor=INK, spaceBefore=2.5, spaceAfter=1.5),
-    "profile": ParagraphStyle("Profile", parent=BASE["BodyText"], fontName=FONT, fontSize=8.4, leading=10.4, textColor=INK, spaceAfter=2),
     "project": ParagraphStyle("Project", parent=BASE["BodyText"], fontName=BOLD, fontSize=9, leading=10.5, textColor=INK),
     "right": ParagraphStyle("Right", parent=BASE["BodyText"], fontName=FONT, fontSize=8.2, leading=10.5, alignment=TA_RIGHT, textColor=INK),
     "meta": ParagraphStyle("Meta", parent=BASE["BodyText"], fontName=ITALIC, fontSize=8, leading=9.4, textColor=MUTED, spaceAfter=1.4),
@@ -102,14 +101,6 @@ def build(output: Path) -> None:
         ),
         Spacer(1, 2.2 * mm),
     ]
-    story.extend(section("Professional Summary"))
-    story.append(
-        Paragraph(
-            "Product-minded full-stack engineer who turns real operational problems into working software across interface, API, data, security, deployment, and observability. Experience spans HarvestFlow's agricultural marketplace and BioAmps clean-energy systems, alongside offline-first geospatial and inventory products. Works across TypeScript, Rust, Python, PostgreSQL, Docker, CI/CD, and Grafana-backed operations.",
-            S["profile"],
-        )
-    )
-
     story.extend(section("Education"))
     story.append(
         entry(
