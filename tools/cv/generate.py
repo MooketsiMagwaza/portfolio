@@ -54,8 +54,9 @@ def section(title: str) -> list:
 
 
 def entry(title: str, link: str, right: str, meta: str, bullets: list[str]) -> KeepTogether:
+    heading_title = f'<link href="{link}" color="#111111">{title}</link>' if link else title
     heading = Table(
-        [[Paragraph(f'<link href="{link}" color="#111111">{title}</link>', S["project"]), Paragraph(right, S["right"])]],
+        [[Paragraph(heading_title, S["project"]), Paragraph(right, S["right"])]],
         colWidths=[142 * mm, 32 * mm],
         hAlign="LEFT",
     )
@@ -70,7 +71,7 @@ def footer(canvas, doc) -> None:
     canvas.saveState()
     canvas.setFont(FONT, 7)
     canvas.setFillColor(MUTED)
-    canvas.drawString(18 * mm, 8 * mm, "Project experience CV · Claims are limited to repository evidence and recorded verification.")
+    canvas.drawString(18 * mm, 8 * mm, "Engineering CV - claims are limited to repository evidence and recorded verification.")
     canvas.drawRightString(192 * mm, 8 * mm, "Mooketsi Vincent Magwaza")
     canvas.restoreState()
 
@@ -86,8 +87,8 @@ def build(output: Path) -> None:
         bottomMargin=13 * mm,
         title="Mooketsi Vincent Magwaza - Full-Stack Engineer CV",
         author="Mooketsi Vincent Magwaza",
-        subject="ATS-friendly project experience, technical skills, and product engineering work",
-        keywords="full-stack engineer, backend engineer, platform engineer, TypeScript, React, Next.js, Rust, Axum, Python, FastAPI, Tauri, Windows APIs, PostgreSQL, PostGIS, Redis, Docker, GitHub Actions, OpenTelemetry, MapLibre, offline-first, inventory management, expiry tracking",
+        subject="ATS-friendly education, engineering experience, selected projects, and technical skills",
+        keywords="full-stack engineer, HarvestFlow, BioAmps, University of Botswana, TypeScript, React, Rust, Axum, Python, FastAPI, PostgreSQL, PostGIS, Redis, Docker, Kubernetes, GitHub Actions, OpenTelemetry, Grafana, offline-first, agricultural marketplace, clean energy",
     )
 
     story = [
@@ -104,8 +105,45 @@ def build(output: Path) -> None:
     story.extend(section("Professional Summary"))
     story.append(
         Paragraph(
-            "Product-minded full-stack engineer who turns real operational problems into working software across interface, API, data, security, documentation, deployment, and observability. Experience includes offline-first geospatial systems, browser-based inventory and expiry tracking, distributed Rust services, local-first desktop software, PostgreSQL/PostGIS, CI/CD, and Docker-based operations. Strongest where user workflow, data integrity, and system boundaries must be designed together.",
+            "Product-minded full-stack engineer who turns real operational problems into working software across interface, API, data, security, deployment, and observability. Experience spans HarvestFlow's agricultural marketplace and BioAmps clean-energy systems, alongside offline-first geospatial and inventory products. Works across TypeScript, Rust, Python, PostgreSQL, Docker, CI/CD, and Grafana-backed operations.",
             S["profile"],
+        )
+    )
+
+    story.extend(section("Education"))
+    story.append(
+        entry(
+            "University of Botswana",
+            "https://www.ub.bw/",
+            "2025 - Present",
+            "Computer Science | Gaborone, Botswana",
+            [],
+        )
+    )
+
+    story.extend(section("Experience"))
+    story.append(
+        entry(
+            "HarvestFlow - Full-Stack Engineer",
+            "",
+            "2026 - Present",
+            "Agricultural marketplace | React 19, TypeScript, Tauri 2, Rust/Axum, PostgreSQL, Redis",
+            [
+                "Developed an offline-aware Botswana marketplace connecting farmers, buyers, input suppliers, and logistics providers through produce listings, server-priced orders, transport offers, trip milestones, and append-only settlement records.",
+                "Built React/Vite/Tauri clients and a Rust/Axum API with PostgreSQL and Redis; added role-based OTP onboarding, bounded offline caches, queued GPS check-ins, an admin operations console, Docker environments, Kubernetes manifests, and Prometheus/Grafana monitoring.",
+            ],
+        )
+    )
+    story.append(
+        entry(
+            "BioAmps Pty Ltd - Full-Stack Engineer",
+            "",
+            "2025 - Present",
+            "Clean-energy software | React, TypeScript, Vite, Tailwind CSS, Supabase, IoT monitoring",
+            [
+                "Developed the responsive BioAmps company platform covering its mission, clean-energy projects, gallery, contact, newsletter verification, and Energy Africa Conference content.",
+                "Contributed to the Mokgosi biogas monitoring system: user and admin dashboards for sensor readings, trends, alerts, generator status, fault events, and automation controls across edge, aggregator, and cloud-facing workflows.",
+            ],
         )
     )
 
@@ -118,9 +156,8 @@ def build(output: Path) -> None:
             "Product design, full-stack engineering, geospatial data, privacy, and operations",
             [
                 "Built four Next.js/TypeScript apps for low-connectivity safari use: a phone field app, landing site, review console, and API reference; sightings queue in IndexedDB and sync when connectivity returns.",
-                "Implemented MapLibre and PMTiles offline maps, QR sharing, on-device photo metadata removal, review delays, coarse spatial cells, and track-only routing that excludes sensitive species.",
-                "Built and privately verified a Savuti pack from OpenStreetMap tracks and Sentinel-2 imagery; satellite-first rendering, attribution, local storage, routing, and offline reload passed 16/16 automated checks.",
-                "Developed a FastAPI/PostGIS backend with Alembic migrations, accounts, scoped API keys, uploads, reviews, trips, lifecycle jobs, Docker Compose, OpenTelemetry, Prometheus, Grafana, Tempo, backup tooling, and CI. The backend is tested but not yet connected to the apps.",
+                "Implemented MapLibre/PMTiles offline maps, QR sharing, photo-metadata removal, delayed coarse location sharing, and track-only routing; a private Savuti satellite pack passed 16/16 offline checks.",
+                "Developed a tested FastAPI/PostGIS backend with migrations, accounts, scoped API keys, uploads, reviews, trips, lifecycle jobs, Docker Compose, OpenTelemetry, Prometheus, Grafana, Tempo, backups, and CI.",
             ],
         )
     )
@@ -132,32 +169,8 @@ def build(output: Path) -> None:
             "Product strategy, React application, spreadsheet workflows, Rust services, and data integrity",
             [
                 "Started from a pharmacy problem: my sister needed a practical way to track batches, bulk stock, and expiry dates without buying a desktop POS subscription plus separate extensions.",
-                "Built a responsive React/TypeScript workspace with an Excel-like register, saved views, QR/barcode scanning, printable labels, batch and expiry fields, expiring-stock alerts, multi-person stock-takes, roles, history, and stale-edit conflict handling.",
-                "Implemented Excel/CSV import with column matching, date and duplicate validation, preview-before-write, problem reports, and formula-injection guards; the browser build works with a labelled local sample workspace and requires no dedicated desktop app.",
-                "Built five Axum services in Rust behind nginx with PostgreSQL, Redis, migrations, concurrency/idempotency tests, OpenAPI docs, Docker Compose, GitHub Actions, and OpenTelemetry/Prometheus/Grafana/Tempo. The web app is not yet connected to these services.",
-            ],
-        )
-    )
-    story.append(
-        entry(
-            "Opaline - Local-First Windows Productivity Workspace",
-            "https://github.com/MooketsiMagwaza/opaline",
-            "2026",
-            "Tauri 2, Rust, TypeScript, CSS, WebView2, and Windows APIs",
-            [
-                "Built a full-screen acrylic productivity workspace combining organised Desktop panes, custom home screens, installed-app search, a taskbar mirror, local screen-time history, Pomodoro focus, Zen prompts, and a calm screen saver.",
-                "Defined a strict safety boundary: Opaline reads Desktop files but never moves, renames, or deletes them and makes no network requests; shipped v0.2.1 as NSIS, MSI, and portable Windows builds.",
-            ],
-        )
-    )
-    story.append(
-        entry(
-            "University CS Docs - Guided Computer-Science Learning Platform",
-            "https://github.com/MooketsiMagwaza/university-cs-docs",
-            "2026",
-            "Next.js, MDX, reusable learning components, CI, CodeQL, and contributor documentation",
-            [
-                "Built and deployed a course-from-scratch learning platform for University of Botswana computer science, with sequenced lessons, worked examples, browser code playgrounds, cheat sheets, flashcards, quizzes, chapter assessments, resources, progress, and focus tools.",
+                "Built a responsive React/TypeScript workspace with an Excel-like register, QR/barcode scanning, labels, batch and expiry alerts, stock-takes, roles, history, conflict handling, and validated Excel/CSV import.",
+                "Built five Axum services behind nginx with PostgreSQL, Redis, migrations, concurrency/idempotency tests, OpenAPI docs, Docker Compose, GitHub Actions, and OpenTelemetry/Prometheus/Grafana/Tempo.",
             ],
         )
     )
