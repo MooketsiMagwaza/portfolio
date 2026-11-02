@@ -39,9 +39,9 @@ npm run check
 npm run build
 ```
 
-## Project CV
+## Engineering CV
 
-The portfolio publishes a project-led PDF CV at `public/Mooketsi-Magwaza-CV.pdf`. Regenerate it
+The portfolio publishes an education, experience, and project-led PDF CV at `public/Mooketsi-Magwaza-CV.pdf`. Regenerate it
 from the repository evidence with:
 
 ```bash
