@@ -40,8 +40,7 @@ S = {
     "right": ParagraphStyle("Right", parent=BASE["BodyText"], fontName=FONT, fontSize=8.2, leading=10.5, alignment=TA_RIGHT, textColor=INK),
     "meta": ParagraphStyle("Meta", parent=BASE["BodyText"], fontName=ITALIC, fontSize=8, leading=9.4, textColor=MUTED, spaceAfter=1.4),
     "bullet": ParagraphStyle("Bullet", parent=BASE["BodyText"], fontName=FONT, fontSize=7.95, leading=9.65, leftIndent=10, firstLineIndent=-7, textColor=INK, spaceAfter=0.8),
-    "skills_label": ParagraphStyle("SkillsLabel", parent=BASE["BodyText"], fontName=BOLD, fontSize=8.15, leading=9.6, textColor=colors.HexColor("#1F4E79"), spaceAfter=1.2),
-    "skills_value": ParagraphStyle("SkillsValue", parent=BASE["BodyText"], fontName=FONT, fontSize=8, leading=9.7, textColor=INK),
+    "skills": ParagraphStyle("Skills", parent=BASE["BodyText"], fontName=FONT, fontSize=8.1, leading=10.1, textColor=INK, spaceAfter=0.8),
 }
 
 
@@ -168,37 +167,15 @@ def build(output: Path) -> None:
 
     story.extend(section("Technical Skills"))
     skill_groups = [
-        ("Core languages", "TypeScript, Rust, Python, SQL, JavaScript, Go, Java"),
-        ("Product & frontend", "React, Next.js, Vite, responsive UI, accessibility, IndexedDB"),
-        ("Backend & APIs", "Axum, FastAPI, REST APIs, authentication, background jobs"),
-        ("Data systems", "PostgreSQL, PostGIS, Redis, SQLAlchemy, sqlx, Alembic"),
-        ("DevOps & observability", "Docker, nginx, GitHub Actions, Kubernetes, OpenTelemetry, Prometheus, Grafana, Tempo, Trivy"),
-        ("Native & geospatial", "Tauri 2, Windows APIs, WebView2, MapLibre, PMTiles"),
+        ("Languages", "TypeScript, Rust, Python, SQL, JavaScript, Go, Java"),
+        ("Frameworks", "React, Next.js, Vite, Axum, FastAPI, Tauri 2, SQLAlchemy"),
+        ("Developer Tools", "Git, Docker, nginx, GitHub Actions, Kubernetes, OpenTelemetry, Prometheus, Grafana, Tempo, Trivy"),
+        ("Data & Platforms", "PostgreSQL, PostGIS, Redis, IndexedDB, sqlx, Alembic, MapLibre, PMTiles, WebView2, Windows APIs"),
     ]
-    skill_cells = [
-        [Paragraph(label, S["skills_label"]), Paragraph(value, S["skills_value"])]
+    story.extend(
+        Paragraph(f'<font name="{BOLD}">{label}:</font> {value}', S["skills"])
         for label, value in skill_groups
-    ]
-    skills_table = Table(
-        [[skill_cells[index], skill_cells[index + 1]] for index in range(0, len(skill_cells), 2)],
-        colWidths=[87 * mm, 87 * mm],
-        hAlign="LEFT",
     )
-    skills_table.setStyle(
-        TableStyle(
-            [
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("BACKGROUND", (0, 0), (-1, -1), colors.HexColor("#F7F9FB")),
-                ("BOX", (0, 0), (-1, -1), 0.45, colors.HexColor("#B8C4CE")),
-                ("INNERGRID", (0, 0), (-1, -1), 0.35, colors.HexColor("#D3DBE2")),
-                ("LEFTPADDING", (0, 0), (-1, -1), 7),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 7),
-                ("TOPPADDING", (0, 0), (-1, -1), 5),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
-            ]
-        )
-    )
-    story.append(skills_table)
 
     doc.build(story, onFirstPage=footer, onLaterPages=footer)
 
