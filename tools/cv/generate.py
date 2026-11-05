@@ -140,19 +140,6 @@ def build(output: Path) -> None:
     story.extend(section("Selected Project Experience"))
     story.append(
         entry(
-            "Kori - Offline-First Wildlife Platform",
-            "https://github.com/MooketsiMagwaza/kori",
-            "2026",
-            "Product design, full-stack engineering, geospatial data, privacy, and operations",
-            [
-                "Built four Next.js/TypeScript apps for low-connectivity safari use: a phone field app, landing site, review console, and API reference; sightings queue in IndexedDB and sync when connectivity returns.",
-                "Implemented MapLibre/PMTiles offline maps, QR sharing, photo-metadata removal, delayed coarse location sharing, and track-only routing; a private Savuti satellite pack passed 16/16 offline checks.",
-                "Developed a tested FastAPI/PostGIS backend with migrations, accounts, scoped API keys, uploads, reviews, trips, lifecycle jobs, Docker Compose, OpenTelemetry, Prometheus, Grafana, Tempo, backups, and CI.",
-            ],
-        )
-    )
-    story.append(
-        entry(
             "Tagwise - Browser-Based Asset, Stock & Expiry Register",
             "https://github.com/MooketsiMagwaza/tagwise",
             "2026",
@@ -161,6 +148,19 @@ def build(output: Path) -> None:
                 "Started from a pharmacy problem: my sister needed a practical way to track batches, bulk stock, and expiry dates without buying a desktop POS subscription plus separate extensions.",
                 "Built a responsive React/TypeScript workspace with an Excel-like register, QR/barcode scanning, labels, batch and expiry alerts, stock-takes, roles, history, conflict handling, and validated Excel/CSV import.",
                 "Built five Axum services behind nginx with PostgreSQL, Redis, migrations, concurrency/idempotency tests, OpenAPI docs, Docker Compose, GitHub Actions, and OpenTelemetry/Prometheus/Grafana/Tempo.",
+            ],
+        )
+    )
+    story.append(
+        entry(
+            "Kori - Offline-First Wildlife Platform",
+            "https://github.com/MooketsiMagwaza/kori",
+            "2026",
+            "Product design, full-stack engineering, geospatial data, privacy, and operations",
+            [
+                "Built four Next.js/TypeScript apps for low-connectivity safari use: a phone field app, landing site, review console, and API reference; sightings queue in IndexedDB and sync when connectivity returns.",
+                "Implemented MapLibre/PMTiles offline maps, QR sharing, photo-metadata removal, delayed coarse location sharing, and track-only routing; a private Savuti satellite pack passed 16/16 offline checks.",
+                "Developed a tested FastAPI/PostGIS backend with migrations, accounts, scoped API keys, uploads, reviews, trips, lifecycle jobs, Docker Compose, OpenTelemetry, Prometheus, Grafana, Tempo, backups, and CI.",
             ],
         )
     )
