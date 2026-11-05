@@ -116,38 +116,12 @@ const tagwiseStack: StackGroup[] = [
   { label: 'Tooling', items: ['Docker', 'Fumadocs', 'GitHub Actions'] },
 ];
 
-// Order is the order they are shown in: Kori, Tagwise, Opaline, then University CS Docs; the first is selected when the desktop opens. (Tsela and StockLink are company assets and are not shown here.)
+// Order is the order they are shown in: Tagwise, Kori, Opaline, then University CS Docs; the first is selected when the desktop opens. (Tsela and StockLink are company assets and are not shown here.)
 //
 // Adding a project is a data change: add an entry here and the Finder, Quick Look, Spotlight and the
 // Terminal all pick it up. Leave out `repository` while a repository is private and `shots` until there
 // are screenshots; use `stack: []` while the stack is not settled; set `status` for unfinished work.
 export const projects: Project[] = [
-  {
-    slug: 'kori',
-    name: 'Kori',
-    filename: 'Kori.app',
-    kind: 'Safari and wildlife app',
-    kicker: 'Offline-first wildlife sightings for Botswana',
-    summary:
-      'An offline-first safari and wildlife platform for Botswana: real downloadable maps, track-only guidance, private-by-design sightings, and a review workflow that keeps working beyond mobile coverage.',
-    story:
-      'Kori began with two Botswana-specific constraints that ordinary map and social apps do not solve well: safari routes often lose mobile coverage, and publishing an animal’s exact live location can be unsafe. Named after the kori bustard, kgori in Setswana, it lets a visitor log a sighting on the phone, keep it there until a connection returns, and pass it to another phone with a QR code. Downloaded maps keep the basemap, position and routing available offline, while guidance follows mapped roads and tracks only. Every shared sighting is reviewed and delayed, normal species appear as a 1 km area, and sensitive species such as rhino and pangolin appear only as a 10 km area after 7 days and are never guided to.',
-    evidence:
-      'Four web apps make up the front end: a phone-first field app, a landing site, a review console and API docs, written in Next.js and TypeScript. In the field app a sighting is saved in IndexedDB, photos are redrawn on the phone to strip hidden location data, and downloaded PMTiles packs are drawn locally with MapLibre. A private Savuti pack combines an OpenStreetMap vector basemap and routing graph with Sentinel-2 imagery; its satellite-first view, attribution, local storage, OSM-track routing and offline reload passed 16 of 16 automated checks. The private park pack and its screenshots remain off the web pending wildlife-authority guidance. The backend is a FastAPI and PostGIS service with Alembic migrations and scheduled lifecycle jobs. Authentication, object storage, Prometheus, Grafana, Tempo, OpenTelemetry, backups, recovery tooling, Docker Compose and GitHub Actions form the operating foundation. The backend is built and tested, but the apps do not call it yet.',
-    stack: stackOf(koriStack),
-    stackGroups: koriStack,
-    tags: ['mobile'],
-    repository: 'https://github.com/MooketsiMagwaza/kori',
-    featured: true,
-    frame: 'bare',
-    theme: { from: '#0b3a52', to: '#146c2e', glow: '#9fe3c4' },
-    shots: [
-      { file: 'flow', alt: 'Three iPhone frames showing Kori home, log-a-sighting and sightings-list screens', caption: 'The offline field flow: start, log, and review sightings', w: 1400, h: 1041 },
-      { file: 'home-phone', alt: 'Kori home screen in an iPhone frame, with offline status and actions to log, open the map or scan a code', caption: 'Home: the field workflow starts on the phone', w: 600, h: 1293 },
-      { file: 'log-phone', alt: 'Kori log-a-sighting screen in an iPhone frame with a searchable species list', caption: 'Log a sighting, saved locally first', w: 600, h: 1293 },
-      { file: 'sightings-phone', alt: 'Kori sightings screen in an iPhone frame showing reviewed sightings as areas rather than exact points', caption: 'Reviewed sightings are shown as areas, never exact points', w: 600, h: 1293 },
-    ],
-  },
   {
     slug: 'tagwise',
     name: 'Tagwise',
@@ -176,6 +150,32 @@ export const projects: Project[] = [
       { file: 'sites', alt: 'Tagwise’s sites page: six places on a map of Botswana, with a list beside it', caption: 'Sites on a map (sample data)', w: 1420, h: 999 },
       { file: 'phone', alt: 'Tagwise’s home page on a phone, in an iPhone frame', caption: 'The same app on a phone (sample workspace)', w: 600, h: 1293 },
       { file: 'phone-register', alt: 'Tagwise’s asset register on a phone, in an iPhone frame', caption: 'The register on a phone (sample workspace)', w: 600, h: 1293 },
+    ],
+  },
+  {
+    slug: 'kori',
+    name: 'Kori',
+    filename: 'Kori.app',
+    kind: 'Safari and wildlife app',
+    kicker: 'Offline-first wildlife sightings for Botswana',
+    summary:
+      'An offline-first safari and wildlife platform for Botswana: real downloadable maps, track-only guidance, private-by-design sightings, and a review workflow that keeps working beyond mobile coverage.',
+    story:
+      'Kori began with two Botswana-specific constraints that ordinary map and social apps do not solve well: safari routes often lose mobile coverage, and publishing an animal’s exact live location can be unsafe. Named after the kori bustard, kgori in Setswana, it lets a visitor log a sighting on the phone, keep it there until a connection returns, and pass it to another phone with a QR code. Downloaded maps keep the basemap, position and routing available offline, while guidance follows mapped roads and tracks only. Every shared sighting is reviewed and delayed, normal species appear as a 1 km area, and sensitive species such as rhino and pangolin appear only as a 10 km area after 7 days and are never guided to.',
+    evidence:
+      'Four web apps make up the front end: a phone-first field app, a landing site, a review console and API docs, written in Next.js and TypeScript. In the field app a sighting is saved in IndexedDB, photos are redrawn on the phone to strip hidden location data, and downloaded PMTiles packs are drawn locally with MapLibre. A private Savuti pack combines an OpenStreetMap vector basemap and routing graph with Sentinel-2 imagery; its satellite-first view, attribution, local storage, OSM-track routing and offline reload passed 16 of 16 automated checks. The private park pack and its screenshots remain off the web pending wildlife-authority guidance. The backend is a FastAPI and PostGIS service with Alembic migrations and scheduled lifecycle jobs. Authentication, object storage, Prometheus, Grafana, Tempo, OpenTelemetry, backups, recovery tooling, Docker Compose and GitHub Actions form the operating foundation. The backend is built and tested, but the apps do not call it yet.',
+    stack: stackOf(koriStack),
+    stackGroups: koriStack,
+    tags: ['mobile'],
+    repository: 'https://github.com/MooketsiMagwaza/kori',
+    featured: true,
+    frame: 'bare',
+    theme: { from: '#0b3a52', to: '#146c2e', glow: '#9fe3c4' },
+    shots: [
+      { file: 'flow', alt: 'Three iPhone frames showing Kori home, log-a-sighting and sightings-list screens', caption: 'The offline field flow: start, log, and review sightings', w: 1400, h: 1041 },
+      { file: 'home-phone', alt: 'Kori home screen in an iPhone frame, with offline status and actions to log, open the map or scan a code', caption: 'Home: the field workflow starts on the phone', w: 600, h: 1293 },
+      { file: 'log-phone', alt: 'Kori log-a-sighting screen in an iPhone frame with a searchable species list', caption: 'Log a sighting, saved locally first', w: 600, h: 1293 },
+      { file: 'sightings-phone', alt: 'Kori sightings screen in an iPhone frame showing reviewed sightings as areas rather than exact points', caption: 'Reviewed sightings are shown as areas, never exact points', w: 600, h: 1293 },
     ],
   },
   {
